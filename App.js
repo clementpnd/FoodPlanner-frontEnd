@@ -10,6 +10,7 @@ import LandingPageScreen from "./screens/LandingPageScreen";
 import FavorisScreen from "./screens/FavorisScreen";
 import ProfilsScreen from "./screens/ProfilsScreen";
 import MaSemaineScreen from "./screens/MaSemaineScreen";
+import ConnexionScreen from "./screens/ConnexionScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -54,6 +55,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screensOption={{ headerShown: false }}>
+        <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
         <Stack.Screen name="LandingPageScreen" component={LandingPageScreen} />
         <Stack.Screen name="TabNavigator" component={TabNavigator} />
         <Tab.Screen name="AccueilScreen" component={AccueilScreen} />
