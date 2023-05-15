@@ -10,6 +10,8 @@ import {
 } from "react-native";
 //import React
 import { useState } from "react";
+//import fontawesome pour les icones
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function LandingPageScreen({ navigation }) {
   const [isModalVisible, setIsModalVisible] = useState(false); // variable d'état qui gère la modale
@@ -21,6 +23,24 @@ export default function LandingPageScreen({ navigation }) {
     setIsModalVisible(true);
   };
 
+  //fonction qui gère la connexion de l'utilisateur
+  const handleConnection = () => {
+    fetch("http://10.2.0.221:3000/users/signin", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ mail: email, password: password }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.result) {
+          setEmail("");
+          setPassword("");
+          setIsModalVisible(false);
+          navigation.navigate("TabNavigator", { screen: "Ma Semaine" });
+        }
+      });
+  };
   return (
     <View style={styles.main}>
       <Image source={require("../assets/logo.jpg")} style={styles.logo}></Image>
@@ -38,26 +58,36 @@ export default function LandingPageScreen({ navigation }) {
           >
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
-                <View style={styles.registerSection}>
+                <TouchableOpacity
+                  style={styles.closebutton}
+                  onPress={() => setIsModalVisible(!isModalVisible)}
+                >
+                  <FontAwesome name="times" size={20} color="#000000" />
+                </TouchableOpacity>
+                <View style={styles.emailSection}>
                   <TextInput
                     type="text"
                     placeholder="Email"
                     onChangeText={(value) => setEmail(value)}
                     value={email}
+                    style={styles.input}
                   />
+                </View>
+                <View style={styles.passwordSection}>
                   <TextInput
+                    secureTextEntry={true}
                     type="password"
                     placeholder="Password"
-                    id="signUpPassword"
                     onChangeText={(value) => setPassword(value)}
                     value={password}
                   />
                 </View>
+
                 <TouchableOpacity
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => setIsModalVisible(!isModalVisible)}
+                  style={styles.connectButton}
+                  onPress={() => handleConnection()}
                 >
-                  <Text style={styles.textStyle}>Fermer</Text>
+                  <Text>Connexion</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -70,9 +100,7 @@ export default function LandingPageScreen({ navigation }) {
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("TabNavigator", { screen: "MaSemaineScreen" })
-          }
+        // onPress={() =>}
         >
           <Text>Inscription</Text>
         </TouchableOpacity>
@@ -85,7 +113,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-  logo: { height: "40%", width: "60%" },
+  logo: { height: "30%", width: "55%", borderRadius: 100, margin: 10 },
   title: { fontSize: 70 },
   buttonContainer: {
     display: "flex",
@@ -94,7 +122,7 @@ const styles = StyleSheet.create({
     width: "80%",
     height: "5%",
     backgroundColor: "#E4631B",
-    borderRadius: "4px",
+    borderRadius: 4,
     marginBottom: "5%",
   },
   centeredView: {
@@ -104,18 +132,50 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
-    margin: 5,
-    backgroundColor: "white",
+    margin: 3,
+    backgroundColor: "#ffff",
     borderRadius: 4,
-    padding: 120,
+    padding: 10,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 0,
     },
     shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    shadowRadius: 6,
+    elevation: 15,
+  },
+  emailSection: {
+    justifyContent: "center",
+    backgroundColor: "rgba(239, 239, 239, 0.8)",
+    width: 300,
+    height: 40,
+    borderRadius: 4,
+    marginBottom: 30,
+  },
+  passwordSection: {
+    justifyContent: "center",
+    backgroundColor: "rgba(239, 239, 239, 0.8)",
+    width: 300,
+    height: 40,
+    borderRadius: 4,
+  },
+  input: {
+    color: "black",
+  },
+  connectButton: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#78CB26",
+    borderRadius: 4,
+    width: 80,
+    height: 30,
+    margin: 10,
+  },
+  closebutton: {
+    marginLeft: 260,
+    marginBottom: 15,
   },
 });

@@ -5,19 +5,19 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-import { Provider } from "react-redux";
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import user from "./reducers/user";
+// import { Provider } from "react-redux";
+// import { combineReducers, configureStore } from "@reduxjs/toolkit";
+// import user from "./reducers/user";
 //import storage from "redux-persits/lib/storage";
 
-const reducers = combineReducers({ user });
-const persistConfig = { key: "users" };
+// const reducers = combineReducers({ user });
+// const persistConfig = { key: "users" };
 
-const store = configureStore({
-  reducer: persitsReducer(persistConfig, reducers),
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }),
-});
+// const store = configureStore({
+//   reducer: persitsReducer(persistConfig, reducers),
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware({ serializableCheck: false }),
+// });
 
 import AccueilScreen from "./screens/AccueilScreen";
 import LandingPageScreen from "./screens/LandingPageScreen";
@@ -71,19 +71,16 @@ const TabNavigator = () => {
 };
 export default function App() {
   return (
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <NavigationContainer>
-          <Stack.Navigator screensOption={{ headerShown: false }}>
-            <Stack.Screen
-              name="LandingPageScreen"
-              component={LandingPageScreen}
-            />
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            <Tab.Screen name="AccueilScreen" component={AccueilScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </PersistGate>
-    </Provider>
+    // <Provider store={store}>
+    //   <PersistGate persistor={persistor}>
+    <NavigationContainer>
+      <Stack.Navigator screensOption={{ headerShown: false }}>
+        <Stack.Screen name="LandingPageScreen" component={LandingPageScreen} />
+        <Stack.Screen name="TabNavigator" component={TabNavigator} />
+        <Tab.Screen name="AccueilScreen" component={AccueilScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+    //   </PersistGate>
+    // </Provider>
   );
 }
