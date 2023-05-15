@@ -76,19 +76,16 @@ const TabNavigator = () => {
 };
 export default function App() {
   return (
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <NavigationContainer>
-          <Stack.Navigator screensOption={{ headerShown: false }}>
-            <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
-            <Stack.Screen
-              name="LandingPageScreen"
-              component={LandingPageScreen}
-            />
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </PersistGate>
-    </Provider>
+    // <Provider store={store}>
+    //   <PersistGate persistor={persistor}>
+    <NavigationContainer>
+      <Stack.Navigator screensOption={{ headerShown: false }}>
+        <Stack.Screen name="LandingPageScreen" component={LandingPageScreen} />
+        <Stack.Screen name="TabNavigator" component={TabNavigator} />
+        <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+    //   </PersistGate>
+    // </Provider>
   );
 }

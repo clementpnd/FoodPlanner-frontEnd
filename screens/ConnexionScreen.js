@@ -13,8 +13,6 @@ import {
   Keyboard,
 } from "react-native";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addUsers } from "../reducers/users";
 
 export default function ConnexionScreen({ navigation }) {
   const [prenom, setPrenom] = useState("");
@@ -23,25 +21,11 @@ export default function ConnexionScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [mailError, setMailError] = useState(false);
 
-  const dispatch = useDispatch();
-
-  const userSelect = useSelector((state) => state.users.value);
-
   const letsGo = () => {
     const data = {
       mail: mail,
     };
-
-    const user = {
-      prenom: prenom,
-      pseudo: pseudo,
-      mail: mail,
-      password: password,
-    };
-    dispatch(addUsers(user));
-    console.warn(userSelect);
-    console.log("userSelect", userSelect);
-    fetch("http://10.2.1.12:3000/users/verify", {
+    fetch("http://10.2.0.221:3000/users/verify", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -51,7 +35,6 @@ export default function ConnexionScreen({ navigation }) {
         if (!data.result) {
           setMailError(true);
         } else {
-          console.warn("in else");
           navigation.navigate("TabNavigator");
         }
       });
