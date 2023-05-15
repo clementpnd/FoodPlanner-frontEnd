@@ -13,94 +13,131 @@ import {
   Keyboard,
 } from "react-native";
 import { useState } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
+import { addUsers } from "../reducers/users";
 
 export default function ConnexionScreen({ navigation }) {
-    const [prenom, setPrenom] = useState('');
-    const [pseudo, setPseudo] = useState('');
-    const [mail, setMail] = useState('')
-    const [password, setPassword] = useState('')
-    const [mailError, setMailError] = useState(false)
+  const [prenom, setPrenom] = useState("");
+  const [pseudo, setPseudo] = useState("");
+  const [mail, setMail] = useState("");
+  const [password, setPassword] = useState("");
+  const [mailError, setMailError] = useState(false);
 
+  const dispatch = useDispatch();
 
-    const letsGo = () =>{        
-        const data ={
-            mail : mail
-        }
+  const userSelect = useSelector((state) => state.users.value);
+
+  const letsGo = () => {
+    const data = {
+      mail: mail,
+    };
+
+    const user = {
+      prenom: prenom,
+      pseudo: pseudo,
+      mail: mail,
+      password: password,
+    };
+    dispatch(addUsers(user));
+    console.warn(userSelect);
+    console.log("userSelect", userSelect);
     fetch("http://10.2.1.12:3000/users/verify", {
-        method : "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body  : JSON.stringify(data)
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
     })
-    .then(response => response.json())
-    .then(data => {
-        if(!data.result){
-            setMailError(true)
+      .then((response) => response.json())
+      .then((data) => {
+        if (!data.result) {
+          setMailError(true);
+        } else {
+          console.warn("in else");
+          navigation.navigate("TabNavigator");
         }
-        else{
-            navigation.navigate('TabNavigator')
-        }
-    })
-    }
-    
+      });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-    <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : null}
-    style={styles.keyboard}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        style={styles.keyboard}
+      >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.content}>
-      <View style={styles.logoDiv}>
-        <Image source={require("../assets/logo.jpg")} style={styles.logo} />
-      </View>
-      <View style={styles.content}>
-        <Text style={styles.label}>Prenom</Text>
-        <View style={styles.inputDiv}>
-          <TextInput placeholder="Prenom" style={styles.input} onChangeText={(e) => setPrenom(e)}></TextInput>
-        </View>
-      </View>
-      <View style={styles.content}>
-        <Text style={styles.label}>Pseudo</Text>
-        <View style={styles.inputDiv}>
-          <TextInput placeholder="Pseudo" style={styles.input} onChangeText={(e) => setPseudo(e)}></TextInput>
-        </View>
-      </View>
-      <View style={styles.content}>
-        <Text style={styles.label}>Adresse mail</Text>
-        <View style={styles.inputDiv}>
-          <TextInput placeholder="Adresse mail" style={styles.input} onChangeText={(e) => setMail(e)}></TextInput>
-          {mailError && <Text style={{color: "red"}}>Email déja utilisé </Text>}
-        </View>
-      </View>
-      <View style={styles.content}>
-        <Text style={styles.label}>Mot de passe</Text>
-        <View style={styles.inputDiv}>
-          <TextInput placeholder="Mot de passe" style={styles.input} textContentType="password" onChangeText={(e) => setPassword(e)}></TextInput>
-        </View>
-      </View>
-      <View style={styles.submitDiv}>
-        <TouchableOpacity style={styles.submit} onPress={() => letsGo()}>
-            <Text>Let's go</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-    </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+          <View style={styles.content}>
+            <View style={styles.logoDiv}>
+              <Image
+                source={require("../assets/logo.jpg")}
+                style={styles.logo}
+              />
+            </View>
+            <View style={styles.content}>
+              <Text style={styles.label}>Prenom</Text>
+              <View style={styles.inputDiv}>
+                <TextInput
+                  placeholder="Prenom"
+                  style={styles.input}
+                  onChangeText={(e) => setPrenom(e)}
+                ></TextInput>
+              </View>
+            </View>
+            <View style={styles.content}>
+              <Text style={styles.label}>Pseudo</Text>
+              <View style={styles.inputDiv}>
+                <TextInput
+                  placeholder="Pseudo"
+                  style={styles.input}
+                  onChangeText={(e) => setPseudo(e)}
+                ></TextInput>
+              </View>
+            </View>
+            <View style={styles.content}>
+              <Text style={styles.label}>Adresse mail</Text>
+              <View style={styles.inputDiv}>
+                <TextInput
+                  placeholder="Adresse mail"
+                  style={styles.input}
+                  onChangeText={(e) => setMail(e)}
+                ></TextInput>
+                {mailError && (
+                  <Text style={{ color: "red" }}>Email déja utilisé </Text>
+                )}
+              </View>
+            </View>
+            <View style={styles.content}>
+              <Text style={styles.label}>Mot de passe</Text>
+              <View style={styles.inputDiv}>
+                <TextInput
+                  placeholder="Mot de passe"
+                  style={styles.input}
+                  textContentType="password"
+                  onChangeText={(e) => setPassword(e)}
+                ></TextInput>
+              </View>
+            </View>
+            <View style={styles.submitDiv}>
+              <TouchableOpacity style={styles.submit} onPress={() => letsGo()}>
+                <Text>Let's go</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-    keyboard:{
-        flex: 1,
-        width : "100%",
-        height: "100%",
-        alignItems : "center",
-        justifyContent : "center",
-    },
+  keyboard: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   container: {
     flex: 1,
-    height: "100%"
+    height: "100%",
   },
   logoDiv: {
     alignItems: "center",
@@ -118,8 +155,7 @@ const styles = StyleSheet.create({
   },
   inputDiv: {
     alignItems: "center",
-    borderBottomWidth : 1
-
+    borderBottomWidth: 1,
   },
   input: {
     borderColor: "red",
@@ -127,18 +163,17 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width - 40,
   },
   label: {
-        marginLeft : 20,    
+    marginLeft: 20,
   },
   submitDiv: {
-    alignItems : "center"
+    alignItems: "center",
   },
   submit: {
-    backgroundColor : "#78CB26",
+    backgroundColor: "#78CB26",
     width: 200,
-    height : 40,
-    alignItems : "center",
-    justifyContent:  "center",
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 20,
-    
-  }
+  },
 });

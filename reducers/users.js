@@ -14,34 +14,29 @@ const initialState = {
 };
 
 export const userSlice = createSlice({
-  name: "user",
+  name: "users",
   initialState,
   reducers: {
     addUsers: (state, action) => {
-      console.log(action.payload);
+      state.value.token = action.payload.token;
+      state.value.prenom = action.payload.prenom;
+      state.value.pseudo = action.payload.pseudo;
+      state.value.mail = action.payload.mail;
+      state.value.password = action.payload.password;
+      state.value.photoProfil = action.payload.photoProfil;
+      state.value.preference.push(action.payload.preference);
+      state.value.recetteFavoris.push(action.payload.recetteFavoris);
     },
-    // email: (state, action) => {
-    //   state.value.token.email.push(action.payload);
-    // },
-    // password: (state, action) => {
-    //   state.value.token.password.push(action.payload);
-    // },
-    // photoProfil: (state, action) => {
-    //   state.value.token.photoProfil.push(action.payload);
-    // },
-    // allergies: (state, action) => {
-    //   state.value.allergies = state.value.token.allergies.filter.push(
-    //     action.payload
-    //   );
-    // },
-    // preferences: (state, action) => {
-    //   state.value.preferences = state.value.token.preferences.filter.push(
-    //     action.payload
-    //   );
-    // },
-    // NbPersonnes: (state, action) => {
-    //   state.value.token.NbPersonnes.push(action.payload);
-    // },
+    removeUsers: (state, action) => {
+      state.value.token = "";
+      state.value.prenom = "";
+      state.value.pseudo = "";
+      state.value.mail = "";
+      state.value.password = "";
+      state.value.photoProfil = "";
+      state.value.preference = [];
+      state.value.recetteFavoris = [];
+    },
   },
 });
 
