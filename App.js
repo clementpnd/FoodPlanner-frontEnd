@@ -5,8 +5,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-import { Provider } from "react-redux";
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+// import { Provider } from "react-redux";
+// import { combineReducers, configureStore } from "@reduxjs/toolkit";
 // import user from "./reducers/user";
 //import storage from "redux-persits/lib/storage";
 
@@ -63,7 +63,6 @@ const TabNavigator = () => {
         tabBarBadgeStyle: { backgroundColor: "red" },
       })}
     >
-      
       <Tab.Screen name="Favoris" component={FavorisScreen} />
       <Tab.Screen name="Ma Semaine" component={MaSemaineScreen} />
       <Tab.Screen name="Profils" component={ProfilsScreen} />
@@ -76,7 +75,6 @@ export default function App() {
     //   <PersistGate persistor={persistor}>
     <NavigationContainer>
       <Stack.Navigator screensOption={{ headerShown: false }}>
-      <Tab.Screen name="ConnexionScreen" component={ConnexionScreen} />
         <Stack.Screen name="LandingPageScreen" component={LandingPageScreen} />
         <Stack.Screen name="TabNavigator" component={TabNavigator} />
         <Tab.Screen name="AccueilScreen" component={AccueilScreen} />
