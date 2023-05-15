@@ -17,6 +17,10 @@ export default function LandingPageScreen({ navigation }) {
   const [isModalVisible, setIsModalVisible] = useState(false); // variable d'état qui gère la modale
   const [email, setEmail] = useState(""); //variable d'état pour le mail
   const [password, setPassword] = useState(""); //variable d'état pour le mdp
+  const [emailError, setEmailError] = useState(false); // variable d'état pour la vérification de l'adresse mail
+  // regex pour la validation de l'email
+  const EMAIL_REGEX =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   //fonction qui gère l'affichage de la modale
   let showModal = () => {
@@ -25,21 +29,24 @@ export default function LandingPageScreen({ navigation }) {
 
   //fonction qui gère la connexion de l'utilisateur
   const handleConnection = () => {
-    fetch("http://10.2.0.221:3000/users/signin", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ mail: email, password: password }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        if (data.result) {
-          setEmail("");
-          setPassword("");
-          setIsModalVisible(false);
-          navigation.navigate("TabNavigator", { screen: "Ma Semaine" });
-        }
-      });
+    if (EMAIL_REGEX.test(email)) {
+      fetch("http://10.2.0.221:3000/users/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mail: email, password: password }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.result) {
+            setEmail("");
+            setPassword("");
+            setIsModalVisible(false);
+            navigation.navigate("TabNavigator", { screen: "Ma Semaine" });
+          }
+        });
+    } else {
+      setEmailError(true);
+    }
   };
   return (
     <View style={styles.main}>
@@ -73,6 +80,9 @@ export default function LandingPageScreen({ navigation }) {
                     style={styles.input}
                   />
                 </View>
+                {emailError && (
+                  <Text style={styles.error}>Format du mail invalide</Text>
+                )}
                 <View style={styles.passwordSection}>
                   <TextInput
                     secureTextEntry={true}
@@ -100,7 +110,7 @@ export default function LandingPageScreen({ navigation }) {
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-        // onPress={() =>}
+          onPress={() => navigation.navigate("ConnexionScreen")}
         >
           <Text>Inscription</Text>
         </TouchableOpacity>
@@ -113,7 +123,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-  logo: { height: "30%", width: "55%", borderRadius: 100, margin: 10 },
+  logo: { width: 200, height: 200, borderRadius: 100, margin: 10 },
   title: { fontSize: 70 },
   buttonContainer: {
     display: "flex",
@@ -152,7 +162,7 @@ const styles = StyleSheet.create({
     width: 300,
     height: 40,
     borderRadius: 4,
-    marginBottom: 30,
+    marginBottom: 10,
   },
   passwordSection: {
     justifyContent: "center",
@@ -177,5 +187,9 @@ const styles = StyleSheet.create({
   closebutton: {
     marginLeft: 260,
     marginBottom: 15,
+  },
+  error: {
+    color: "red",
+    marginBottom: 10,
   },
 });

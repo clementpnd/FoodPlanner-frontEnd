@@ -77,7 +77,7 @@ export default function App() {
       <Stack.Navigator screensOption={{ headerShown: false }}>
         <Stack.Screen name="LandingPageScreen" component={LandingPageScreen} />
         <Stack.Screen name="TabNavigator" component={TabNavigator} />
-        <Tab.Screen name="AccueilScreen" component={AccueilScreen} />
+        <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
       </Stack.Navigator>
     </NavigationContainer>
     //   </PersistGate>
