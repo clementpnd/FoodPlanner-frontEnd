@@ -4,20 +4,25 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import users from "./reducers/users";
 
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import user from "./reducers/user";
-//import storage from "redux-persits/lib/storage";
+import { persistStore, persistReducer } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+import storage from "redux-persist/lib/types";
 
-const reducers = combineReducers({ user });
-const persistConfig = { key: "users" };
+const reducers = combineReducers({ users });
+const persistConfig = { key: "foodPlaner", storage: AsyncStorage };
 
 const store = configureStore({
-  reducer: persitsReducer(persistConfig, reducers),
+  reducer: persistReducer(persistConfig, reducers),
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
 });
+
+const persistor = persistStore(store);
 
 import AccueilScreen from "./screens/AccueilScreen";
 import LandingPageScreen from "./screens/LandingPageScreen";
@@ -75,12 +80,12 @@ export default function App() {
       <PersistGate persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator screensOption={{ headerShown: false }}>
+            <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
             <Stack.Screen
               name="LandingPageScreen"
               component={LandingPageScreen}
             />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            <Tab.Screen name="AccueilScreen" component={AccueilScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
