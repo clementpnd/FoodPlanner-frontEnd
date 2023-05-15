@@ -7,6 +7,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import users from "./reducers/users";
 
+<<<<<<< HEAD
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
@@ -21,6 +22,21 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
 });
+=======
+// import { Provider } from "react-redux";
+// import { combineReducers, configureStore } from "@reduxjs/toolkit";
+// import user from "./reducers/user";
+//import storage from "redux-persits/lib/storage";
+
+// const reducers = combineReducers({ user });
+// const persistConfig = { key: "users" };
+
+// const store = configureStore({
+//   reducer: persitsReducer(persistConfig, reducers),
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware({ serializableCheck: false }),
+// });
+>>>>>>> 08bbcb36a9bd56603d02fcdf9155d1347e92fc22
 
 const persistor = persistStore(store);
 
@@ -59,9 +75,9 @@ const TabNavigator = () => {
           }
           return <FontAwesome name={iconName} size={size} color={color} />;
         },
+        headerShown: false,
         tabBarActiveTintColor: "#FDFEFE",
         tabBarInactiveTintColor: "#979A9A",
-        headerShown: false,
         tabBarLabelStyle: { color: "white" },
         tabBarStyle: styleTabBar,
         initialRouteName: "Ma Semaine",
