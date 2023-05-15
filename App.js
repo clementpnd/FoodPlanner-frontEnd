@@ -15,7 +15,7 @@ const persistConfig = { key: "users" };
 
 const store = configureStore({
   reducer: persitsReducer(persistConfig, reducers),
-  middleware: (getDefaultMiddleware: any) =>
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
 });
 
