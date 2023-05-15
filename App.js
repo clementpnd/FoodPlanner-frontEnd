@@ -19,7 +19,11 @@ const Tab = createBottomTabNavigator();
 //heart : heart-o/
 //Home : home
 //
-styleTabBar = { backgroundColor: "#E4631B", borderTopLeftRadius: 8, borderTopRightRadius:8 };
+styleTabBar = {
+  backgroundColor: "#E4631B",
+  borderTopLeftRadius: 8,
+  borderTopRightRadius: 8,
+};
 const TabNavigator = () => {
   return (
     <Tab.Navigator
@@ -36,13 +40,13 @@ const TabNavigator = () => {
           }
           return <FontAwesome name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: "#FDFEFE" ,
+        tabBarActiveTintColor: "#FDFEFE",
         tabBarInactiveTintColor: "#979A9A",
         headerShown: false,
-        tabBarLabelStyle : {color : "white"},
+        tabBarLabelStyle: { color: "white" },
         tabBarStyle: styleTabBar,
         initialRouteName: "Ma Semaine",
-        tabBarBadgeStyle : {backgroundColor : "red"}
+        tabBarBadgeStyle: { backgroundColor: "red" },
       })}
     >
       <Tab.Screen name="Favoris" component={FavorisScreen} />
