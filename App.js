@@ -7,17 +7,17 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import user from "./reducers/user";
+// import user from "./reducers/user";
 //import storage from "redux-persits/lib/storage";
 
-const reducers = combineReducers({ user });
-const persistConfig = { key: "users" };
+// const reducers = combineReducers({ user });
+// const persistConfig = { key: "users" };
 
-const store = configureStore({
-  reducer: persitsReducer(persistConfig, reducers),
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }),
-});
+// const store = configureStore({
+//   reducer: persitsReducer(persistConfig, reducers),
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware({ serializableCheck: false }),
+// });
 
 import AccueilScreen from "./screens/AccueilScreen";
 import LandingPageScreen from "./screens/LandingPageScreen";
@@ -54,15 +54,16 @@ const TabNavigator = () => {
           }
           return <FontAwesome name={iconName} size={size} color={color} />;
         },
+        headerShown: false,
         tabBarActiveTintColor: "#FDFEFE",
         tabBarInactiveTintColor: "#979A9A",
-        headerShown: false,
         tabBarLabelStyle: { color: "white" },
         tabBarStyle: styleTabBar,
         initialRouteName: "Ma Semaine",
         tabBarBadgeStyle: { backgroundColor: "red" },
       })}
     >
+      
       <Tab.Screen name="Favoris" component={FavorisScreen} />
       <Tab.Screen name="Ma Semaine" component={MaSemaineScreen} />
       <Tab.Screen name="Profils" component={ProfilsScreen} />
@@ -71,19 +72,17 @@ const TabNavigator = () => {
 };
 export default function App() {
   return (
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <NavigationContainer>
-          <Stack.Navigator screensOption={{ headerShown: false }}>
-            <Stack.Screen
-              name="LandingPageScreen"
-              component={LandingPageScreen}
-            />
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            <Tab.Screen name="AccueilScreen" component={AccueilScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </PersistGate>
-    </Provider>
+    // <Provider store={store}>
+    //   <PersistGate persistor={persistor}>
+    <NavigationContainer>
+      <Stack.Navigator screensOption={{ headerShown: false }}>
+      <Tab.Screen name="ConnexionScreen" component={ConnexionScreen} />
+        <Stack.Screen name="LandingPageScreen" component={LandingPageScreen} />
+        <Stack.Screen name="TabNavigator" component={TabNavigator} />
+        <Tab.Screen name="AccueilScreen" component={AccueilScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+    //   </PersistGate>
+    // </Provider>
   );
 }

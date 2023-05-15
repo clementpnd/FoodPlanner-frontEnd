@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     width: "80%",
     height: "5%",
     backgroundColor: "#E4631B",
-    borderRadius: "4px",
+    borderRadius: 4,
     marginBottom: "5%",
   },
   centeredView: {

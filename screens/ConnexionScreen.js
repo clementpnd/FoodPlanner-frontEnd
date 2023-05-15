@@ -8,52 +8,99 @@ import {
   Dimensions,
   TouchableOpacity,
   KeyboardAvoidingView,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
+import { useState } from "react";
+
 
 export default function ConnexionScreen({ navigation }) {
+    const [prenom, setPrenom] = useState('');
+    const [pseudo, setPseudo] = useState('');
+    const [mail, setMail] = useState('')
+    const [password, setPassword] = useState('')
+    const [mailError, setMailError] = useState(false)
+
+
+    const letsGo = () =>{        
+        const data ={
+            mail : mail
+        }
+    fetch("http://10.2.1.12:3000/users/verify", {
+        method : "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body  : JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(!data.result){
+            setMailError(true)
+        }
+        else{
+            navigation.navigate('TabNavigator')
+        }
+    })
+    }
+    
+
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : null}
+    style={styles.keyboard}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.content}>
       <View style={styles.logoDiv}>
-        <Image source={require("../assets/icon.png")} style={styles.logo} />
+        <Image source={require("../assets/logo.jpg")} style={styles.logo} />
       </View>
-      <KeyboardAvoidingView>
       <View style={styles.content}>
         <Text style={styles.label}>Prenom</Text>
         <View style={styles.inputDiv}>
-          <TextInput placeholder="Prenom" style={styles.input}></TextInput>
+          <TextInput placeholder="Prenom" style={styles.input} onChangeText={(e) => setPrenom(e)}></TextInput>
         </View>
       </View>
       <View style={styles.content}>
         <Text style={styles.label}>Pseudo</Text>
         <View style={styles.inputDiv}>
-          <TextInput placeholder="Pseudo" style={styles.input}></TextInput>
+          <TextInput placeholder="Pseudo" style={styles.input} onChangeText={(e) => setPseudo(e)}></TextInput>
         </View>
       </View>
       <View style={styles.content}>
         <Text style={styles.label}>Adresse mail</Text>
         <View style={styles.inputDiv}>
-          <TextInput placeholder="Adresse mail" style={styles.input}></TextInput>
+          <TextInput placeholder="Adresse mail" style={styles.input} onChangeText={(e) => setMail(e)}></TextInput>
+          {mailError && <Text style={{color: "red"}}>Email déja utilisé </Text>}
         </View>
       </View>
       <View style={styles.content}>
         <Text style={styles.label}>Mot de passe</Text>
         <View style={styles.inputDiv}>
-          <TextInput placeholder="Mot de passe" style={styles.input}></TextInput>
+          <TextInput placeholder="Mot de passe" style={styles.input} textContentType="password" onChangeText={(e) => setPassword(e)}></TextInput>
         </View>
       </View>
-      </KeyboardAvoidingView>
       <View style={styles.submitDiv}>
-        <TouchableOpacity style={styles.submit}>
+        <TouchableOpacity style={styles.submit} onPress={() => letsGo()}>
             <Text>Let's go</Text>
         </TouchableOpacity>
       </View>
     </View>
+    </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+    keyboard:{
+        flex: 1,
+        width : "100%",
+        height: "100%",
+        alignItems : "center",
+        justifyContent : "center",
+    },
   container: {
     flex: 1,
+    height: "100%"
   },
   logoDiv: {
     alignItems: "center",
@@ -65,8 +112,9 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   content: {
-    marginTop : 20,
-    marginBottom : 20,
+    padding: 45,
+    flex: 1,
+    justifyContent: "flex-end",
   },
   inputDiv: {
     alignItems: "center",
