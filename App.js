@@ -30,6 +30,7 @@ import FavorisScreen from "./screens/FavorisScreen";
 import ProfilsScreen from "./screens/ProfilsScreen";
 import MaSemaineScreen from "./screens/MaSemaineScreen";
 import ConnexionScreen from "./screens/ConnexionScreen";
+import SemainierScreen from "./screens/SemainierScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -52,7 +53,7 @@ const TabNavigator = () => {
 
           if (route.name === "Favoris") {
             iconName = "heart-o";
-          } else if (route.name === "Ma Semaine") {
+          } else if (route.name === "Accueil") {
             iconName = "home";
           } else if (route.name === "Profils") {
             iconName = "user-circle";
@@ -69,7 +70,7 @@ const TabNavigator = () => {
       })}
     >
       <Tab.Screen name="Favoris" component={FavorisScreen} />
-      <Tab.Screen name="Ma Semaine" component={MaSemaineScreen} />
+      <Tab.Screen name="Accueil" component={AccueilScreen} />
       <Tab.Screen name="Profils" component={ProfilsScreen} />
     </Tab.Navigator>
   );
@@ -83,6 +84,8 @@ export default function App() {
         <Stack.Screen name="LandingPageScreen" component={LandingPageScreen} />
         <Stack.Screen name="TabNavigator" component={TabNavigator} />
         <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
+        <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
+        <Stack.Screen name="Semainier" component={SemainierScreen} />
       </Stack.Navigator>
     </NavigationContainer>
     //   </PersistGate>

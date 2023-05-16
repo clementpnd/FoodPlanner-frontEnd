@@ -41,7 +41,7 @@ export default function LandingPageScreen({ navigation }) {
             setEmail("");
             setPassword("");
             setIsModalVisible(false);
-            navigation.navigate("TabNavigator", { screen: "Ma Semaine" });
+            navigation.navigate("TabNavigator", { screen: "Accueil" });
           }
         });
     } else {
@@ -53,7 +53,10 @@ export default function LandingPageScreen({ navigation }) {
       <Image source={require("../assets/logo.jpg")} style={styles.logo}></Image>
       <Text style={styles.title}>Food Planner</Text>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={() => showModal()}>
+        <TouchableOpacity
+          style={styles.connexionButton}
+          onPress={() => showModal()}
+        >
           <Text>Connexion</Text>
           <Modal
             animationType="slide"
@@ -110,6 +113,7 @@ export default function LandingPageScreen({ navigation }) {
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
+          style={styles.inscriptionButton}
           onPress={() => navigation.navigate("ConnexionScreen")}
         >
           <Text>Inscription</Text>
@@ -134,6 +138,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#E4631B",
     borderRadius: 4,
     marginBottom: "5%",
+  },
+  connexionButton: {
+    width: 300,
+    height: 35,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  inscriptionButton: {
+    width: 300,
+    height: 35,
+    justifyContent: "center",
+    alignItems: "center",
   },
   centeredView: {
     flex: 1,
@@ -180,7 +196,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#78CB26",
     borderRadius: 4,
-    width: 80,
+    width: 200,
     height: 30,
     margin: 10,
   },
