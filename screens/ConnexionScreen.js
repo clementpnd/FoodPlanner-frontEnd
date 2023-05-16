@@ -35,7 +35,7 @@ export default function ConnexionScreen({ navigation }) {
         if (!data.result) {
           setMailError(true);
         } else {
-          navigation.navigate("TabNavigator");
+          navigation.navigate("TabNavigator", { screen: "Accueil" });
         }
       });
   };
