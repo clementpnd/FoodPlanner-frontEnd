@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+//import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -78,8 +78,8 @@ const TabNavigator = () => {
 };
 export default function App() {
   return (
-    // <Provider store={store}>
-    //   <PersistGate persistor={persistor}>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
     <NavigationContainer>
       <Stack.Navigator screensOption={{ headerShown: false }}>
         <Stack.Screen name="CreateProfilScreen" component={CreateProfilScreen} />
@@ -90,7 +90,7 @@ export default function App() {
         <Stack.Screen name="Semainier" component={SemainierScreen} />
       </Stack.Navigator>
     </NavigationContainer>
-    //   </PersistGate>
-    // </Provider>
+     </PersistGate>
+    </Provider>
   );
 }
