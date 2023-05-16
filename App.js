@@ -30,6 +30,7 @@ import FavorisScreen from "./screens/FavorisScreen";
 import ProfilsScreen from "./screens/ProfilsScreen";
 import MaSemaineScreen from "./screens/MaSemaineScreen";
 import ConnexionScreen from "./screens/ConnexionScreen";
+import CreateProfilScreen from "./screens/CreateProfilScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -80,6 +81,7 @@ export default function App() {
     //   <PersistGate persistor={persistor}>
     <NavigationContainer>
       <Stack.Navigator screensOption={{ headerShown: false }}>
+        <Stack.Screen name="CreateProfilScreen" component={CreateProfilScreen} />
         <Stack.Screen name="LandingPageScreen" component={LandingPageScreen} />
         <Stack.Screen name="TabNavigator" component={TabNavigator} />
         <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
