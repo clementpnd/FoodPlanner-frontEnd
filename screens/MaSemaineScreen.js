@@ -17,8 +17,8 @@ export default function MaSemaineScreen({ navigation }) {
       if (status === "granted") {
         Location.watchPositionAsync({ distanceInterval: 10 }, (location) => {
           setCurrentPosition(location.coords);
-          console.log(location.coords);
         });
+        console.log(currentPosition);
       }
     })();
   }, []);
@@ -31,7 +31,15 @@ export default function MaSemaineScreen({ navigation }) {
         <Text>MA SEMAINE</Text>
       </View>
       <View style={styles.map}>
-        <MapView style={styles.map}>{currentPosition}</MapView>
+        <MapView
+          initialRegion={{
+            latitude: currentPosition.latitude,
+            longitude: currentPosition.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+          style={styles.map}
+        ></MapView>
       </View>
     </View>
   );
