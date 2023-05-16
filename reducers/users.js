@@ -8,6 +8,7 @@ const initialState = {
     mail: "",
     password: "",
     photoProfil: "",
+    nbPersonne: "",
     preference: [],
     recetteFavoris: [],
   },
@@ -24,6 +25,7 @@ export const userSlice = createSlice({
       state.value.mail = action.payload.mail;
       state.value.password = action.payload.password;
       state.value.photoProfil = action.payload.photoProfil;
+      state.value.nbPersonne = action.payload.nbPersonne;
       state.value.preference.push(action.payload.preference);
       state.value.recetteFavoris.push(action.payload.recetteFavoris);
     },
@@ -33,6 +35,7 @@ export const userSlice = createSlice({
       state.value.pseudo = "";
       state.value.mail = "";
       state.value.password = "";
+      state.value.nbPersonne = "";
       state.value.photoProfil = "";
       state.value.preference = [];
       state.value.recetteFavoris = [];
@@ -40,5 +43,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { addUsers } = userSlice.actions;
+export const { addUsers} = userSlice.actions;
 export default userSlice.reducer;
