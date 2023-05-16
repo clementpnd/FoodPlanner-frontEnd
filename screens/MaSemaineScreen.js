@@ -1,69 +1,87 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 //import des hooks d'effets
 import { useState, useEffect } from "react";
+// import des reducers
+import { decrement, increment } from '../reducers/counter';
 
-//import du module map
-import MapView, { Marker } from "react-native-maps";
-//import du module de geoloc
-import * as Location from "expo-location";
 
+const BACKEND_ADDRESS = 'http://BACKEND_IP:3000';
+// exp://10.2.1.16:19000
 export default function MaSemaineScreen({ navigation }) {
-  const [currentPosition, setCurrentPosition] = useState(null); //variable d'état de location de l'utilisateur
-  //Attente d'autorisation de la géoloc
-  useEffect(() => {
-    (async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
+//fonction counter avec reducer nb de personnes par repas
+const dispatch = useDispatch();
+const counter = useSelector((state) => state.counter.value);
+const [counterRepas, setCounterRepas] = useState({counter});
 
-      if (status === "granted") {
-        Location.watchPositionAsync({ distanceInterval: 10 }, (location) => {
-          setCurrentPosition(location.coords);
-          console.log(location.coords);
-        });
-      }
-    })();
-  }, []);
+const [isSelected, setSelection] = useState(false);
+// fetch nb de personnes enregistrées dans Profil
+const decrementSubmit = () => {
+  fetch(`${BACKEND_ADDRESS}/nbPersonne/:token`)
+    .then((response) => response.json())
+    .then((data) => {
+      {counter};
+
+      dispatch(decrement(counter));
+      setCounterRepas('');
+    });
+};
+
+
+  
   return (
-    <View style={styles.main}>
-      <View style={styles.creationSemaine}>
-        <Text>CREATION SEMAINE</Text>
-      </View>
-      <View style={styles.maSemaine}>
-        <Text>MA SEMAINE</Text>
-      </View>
-      <View style={styles.map}>
-        <MapView style={styles.map}>{currentPosition}</MapView>
-      </View>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <View>
+        <Text style={styles.text}>Lundi</Text>
+      
+        <Button style={styles.decrementBtn} onPress={() => dispatch(decrement())}><Text>-</Text></Button>
+        <Text className={styles.counter}>{counterRepas}</Text>
+        <Button style={styles.incrementBtn}  onPress={() => dispatch(increment())}><Text>+</Text></Button>
+
+        </View>
+        <View>
+
+        <CheckBox
+          value={isSelected}
+          onValueChange={setSelection}
+          style={styles.checkbox}
+        />
+        <Text>Midi</Text>
+
+        <CheckBox
+          value={isSelected}
+          onValueChange={setSelection}
+          style={styles.checkbox}
+        />
+        <Text>Soir</Text>
+
+        <CheckBox
+          value={isSelected}
+          onValueChange={setSelection}
+          style={styles.checkbox}
+        />
+
+        </View>
+        <Text>Les 2</Text>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  main: {
+  
+  container: {
     flex: 1,
-    justifyContent: "space-around",
-    alignItems: "center",
+    //paddingTop: StatusBar.currentHeight,
   },
-  creationSemaine: {
-    display: "flex",
-    backgroundColor: "blue",
-    width: 360,
-    height: 100,
-    marginBottom: 5,
-    borderRadius: 4,
+  scrollView: {
+    backgroundColor: 'pink',
+    marginHorizontal: 20,
   },
-  maSemaine: {
-    display: "flex",
-    backgroundColor: "purple",
-    width: 360,
-    height: 100,
-    marginBottom: 5,
-    borderRadius: 4,
+  text: {
+    fontSize: 42,
   },
-  map: {
-    display: "flex",
-    backgroundColor: "green",
-    width: 360,
-    height: 350,
-    borderRadius: 4,
+  checkbox: {
+    alignSelf: 'center',
   },
 });
