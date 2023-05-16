@@ -47,13 +47,23 @@ const decrementSubmit = () => {
 
 
 // useEffect(() => {
-//   fetch(`${BACKEND_ADDRESS}/nbPersonne/:token`)
+
+
+//   fetch(`${BACKEND_ADDRESS}/places/${user.nickname}`)
 //     .then((response) => response.json())
 //     .then((data) => {
-//       console.log(data)
+//       data.result && dispatch(importPlaces(data.places));
 //     });
 // }, []);
 
+const counterR = () => {
+  fetch(`${BACKEND_ADDRESS}/nbPersonne/:token`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.nbPersonne)
+      //setCounterRepas(data.nbPersonne);
+    });
+};
 
 // dataList pour nb de personnes par repas
 
@@ -77,39 +87,42 @@ const decrementSubmit = () => {
         <Text style={styles.text}>Lundi :</Text>
 
         <TouchableOpacity style={styles.decrementBtn} onPress={() => decrementSubmit()}><Text>-</Text></TouchableOpacity>
-        <Text className={styles.counter}></Text>
+        <Text className={styles.counter}>{counterR}</Text>
         <TouchableOpacity style={styles.incrementBtn}  onPress={() => dispatch(increment())}><Text>+</Text></TouchableOpacity>
         </View>
         
         <View style={styles.rowCheckbox}>
           <View style={styles.containerCheckbox} >
         <Checkbox 
-       style={styles.checkbox}
+       
         disabled={false}
         value={isChecked} 
-        onValueChange={setChecked}
-        color={isChecked ? '#E4631B' : undefined} />
+        tintColors={{true: '#E4631B'}}
+        onCheckColor={'#E4631B'}
+        onValueChange={setChecked} />
 
 
         <Text>Midi</Text>
         </View>
         <View style={styles.containerCheckbox}> 
         <Checkbox 
-       style={styles.checkbox}
+       
         disabled={false}
         value={isChecked} 
-        onValueChange={setChecked} 
-        color={isChecked ? '#E4631B' : undefined} />
+        tintColors={{true: '#E4631B'}}
+        onCheckColor={'#E4631B'}
+        onValueChange={setChecked} />
         <Text>Soir</Text>
         </View>
 
         <View style={styles.containerCheckbox}>
         <Checkbox 
-       style={styles.checkbox}
+       
         disabled={false}
         value={isChecked} 
-        onValueChange={setChecked} 
-        color={isChecked ? '#E4631B' : undefined} />
+        tintColors={{true: '#E4631B'}}
+        onCheckColor={'#E4631B'}
+        onValueChange={setChecked} />
         <Text>Les 2</Text>
         </View>
         </View>
