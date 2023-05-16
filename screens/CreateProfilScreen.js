@@ -6,42 +6,65 @@ import {
   Image,
   Switch,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
+import { Camera, CameraType } from "expo-camera";
 
 export default function CreateProfilScreen({ navigation }) {
+  //HOOK D'ETAT
   const [aucun, setAucun] = useState(false);
   const [vege, setVege] = useState(false);
   const [hallal, setHallal] = useState(false);
   const [kasher, setKasher] = useState(false);
-
   const [nbPersonne, setNbPersonne] = useState("");
-
+  const [hasPermission, setHasPermission] = useState(false);
+  ///
   const pickerRef = useRef();
+  let cameraRef = useRef();
 
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === 'granted');
+    })();
+  }, []);
+  //   FUNCTION
   const disabled = () => {
     setVege(false);
     setHallal(false);
     setKasher(false);
     setAucun(!aucun);
   };
+  const camera = () => {
+    if (!hasPermission) {
+        console.warn("!inPermission")
+      return <View></View>;
+    }
+    return <Camera ref={(ref) => cameraRef = ref} type={CameraType.front}>
 
-  const planifionsSemaine = () =>{
+    </Camera>;
+  };
+
+  const planifionsSemaine = () => {
     console.warn("planifionsSemaine");
+  };
+
+  /////////
+
+  //////VARIABLE
+  items = [];
+
+  for (let i = 1; i < 11; i++) {
+    j = i.toString();
+    items.push(<Picker.Item label={j} value={j} />);
   }
 
-  items =[];
-
-    for(let i=1; i< 11; i++){
-        j = i.toString()
-     items.push(<Picker.Item label={j} value={j} />)
-    };  
-    
   return (
     <View style={styles.container}>
       <View style={styles.imgDiv}>
+        <Button title="camera" onPress={() => camera()}></Button>
         <Image source={require("../assets/icon.png")} style={styles.img} />
         <Text style={styles.slogan}>Apprenons à nous connaitre</Text>
       </View>
@@ -79,18 +102,21 @@ export default function CreateProfilScreen({ navigation }) {
             />
           </View>
           <View style={styles.personneDiv}>
-            <Text style={styles.personneText}>On cuisine pour combien de personne ?</Text>
+            <Text style={styles.personneText}>
+              On cuisine pour combien de personne ?
+            </Text>
             <Picker
               ref={pickerRef}
               selectedValue={nbPersonne}
-              onValueChange={(itemValue, itemIndex) =>
-                setNbPersonne(itemValue)
-              }
+              onValueChange={(itemValue, itemIndex) => setNbPersonne(itemValue)}
             >
               {items}
             </Picker>
             <View style={styles.submitDiv}>
-              <TouchableOpacity style={styles.submit} onPress={() => planifionsSemaine()}>
+              <TouchableOpacity
+                style={styles.submit}
+                onPress={() => planifionsSemaine()}
+              >
                 <Text>Planifions ma semaine</Text>
               </TouchableOpacity>
             </View>
@@ -118,7 +144,7 @@ const styles = StyleSheet.create({
   slogan: {
     fontSize: 25,
     fontWeight: "bold",
-    marginTop : 20
+    marginTop: 20,
   },
   regimeDiv: {
     marginTop: 40,
@@ -138,15 +164,15 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   personneDiv: {
-    marginTop : 40,
+    marginTop: 40,
   },
   personneText: {
-    fontSize : 15,
-    fontWeight : "bold",
+    fontSize: 15,
+    fontWeight: "bold",
   },
   submitDiv: {
     alignItems: "center",
-    marginTop: 60
+    marginTop: 60,
   },
   submit: {
     backgroundColor: "#78CB26",
