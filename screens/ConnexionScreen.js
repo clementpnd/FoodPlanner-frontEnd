@@ -13,7 +13,7 @@ import {
   Keyboard,
 } from "react-native";
 import { useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUsers, removeUsers } from "../reducers/users";
 
 export default function ConnexionScreen({ navigation }) {
@@ -38,12 +38,12 @@ export default function ConnexionScreen({ navigation }) {
         if (!data.result) {
           setMailError(true);
         } else {
-          const user ={
-            prenom : prenom,
-            pseudo : pseudo,
-            mail : mail,
-            password : password,
-          }
+          const user = {
+            prenom: prenom,
+            pseudo: pseudo,
+            mail: mail,
+            password: password,
+          };
           dispatch(addUsers(user));
           navigation.navigate("CreateProfilScreen");
         }

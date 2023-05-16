@@ -21,7 +21,6 @@ export default function AccueilScreen({ navigation }) {
       }
     })();
   }, []);
-  console.log("latitude", currentPosition.latitude);
   return (
     <View style={styles.main}>
       <View style={styles.semaineEnCours}>
@@ -29,7 +28,7 @@ export default function AccueilScreen({ navigation }) {
           style={styles.buttonAccessSemainier}
           onPress={() => navigation.navigate("Semainier")}
         >
-          <Text>Créer ma semaine</Text>
+          <Text>Ma semaine en cours</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.creationSemaine}>
