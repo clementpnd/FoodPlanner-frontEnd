@@ -10,26 +10,36 @@ import {
 } from "react-native";
 import { useState, useRef, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
-import { Camera, CameraType } from "expo-camera";
+import { useSelector } from "react-redux";
 
 export default function CreateProfilScreen({ navigation }) {
+
+  const user = useSelector((state) => state.users.value);
+
+  let image = require("../assets/icon.png");
+
+  if(user.photoProfil !==""){
+    console.log("photoProfil",user.photoProfil )
+    console.warn('inIf')
+    image = {uri :user.photoProfil}
+  }
+
+
   //HOOK D'ETAT
   const [aucun, setAucun] = useState(false);
   const [vege, setVege] = useState(false);
   const [hallal, setHallal] = useState(false);
   const [kasher, setKasher] = useState(false);
   const [nbPersonne, setNbPersonne] = useState("");
-  const [hasPermission, setHasPermission] = useState(false);
   ///
   const pickerRef = useRef();
-  let cameraRef = useRef();
 
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === 'granted');
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     const { status } = await camera.requestCameraPermissionsAsync();
+  //     setHasPermission(status === 'granted');
+  //   })();
+  // }, []);
   //   FUNCTION
   const disabled = () => {
     setVege(false);
@@ -38,13 +48,7 @@ export default function CreateProfilScreen({ navigation }) {
     setAucun(!aucun);
   };
   const camera = () => {
-    if (!hasPermission) {
-        console.warn("!inPermission")
-      return <View></View>;
-    }
-    return <Camera ref={(ref) => cameraRef = ref} type={CameraType.front}>
-
-    </Camera>;
+    navigation.navigate("CameraScreen");
   };
 
   const planifionsSemaine = () => {
@@ -64,8 +68,8 @@ export default function CreateProfilScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.imgDiv}>
-        <Button title="camera" onPress={() => camera()}></Button>
-        <Image source={require("../assets/icon.png")} style={styles.img} />
+        <Image source={image} style={styles.img} />
+        <Button title="Take pictures" onPress={() => camera()}></Button>
         <Text style={styles.slogan}>Apprenons à nous connaitre</Text>
       </View>
       <View style={styles.regimeDiv}>

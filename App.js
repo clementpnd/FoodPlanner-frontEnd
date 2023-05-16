@@ -32,6 +32,7 @@ import MaSemaineScreen from "./screens/MaSemaineScreen";
 import ConnexionScreen from "./screens/ConnexionScreen";
 import CreateProfilScreen from "./screens/CreateProfilScreen";
 import SemainierScreen from "./screens/SemainierScreen";
+import CameraScreen from "./screens/CameraScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -88,6 +89,7 @@ export default function App() {
         <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
         <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
         <Stack.Screen name="Semainier" component={SemainierScreen} />
+        <Stack.Screen name="CameraScreen" component={CameraScreen} />
       </Stack.Navigator>
     </NavigationContainer>
      </PersistGate>
