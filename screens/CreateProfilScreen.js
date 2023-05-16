@@ -10,15 +10,19 @@ import {
 } from "react-native";
 import { useState, useRef, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
-import { useSelector } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
+import { addUsers, removeUsers } from "../reducers/users";
+
 
 export default function CreateProfilScreen({ navigation }) {
-
   const user = useSelector((state) => state.users.value);
 
-  let image = require("../assets/User.png");
+  const [userState, setUserState] = useState({...user});
+  // console.log("user first reducer", userState)
+  const dispatch = useDispatch();
 
-  if(user.photoProfil !==""){
+    let image = require("../assets/User.png");
+if(user.photoProfil !==undefined ){
     image = {uri :user.photoProfil}
   }
 
@@ -28,16 +32,10 @@ export default function CreateProfilScreen({ navigation }) {
   const [vege, setVege] = useState(false);
   const [hallal, setHallal] = useState(false);
   const [kasher, setKasher] = useState(false);
-  const [nbPersonne, setNbPersonne] = useState("");
+  const [nbPersonne, setNbPersonne] = useState("1");
   ///
   const pickerRef = useRef();
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const { status } = await camera.requestCameraPermissionsAsync();
-  //     setHasPermission(status === 'granted');
-  //   })();
-  // }, []);
   //   FUNCTION
   const disabled = () => {
     setVege(false);
@@ -48,20 +46,43 @@ export default function CreateProfilScreen({ navigation }) {
   const camera = () => {
     navigation.navigate("CameraScreen");
   };
+  
+  
 
   const planifionsSemaine = () => {
-    console.warn("planifionsSemaine");
-  };
+    const preference = [];
+    vege ===true ? preference.push("vege") : preference.filter(d => d !== vege);
+    hallal ===true ? preference.push("hallal") : preference.filter(d => d !== hallal);
+    kasher ===true ? preference.push("kasher") : preference.filter(d => d !== kasher);
 
-  /////////
+    console.log(nbPersonne)
+    setUserState({...userState, preference : preference, nbPersonne : nbPersonne})
+    dispatch(addUsers(userState))
+    console.log('user befor fetch', userState )
+    fetch("http://10.2.0.221:3000/users/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userState),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.warn(data)
+        if(data.result){
+          console.warn('in data')
+          navigation.navigate("LandingPageScreen")
+        }
+      })
+    };
+
 
   //////VARIABLE
   items = [];
-
   for (let i = 1; i < 11; i++) {
     j = i.toString();
     items.push(<Picker.Item label={j} value={j} />);
   }
+
+ 
 
   return (
     <View style={styles.container}>
@@ -70,6 +91,7 @@ export default function CreateProfilScreen({ navigation }) {
         <TouchableOpacity onPress={() => camera()} style={styles.pictureButton}>
         <Text style={styles.picturesText}>Take pictures</Text>
         </TouchableOpacity>
+        <Button title="remove" onPress={() => dispatch(removeUsers())}></Button>
         <Text style={styles.slogan}>Apprenons à nous connaitre</Text>
       </View>
       <View style={styles.regimeDiv}>

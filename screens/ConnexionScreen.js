@@ -13,6 +13,8 @@ import {
   Keyboard,
 } from "react-native";
 import { useState } from "react";
+import { useDispatch,useSelector } from "react-redux";
+import { addUsers, removeUsers } from "../reducers/users";
 
 export default function ConnexionScreen({ navigation }) {
   const [prenom, setPrenom] = useState("");
@@ -20,6 +22,7 @@ export default function ConnexionScreen({ navigation }) {
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [mailError, setMailError] = useState(false);
+  const dispatch = useDispatch();
 
   const letsGo = () => {
     const data = {
@@ -35,7 +38,14 @@ export default function ConnexionScreen({ navigation }) {
         if (!data.result) {
           setMailError(true);
         } else {
-          navigation.navigate("TabNavigator");
+          const user ={
+            prenom : prenom,
+            pseudo : pseudo,
+            mail : mail,
+            password : password,
+          }
+          dispatch(addUsers(user));
+          navigation.navigate("CreateProfilScreen");
         }
       });
   };
@@ -61,6 +71,7 @@ export default function ConnexionScreen({ navigation }) {
                   placeholder="Prenom"
                   style={styles.input}
                   onChangeText={(e) => setPrenom(e)}
+                  value="Julien"
                 ></TextInput>
               </View>
             </View>
@@ -71,6 +82,7 @@ export default function ConnexionScreen({ navigation }) {
                   placeholder="Pseudo"
                   style={styles.input}
                   onChangeText={(e) => setPseudo(e)}
+                  value="teste"
                 ></TextInput>
               </View>
             </View>
@@ -95,6 +107,7 @@ export default function ConnexionScreen({ navigation }) {
                   style={styles.input}
                   textContentType="password"
                   onChangeText={(e) => setPassword(e)}
+                  value="teste"
                 ></TextInput>
               </View>
             </View>

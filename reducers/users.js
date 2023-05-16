@@ -24,7 +24,6 @@ export const userSlice = createSlice({
       state.value.pseudo = action.payload.pseudo;
       state.value.mail = action.payload.mail;
       state.value.password = action.payload.password;
-      state.value.photoProfil = action.payload.photoProfil;
       state.value.nbPersonne = action.payload.nbPersonne;
       state.value.preference.push(action.payload.preference);
       state.value.recetteFavoris.push(action.payload.recetteFavoris);
@@ -40,8 +39,14 @@ export const userSlice = createSlice({
       state.value.preference = [];
       state.value.recetteFavoris = [];
     },
+    addPhotoProfil : (state, action) => {
+      state.value.photoProfil = action.payload;
+    },
+    removePhotoProfil : (state, action) => {
+      state.value.photoProfil = "";
+    },
   },
 });
 
-export const { addUsers, removeUsers} = userSlice.actions;
+export const { addUsers, removeUsers, addPhotoProfil, removePhotoProfil} = userSlice.actions;
 export default userSlice.reducer;
