@@ -16,11 +16,9 @@ export default function CreateProfilScreen({ navigation }) {
 
   const user = useSelector((state) => state.users.value);
 
-  let image = require("../assets/icon.png");
+  let image = require("../assets/User.png");
 
   if(user.photoProfil !==""){
-    console.log("photoProfil",user.photoProfil )
-    console.warn('inIf')
     image = {uri :user.photoProfil}
   }
 
@@ -69,7 +67,9 @@ export default function CreateProfilScreen({ navigation }) {
     <View style={styles.container}>
       <View style={styles.imgDiv}>
         <Image source={image} style={styles.img} />
-        <Button title="Take pictures" onPress={() => camera()}></Button>
+        <TouchableOpacity onPress={() => camera()} style={styles.pictureButton}>
+        <Text style={styles.picturesText}>Take pictures</Text>
+        </TouchableOpacity>
         <Text style={styles.slogan}>Apprenons à nous connaitre</Text>
       </View>
       <View style={styles.regimeDiv}>
@@ -144,6 +144,18 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     borderRadius: 100,
+  },
+  pictureButton: {
+    marginTop : 10,
+    width: 130,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(228, 99, 27, 0.6)',
+    borderRadius: 10,
+  },
+  picturesText : {
+    fontSize : 20,
   },
   slogan: {
     fontSize: 25,

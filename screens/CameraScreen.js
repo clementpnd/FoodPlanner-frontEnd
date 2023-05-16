@@ -30,7 +30,6 @@ export default function CameraScreen({ navigation }) {
       photoProfil: photo.uri,
     };
     dispatch(addUsers(user));
-    dispatch(removeUsers())
     navigation.navigate("CreateProfilScreen");
   };
   useEffect(() => {
