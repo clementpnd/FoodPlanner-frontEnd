@@ -65,6 +65,8 @@ export default function ConnexionScreen({ navigation }) {
                 source={require("../assets/logo.jpg")}
                 style={styles.logo}
               />
+        <Button title="remove" onPress={() => dispatch(removeUsers())}></Button>
+
             </View>
             <View style={styles.content}>
               <Text style={styles.label}>Prenom</Text>
@@ -73,7 +75,6 @@ export default function ConnexionScreen({ navigation }) {
                   placeholder="Prenom"
                   style={styles.input}
                   onChangeText={(e) => setPrenom(e)}
-                  value="Julien"
                 ></TextInput>
               </View>
             </View>
@@ -84,7 +85,6 @@ export default function ConnexionScreen({ navigation }) {
                   placeholder="Pseudo"
                   style={styles.input}
                   onChangeText={(e) => setPseudo(e)}
-                  value="teste"
                 ></TextInput>
               </View>
             </View>
@@ -109,7 +109,6 @@ export default function ConnexionScreen({ navigation }) {
                   style={styles.input}
                   textContentType="password"
                   onChangeText={(e) => setPassword(e)}
-                  value="teste"
                 ></TextInput>
               </View>
             </View>

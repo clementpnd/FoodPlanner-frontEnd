@@ -18,13 +18,9 @@ export default function CreateProfilScreen({ navigation }) {
   const user = useSelector((state) => state.users.value);
 
   const [userState, setUserState] = useState({...user});
-  // console.log("user first reducer", userState)
   const dispatch = useDispatch();
 
-    let image = require("../assets/User.png");
-if(user.photoProfil !==undefined ){
-    image = {uri :user.photoProfil}
-  }
+
 
 
   //HOOK D'ETAT
@@ -46,21 +42,21 @@ if(user.photoProfil !==undefined ){
   const camera = () => {
     navigation.navigate("CameraScreen");
   };
-  
+
+  ///HOOK D'EFFET
   useEffect(() =>{
     setUserState({...userState, preference : preference, nbPersonne : nbPersonne})
   }, [preference, nbPersonne])
-  
+
+
   const preference = [];
   vege ===true ? preference.push("vege") : preference.filter(d => d !== vege);
   hallal ===true ? preference.push("hallal") : preference.filter(d => d !== hallal);
   kasher ===true ? preference.push("kasher") : preference.filter(d => d !== kasher);
+  
 
   const planifionsSemaine = () => {
-
-    console.log(nbPersonne)
     
-    console.log('user befor fetch', userState )
     fetch("http://10.2.1.12:3000/users/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -68,10 +64,8 @@ if(user.photoProfil !==undefined ){
       })
       .then((response) => response.json())
       .then((data) => {
-        console.warn(data)
         if(data.result){
-          console.warn('in data')
-          navigation.navigate("LandingPageScreen")
+          navigation.navigate("TabNavigator", { screen: "Accueil" })
         }
       })
     };
@@ -84,6 +78,15 @@ if(user.photoProfil !==undefined ){
     items.push(<Picker.Item label={j} value={j} />);
   }
 
+      let image = require("../assets/User.png");
+
+if(user.photoProfil !==undefined ){
+    image = {uri :user.photoProfil}
+    if(!userState.photoProfil){
+      setUserState({...userState, photoProfil : user.photoProfil})
+    }
+  }
+
  
 
   return (
@@ -93,7 +96,6 @@ if(user.photoProfil !==undefined ){
         <TouchableOpacity onPress={() => camera()} style={styles.pictureButton}>
         <Text style={styles.picturesText}>Take pictures</Text>
         </TouchableOpacity>
-        <Button title="remove" onPress={() => dispatch(removeUsers())}></Button>
         <Text style={styles.slogan}>Apprenons à nous connaitre</Text>
       </View>
       <View style={styles.regimeDiv}>
@@ -212,7 +214,7 @@ const styles = StyleSheet.create({
   },
   submitDiv: {
     alignItems: "center",
-    marginTop: 60,
+    marginTop: 40,
   },
   submit: {
     backgroundColor: "#78CB26",
