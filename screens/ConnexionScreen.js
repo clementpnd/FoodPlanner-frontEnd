@@ -30,7 +30,7 @@ export default function ConnexionScreen({ navigation }) {
       mail: mail,
     };
  
-    fetch("http://10.2.0.221:3000/users/verify", {
+    fetch("http://10.2.1.12:3000/users/verify", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

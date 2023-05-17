@@ -2,15 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: {
-    token: "",
-    prenom: "",
-    pseudo: "",
-    mail: "",
-    password: "",
-    photoProfil: "",
-    nbPersonne: "",
-    preference: [],
-    recetteFavoris: [],
+
   },
 };
 
@@ -19,14 +11,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     addUsers: (state, action) => {
-      state.value.token = action.payload.token;
-      state.value.prenom = action.payload.prenom;
-      state.value.pseudo = action.payload.pseudo;
-      state.value.mail = action.payload.mail;
-      state.value.password = action.payload.password;
-      state.value.nbPersonne = action.payload.nbPersonne;
-      state.value.preference.push(action.payload.preference);
-      state.value.recetteFavoris.push(action.payload.recetteFavoris);
+      state.value = action.payload
     },
     removeUsers: (state, action) => {
       state.value.token = "";

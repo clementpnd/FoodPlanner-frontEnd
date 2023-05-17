@@ -47,19 +47,21 @@ if(user.photoProfil !==undefined ){
     navigation.navigate("CameraScreen");
   };
   
+  useEffect(() =>{
+    setUserState({...userState, preference : preference, nbPersonne : nbPersonne})
+  }, [preference, nbPersonne])
   
+  const preference = [];
+  vege ===true ? preference.push("vege") : preference.filter(d => d !== vege);
+  hallal ===true ? preference.push("hallal") : preference.filter(d => d !== hallal);
+  kasher ===true ? preference.push("kasher") : preference.filter(d => d !== kasher);
 
   const planifionsSemaine = () => {
-    const preference = [];
-    vege ===true ? preference.push("vege") : preference.filter(d => d !== vege);
-    hallal ===true ? preference.push("hallal") : preference.filter(d => d !== hallal);
-    kasher ===true ? preference.push("kasher") : preference.filter(d => d !== kasher);
 
     console.log(nbPersonne)
-    setUserState({...userState, preference : preference, nbPersonne : nbPersonne})
-    dispatch(addUsers(userState))
+    
     console.log('user befor fetch', userState )
-    fetch("http://10.2.0.221:3000/users/signup", {
+    fetch("http://10.2.1.12:3000/users/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userState),
