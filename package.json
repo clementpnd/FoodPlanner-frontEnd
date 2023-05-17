@@ -9,23 +9,24 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/fredoka-one": "^0.2.3",
+    "@fontsource/fredoka-one": "^4.5.9",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@react-native-async-storage/async-storage": "^1.18.1",
-<<<<<<< HEAD
-    "@react-native-picker/picker": "^2.4.10",
-=======
     "@react-native-community/checkbox": "^0.5.15",
->>>>>>> carole1.3
+    "@react-native-picker/picker": "^2.4.10",
     "@react-navigation/bottom-tabs": "6",
     "@react-navigation/native": "6",
     "@react-navigation/native-stack": "6",
     "@reduxjs/toolkit": "^1.9.5",
     "expo": "~48.0.15",
+    "expo-app-loading": "^2.1.1",
     "expo-camera": "~13.2.1",
     "expo-checkbox": "~2.3.1",
+    "expo-font": "~11.1.1",
     "expo-location": "~15.1.1",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",

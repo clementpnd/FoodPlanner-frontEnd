@@ -81,12 +81,12 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-<<<<<<< HEAD
     <NavigationContainer>
       <Stack.Navigator screensOption={{ headerShown: false }}>
+    
+      <Stack.Screen name="LandingPageScreen" component={LandingPageScreen} />
+      <Stack.Screen name="CreateProfilScreen" component={CreateProfilScreen} />
       <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
-        <Stack.Screen name="CreateProfilScreen" component={CreateProfilScreen} />
-        <Stack.Screen name="LandingPageScreen" component={LandingPageScreen} />
         <Stack.Screen name="TabNavigator" component={TabNavigator} />
         <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
         <Stack.Screen name="Semainier" component={SemainierScreen} />
@@ -94,21 +94,6 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
      </PersistGate>
-=======
-        <NavigationContainer>
-          <Stack.Navigator screensOption={{ headerShown: false }}>
-            <Stack.Screen
-              name="LandingPageScreen"
-              component={LandingPageScreen}
-            />
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
-            <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
-            <Stack.Screen name="Semainier" component={SemainierScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </PersistGate>
->>>>>>> front
     </Provider>
   );
 }
