@@ -18,18 +18,23 @@ import { addUsers, removeUsers } from "../reducers/users";
 const BACKEND_ADDRESS = 'http://10.2.1.16:3000'; //10.2.1.16
 
 export default function ConnexionScreen({ navigation }) {
+  const dispatch = useDispatch();
+  //HOOK D'ETAT
   const [prenom, setPrenom] = useState("");
   const [pseudo, setPseudo] = useState("");
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [mailError, setMailError] = useState(false);
-  const dispatch = useDispatch();
+
+  // regex pour la validation de l'email
+  const EMAIL_REGEX =
+  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   const letsGo = () => {
     const data = {
       mail: mail,
     };
- 
+  //  if(EMAIL_REGEX.test(mail)) {
     fetch("http://10.2.1.12:3000/users/verify", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -50,8 +55,13 @@ export default function ConnexionScreen({ navigation }) {
           navigation.navigate("CreateProfilScreen");
         }
       });
-  };
+    // }
+    // else{
+    //     setMailError(true);
+    // }
+};
 
+console.log(mailError);
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -91,20 +101,24 @@ export default function ConnexionScreen({ navigation }) {
             <View style={styles.content}>
               <Text style={styles.label}>Adresse mail</Text>
               <View style={styles.inputDiv}>
+              
                 <TextInput
                   placeholder="Adresse mail"
                   style={styles.input}
                   onChangeText={(e) => setMail(e)}
                 ></TextInput>
-                {mailError && (
-                  <Text style={{ color: "red" }}>Email déja utilisé </Text>
-                )}
+                {mailError && 
+                  <Text style={styles.error}>Format du mail invalide</Text>
+                }
+                
               </View>
             </View>
             <View style={styles.content}>
               <Text style={styles.label}>Mot de passe</Text>
               <View style={styles.inputDiv}>
                 <TextInput
+                secureTextEntry={true}
+                type="password"
                   placeholder="Mot de passe"
                   style={styles.input}
                   textContentType="password"
@@ -172,5 +186,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 20,
+  },
+  error: {
+    color: "red",
+    marginBottom: 10,
+    backgroundColor : "red"
   },
 });
