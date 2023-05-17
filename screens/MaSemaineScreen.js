@@ -1,17 +1,29 @@
 import { Button, StyleSheet, Text, View, SafeAreaView, ScrollView, TouchableOpacity, Switch, FlatList, Item, VirtualizedList} from "react-native";
 //import CheckBox from '@react-native-community/checkbox';
 import Checkbox from 'expo-checkbox';
+import { Picker } from "@react-native-picker/picker";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+//import "@fontsource/fredoka-one" 
+import { useFonts, FredokaOne_400Regular } from '@expo-google-fonts/fredoka-one';
+//import { useFonts } from 'expo-font';
+import * as Font from 'expo-font';
+
 
 
 //import des hooks d'effets
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
 // import des reducers
 import { decrement, increment } from '../reducers/counter';
 
+//import des screens pour la bottombar
+import AccueilScreen from "./AccueilScreen";
+import FavorisScreen from "./FavorisScreen";
+import ProfilsScreen from "./ProfilsScreen";
 
+const Tab = createBottomTabNavigator();
 
 
 const BACKEND_ADDRESS = 'http://10.2.0.221:3000';// exp://10.2.1.16:19000
@@ -24,6 +36,8 @@ const users = useSelector((state) => state.users.value);
 const [counterRepas, setCounterRepas] = useState();
 const counter = users.nbPersonne;
 const [isChecked, setChecked] = useState(false);
+const [nbPersonneSemaine, setNbPersonneSemaine] = useState("");// mettre nb personne enrgistré dans profil
+const pickerRef = useRef();
 
 // états pour le boutons switch/toggle Semaine
 const [isEnabledSemaine, setIsEnabledSemaine] = useState(false);
@@ -45,27 +59,51 @@ const decrementSubmit = () => {
     });
 };
 
+// {/* <TouchableOpacity style={styles.decrementBtn} onPress={() => decrementSubmit()}><Text>-</Text></TouchableOpacity>
+//         <Text className={styles.counter}></Text>
+//         <TouchableOpacity style={styles.incrementBtn}  onPress={() => dispatch(increment())}><Text>+</Text></TouchableOpacity> */}
 
 // useEffect(() => {
-
-
-//   fetch(`${BACKEND_ADDRESS}/places/${user.nickname}`)
+//   fetch(`http://10.2.0.221:3000/users/${users.token}`)
 //     .then((response) => response.json())
 //     .then((data) => {
-//       data.result && dispatch(importPlaces(data.places));
+//       console.log(data.user)
+//       setNbPersonneSemaine(nbPersonneSemaine)
 //     });
 // }, []);
 
-const counterR = () => {
-  fetch(`${BACKEND_ADDRESS}/nbPersonne/:token`)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data.nbPersonne)
-      //setCounterRepas(data.nbPersonne);
-    });
-};
+// useEffect(() => {
+//   fetch(`http://10.2.0.221:3000/users/nbPersonne/${users.token}`)
+//     .then((response) => response.json())
+//     .then((data) => {
+//       console.log(data)
+//       //setNbPersonneSemaine(nbPersonneSemaine)
+//     });
+// }, []);
+
+// var responseClone; // 1
+// fetch(`http://10.2.0.221:3000/users/${users.token}`)
+// .then(function (response) {
+//     responseClone = response.clone(); // 2
+//     return response.json();
+// })
+// .then(function (data) {
+//     // Do something with data
+// }, function (rejectionReason) { // 3
+//     console.log('Error parsing JSON from response:', rejectionReason, responseClone); // 4
+//     responseClone.text() // 5
+//     .then(function (bodyText) {
+//         console.log('Received the following instead of valid JSON:', bodyText); // 6
+//     });
+// });
 
 // dataList pour nb de personnes par repas
+
+let items = [];
+for (let i = 1; i < 11; i++) {
+  j = i.toString();
+  items.push(<Picker.Item key={j} label={j} value={j} />);
+}
 
   
   return (
@@ -86,51 +124,51 @@ const counterR = () => {
         <View style={styles.jour}>
         <Text style={styles.text}>Lundi :</Text>
 
-        <TouchableOpacity style={styles.decrementBtn} onPress={() => decrementSubmit()}><Text>-</Text></TouchableOpacity>
-        <Text className={styles.counter}>{counterR}</Text>
-        <TouchableOpacity style={styles.incrementBtn}  onPress={() => dispatch(increment())}><Text>+</Text></TouchableOpacity>
+        <Picker
+              ref={pickerRef}
+              selectedValue={nbPersonneSemaine}
+              onValueChange={(itemValue, itemIndex) => setNbPersonneSemaine(itemValue)}
+            >
+              {items}
+            </Picker>
+
+        
         </View>
         
         <View style={styles.rowCheckbox}>
           <View style={styles.containerCheckbox} >
         <Checkbox 
-       
+       style={styles.checkbox}
         disabled={false}
         value={isChecked} 
-        tintColors={{true: '#E4631B'}}
-        onCheckColor={'#E4631B'}
-        onValueChange={setChecked} />
+        onValueChange={setChecked}
+        color={isChecked ? '#E4631B' : undefined} />
 
 
         <Text>Midi</Text>
         </View>
         <View style={styles.containerCheckbox}> 
         <Checkbox 
-       
+       style={styles.checkbox}
         disabled={false}
         value={isChecked} 
-        tintColors={{true: '#E4631B'}}
-        onCheckColor={'#E4631B'}
-        onValueChange={setChecked} />
+        onValueChange={setChecked} 
+        color={isChecked ? '#E4631B' : undefined} />
         <Text>Soir</Text>
         </View>
 
         <View style={styles.containerCheckbox}>
         <Checkbox 
-       
+       style={styles.checkbox}
         disabled={false}
         value={isChecked} 
-        tintColors={{true: '#E4631B'}}
-        onCheckColor={'#E4631B'}
-        onValueChange={setChecked} />
+        onValueChange={setChecked} 
+        color={isChecked ? '#E4631B' : undefined} />
         <Text>Les 2</Text>
         </View>
         </View>
 
     
-
-
-
 
         <View style={styles.rowToggleWeekEnd}>
         <Text>WeekEnd</Text>
@@ -151,9 +189,41 @@ const counterR = () => {
         </View>
       </ScrollView>
 
+      <View style={styles.submitDiv}>
+              <TouchableOpacity
+                style={styles.submit}
+                onPress={() => planifionsSemaine()}
+              >
+                <Text styme={styles.buttonText}>Planifions ma semaine</Text>
+              </TouchableOpacity>
+            </View>
 
-
-      
+            <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ color, size }) => {
+          let iconName = "";
+          if (route.name === "Favoris") {
+            iconName = "heart-o";
+          } else if (route.name === "Accueil") {
+            iconName = "home";
+          } else if (route.name === "Profils") {
+            iconName = "user-circle";
+          }
+          return <FontAwesome name={iconName} size={size} color={color} />;
+        },
+        headerShown: false,
+        tabBarActiveTintColor: "#FDFEFE",
+        tabBarInactiveTintColor: "#979A9A",
+        tabBarLabelStyle: { color: "white" },
+        tabBarStyle: styleTabBar,
+        initialRouteName: "Ma Semaine",
+        tabBarBadgeStyle: { backgroundColor: "red" },
+      })}
+    >
+      <Tab.Screen name="Favoris" component={FavorisScreen} />
+      <Tab.Screen name="Accueil" component={AccueilScreen} />
+      <Tab.Screen name="Profils" component={ProfilsScreen} />
+    </Tab.Navigator>
     </SafeAreaView>
   );
 }
@@ -163,6 +233,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     //paddingTop: StatusBar.currentHeight,
+    justifyContent: 'center',
+    //alignItems: 'center',
   },
   rowToggleSemaine: {
     flexDirection: 'row',
@@ -218,5 +290,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     marginRight: 10,
-  }
+  },
+  submitDiv: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignSelf: "center",
+    alignItems: 'center',
+    marginTop: 60,
+    backgroundColor: '#E4631B',
+    fontFamily: 'Fredoka One',
+    fontSize: 20,
+    borderRadius: 10,
+    width: '90%',
+    height: '10%',
+    
+  },
+
+  buttonText: {
+    justifyContent: 'center',
+    alignSelf: "center",
+    alignItems: 'center',
+  },
 });

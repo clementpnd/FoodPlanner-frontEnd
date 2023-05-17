@@ -13,9 +13,10 @@ import {
   Keyboard,
 } from "react-native";
 import { useState } from "react";
+const BACKEND_ADDRESS = 'http://10.2.1.16:3000'; //10.2.1.16
 import { useDispatch, useSelector } from "react-redux";
 import { addUsers, removeUsers } from "../reducers/users";
-const BACKEND_ADDRESS = 'http://10.2.1.16:3000'; //10.2.1.16
+
 
 export default function ConnexionScreen({ navigation }) {
   const [prenom, setPrenom] = useState("");
