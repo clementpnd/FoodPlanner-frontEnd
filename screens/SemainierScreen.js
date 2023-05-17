@@ -12,43 +12,48 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useEffect, useState } from "react";
 
 export default function SemainierScreen({ navigation }) {
-  const [recetteData, setRecetteData] = useState({}); //variable d'état des recettes
+  //fonction pour basculer vers la page de suggestion
+  const handleSuggestion = () => {
+    navigation.navigate("Suggestion");
+  };
+  const [recetteData, setRecetteData] = useState([]); //variable d'état des recettes
+
   //fonction qui recupère les recettes en fonction du nombre de repas sélectionner
   useEffect(() => {
     fetch("http://10.2.0.221:3000/recettes")
       .then((response) => response.json())
       .then((data) => {
-        console.log("data", data);
-        // setRecetteData(data);
+        console.log(data.data);
+        setRecetteData(data.data);
       });
   }, []);
 
-  // const recetteAffichées = recetteData.map((data, i) => {
-  //   return (
-  //     <View style={styles.card}>
-  //       <ImageBackground
-  //         source={require("../assets/carottes.jpg")}
-  //         style={styles.imageCard}
-  //       >
-  //         <TouchableOpacity style={styles.recettefavorite}>
-  //           <FontAwesome name="heart-o" size={20} color="black" />
-  //         </TouchableOpacity>
-  //       </ImageBackground>
-  //       <View style={styles.text}>
-  //         <Text style={styles.title}>{data.nom}</Text>
-  //         <Text style={styles.desc}>{data.description}</Text>
-  //         <TouchableOpacity style={styles.modifierRecette}>
-  //           <FontAwesome name="gear" size={20} color="black" />
-  //         </TouchableOpacity>
-  //       </View>
-  //     </View>
-  //   );
-  // });
+  const recetteAffichées = recetteData.map((data, i) => {
+    return (
+      <View key={i} style={styles.card}>
+        <ImageBackground source={{ uri: data.image }} style={styles.imageCard}>
+          <TouchableOpacity style={styles.recettefavorite}>
+            <FontAwesome name="heart-o" size={20} color="black" />
+          </TouchableOpacity>
+        </ImageBackground>
+        <View style={styles.text}>
+          <Text style={styles.title}>{data.nom}</Text>
+          <Text style={styles.desc}>{data.description}</Text>
+        </View>
+        <TouchableOpacity
+          onPress={() => handleSuggestion()}
+          style={styles.modifierRecette}
+        >
+          <FontAwesome name="gear" size={20} color="black" />
+        </TouchableOpacity>
+      </View>
+    );
+  });
 
   return (
     <View style={styles.main}>
       <ScrollView>
-        <View style={styles.scrollContent}></View>
+        <View style={styles.scrollContent}>{recetteAffichées}</View>
       </ScrollView>
       <View style={styles.listeButton}>
         <TouchableOpacity style={styles.btn}>
@@ -71,7 +76,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
 
     width: 175,
-    height: 250,
+    height: 280,
     borderRadius: 4,
     backgroundColor: "green",
     margin: 6,
@@ -94,17 +99,17 @@ const styles = StyleSheet.create({
   },
   imageCard: {
     width: "100%",
-    height: 100,
+    height: 90,
     borderTopLeftRadius: 4,
     borderTopRightRadius: 4,
   },
-  title: { fontWeight: 900, fontSize: 20 },
+  title: { fontWeight: 900, fontSize: 19 },
   desc: { fontWeight: 300, fontSize: 10 },
   recettefavorite: { margin: 3 },
   text: { width: "100%", margin: 3 },
   modifierRecette: {
-    display: "flex",
-    alignItems: "flex-end",
-    marginTop: 50,
+    position: "absolute",
+    marginTop: 255,
+    paddingLeft: 150,
   },
 });
