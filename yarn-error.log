@@ -1,25 +1,29 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\Lempereur\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
+  C:\Program Files\nodejs\node.exe C:\Users\PC\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js start
 
 PATH: 
-  C:\Users\Lempereur\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Lempereur\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\TortoiseGit\bin;C:\ProgramData\ComposerSetup\bin;C:\wamp64\bin\php\php8.1.0;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\Users\Lempereur\AppData\Local\Microsoft\WindowsApps;C:\Users\Lempereur\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Lempereur\AppData\Roaming\Composer\vendor\bin;C:\wamp64\bin\php\php8.1.0\php.exe;C:\Users\Lempereur\AppData\Roaming\npm;C:\Program Files\nodejs;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+  C:\Users\PC\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\PC\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\dotnet;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Users\PC\AppData\Local\Programs\Python\Python311\Scripts;C:\Users\PC\AppData\Local\Programs\Python\Python311;C:\Users\PC\AppData\Local\Microsoft\WindowsApps;C:\Users\PC\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\PC\AppData\Roaming\npm;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
 
 Yarn version: 
   1.22.19
 
 Node version: 
-  19.4.0
+  18.15.0
 
 Platform: 
   win32 x64
 
 Trace: 
+<<<<<<< HEAD
   SyntaxError: C:\Users\Lempereur\Documents\Projet perso\foodPlanner\FoodPlanner-frontEnd\package.json: Expected double-quoted property name in JSON at position 522
+=======
+  SyntaxError: C:\Users\PC\Documents\Coding\LaCapsule23\FoodPlanner\FoodPlanner-frontEnd\package.json: Unexpected token < in JSON at position 522
+>>>>>>> b84848432eba2d09ff0a0a071f0601d2d36a3e7d
       at JSON.parse (<anonymous>)
-      at C:\Users\Lempereur\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1629:59
+      at C:\Users\PC\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1629:59
       at Generator.next (<anonymous>)
-      at step (C:\Users\Lempereur\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:310:30)
-      at C:\Users\Lempereur\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:321:13
+      at step (C:\Users\PC\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:310:30)
+      at C:\Users\PC\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:321:13
 
 npm manifest: 
   {
