@@ -33,6 +33,7 @@ import ConnexionScreen from "./screens/ConnexionScreen";
 import CreateProfilScreen from "./screens/CreateProfilScreen";
 import SemainierScreen from "./screens/SemainierScreen";
 import CameraScreen from "./screens/CameraScreen";
+import SuggestionScreen from "./screens/SuggestionScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -81,18 +82,25 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-    <NavigationContainer>
-      <Stack.Navigator screensOption={{ headerShown: false }}>
-        <Stack.Screen name="LandingPageScreen" component={LandingPageScreen} />
-        <Stack.Screen name="TabNavigator" component={TabNavigator} />
-        <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
-        <Stack.Screen name="CreateProfilScreen" component={CreateProfilScreen} />
-        <Stack.Screen name="CameraScreen" component={CameraScreen} />
-        <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
-        <Stack.Screen name="Semainier" component={SemainierScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-     </PersistGate>
+        <NavigationContainer>
+          <Stack.Navigator screensOption={{ headerShown: false }}>
+            <Stack.Screen
+              name="LandingPageScreen"
+              component={LandingPageScreen}
+            />
+            <Stack.Screen
+              name="CreateProfilScreen"
+              component={CreateProfilScreen}
+            />
+            <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
+
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
+            <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
+            <Stack.Screen name="Semainier" component={SemainierScreen} />
+            <Stack.Screen name="Suggestion" component={SuggestionScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 }
