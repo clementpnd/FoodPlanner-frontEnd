@@ -13,13 +13,10 @@ import {
   Keyboard,
 } from "react-native";
 import { useState } from "react";
-<<<<<<< HEAD
-const BACKEND_ADDRESS = 'http://10.2.1.16:3000'; //10.2.1.16
-=======
+const BACKEND_ADDRESS = "http://10.2.0.221:3000"; //10.2.1.16
 import { useDispatch, useSelector } from "react-redux";
 import { addUsers, removeUsers } from "../reducers/users";
 
->>>>>>> 67563129b29aabf19ed58dd4b4bec8eb5a10663c
 export default function ConnexionScreen({ navigation }) {
   const [prenom, setPrenom] = useState("");
   const [pseudo, setPseudo] = useState("");
@@ -32,7 +29,7 @@ export default function ConnexionScreen({ navigation }) {
     const data = {
       mail: mail,
     };
- 
+
     fetch("http://10.2.0.221:3000/users/verify", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
