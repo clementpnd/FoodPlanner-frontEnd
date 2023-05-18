@@ -13,14 +13,11 @@ import {
 import { useState } from "react";
 //import fontawesome pour les icones
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-<<<<<<< HEAD
 import { useDispatch } from "react-redux";
 import { addUsers } from "../reducers/users";
-=======
 //.env du front
 import { ADDRESSE_BACKEND } from "@env";
 import { Colors } from "react-native/Libraries/NewAppScreen";
->>>>>>> 813906a85e01507a8a0781ea13c34bfb5a8b9c8c
 
 export default function LandingPageScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -40,11 +37,7 @@ export default function LandingPageScreen({ navigation }) {
   //fonction qui gère la connexion de l'utilisateur
   const handleConnection = () => {
     if (EMAIL_REGEX.test(email)) {
-<<<<<<< HEAD
-      fetch("http://10.2.1.12:3000/users/signin", {
-=======
       fetch(`${ADDRESSE_BACKEND}/users/signin`, {
->>>>>>> 813906a85e01507a8a0781ea13c34bfb5a8b9c8c
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ mail: email, password: password }),
