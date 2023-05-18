@@ -41,24 +41,24 @@ export default function AccueilScreen({ navigation }) {
   }, []);
 
   //ajout des marqueurs graces aux données en dur récupéré via l'api du gouvernement sur le bio
-  const markers = apiData.map((data, i) => {
-    console.log(
-      "latitude: ",
-      data.items[i].adressesOperateurs[i].lat,
-      "longitude:",
-      data.items[i].adressesOperateurs[i].long
-    );
-    return (
-      <Marker
-        key={i}
-        coordinate={{
-          latitude: data.items[i].adressesOperateurs[i].lat,
-          longitude: data.items[i].adressesOperateurs[i].lon,
-          // title={data.items}
-        }}
-      />
-    );
-  });
+  // const markers = apiData.map((data, i) => {
+  //   console.log(
+  //     "latitude: ",
+  //     data.items[i].adressesOperateurs[i].lat,
+  //     "longitude:",
+  //     data.items[i].adressesOperateurs[i].long
+  //   );
+  //   return (
+  //     <Marker
+  //       key={i}
+  //       coordinate={{
+  //         latitude: data.items[i].adressesOperateurs[i].lat,
+  //         longitude: data.items[i].adressesOperateurs[i].lon,
+  //         // title={data.items}
+  //       }}
+  //     />
+  //   );
+  // });
 
   return (
     <View style={styles.main}>
@@ -81,7 +81,7 @@ export default function AccueilScreen({ navigation }) {
       <View style={styles.map}>
         <MapView region={currentPosition} style={styles.map}>
           {currentPosition && <Marker coordinate={currentPosition}></Marker>}
-          {markers}
+          {/* {markers} */}
         </MapView>
       </View>
     </View>

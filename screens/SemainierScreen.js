@@ -10,8 +10,12 @@ import {
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 //import des hooks
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addRecette, removeRecette } from "../reducers/recettes";
 
 export default function SemainierScreen({ navigation }) {
+
+  const dispatch = useDispatch();
   //fonction pour basculer vers la page de suggestion
   const handleSuggestion = () => {
     navigation.navigate("Suggestion");
@@ -20,7 +24,7 @@ export default function SemainierScreen({ navigation }) {
 
   //fonction qui recupère les recettes en fonction du nombre de repas sélectionner
   useEffect(() => {
-    fetch("http://10.2.0.221:3000/recettes")
+    fetch("http://10.2.1.12:3000/recettes")
       .then((response) => response.json())
       .then((data) => {
         console.log(data.data);
@@ -29,6 +33,7 @@ export default function SemainierScreen({ navigation }) {
   }, []);
 
   const recetteAffichées = recetteData.map((data, i) => {
+    dispatch(addRecette(data))
     return (
       <View key={i} style={styles.card}>
         <ImageBackground source={{ uri: data.image }} style={styles.imageCard}>

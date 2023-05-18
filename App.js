@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import users from "./reducers/users";
+import recettes from "./reducers/recettes";
 
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
@@ -13,7 +14,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import storage from "redux-persist/lib/types";
 
-const reducers = combineReducers({ users });
+const reducers = combineReducers({ users, recettes });
 const persistConfig = { key: "foodPlaner", storage: AsyncStorage };
 
 const store = configureStore({
@@ -84,6 +85,7 @@ export default function App() {
       <PersistGate persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator screensOption={{ headerShown: false }}>
+          <Stack.Screen name="Semainier" component={SemainierScreen} />
             <Stack.Screen
               name="LandingPageScreen"
               component={LandingPageScreen}
@@ -96,7 +98,6 @@ export default function App() {
 
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
-            <Stack.Screen name="Semainier" component={SemainierScreen} />
             <Stack.Screen name="Suggestion" component={SuggestionScreen} />
           </Stack.Navigator>
         </NavigationContainer>
