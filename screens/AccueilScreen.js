@@ -24,7 +24,7 @@ export default function AccueilScreen({ navigation }) {
       if (status === "granted") {
         Location.watchPositionAsync({ distanceInterval: 10 }, (location) => {
           setCurrentPosition(location.coords);
-          // fetchData();
+          fetchData();
         });
       }
     })();
@@ -42,20 +42,14 @@ export default function AccueilScreen({ navigation }) {
 
   //ajout des marqueurs graces aux données en dur récupéré via l'api du gouvernement sur le bio
   const markers = apiData.map((data, i) => {
-    console.log(
-      "latitude: ",
-      data.items[i].adressesOperateurs[i].lat,
-      "longitude:",
-      data.items[i].adressesOperateurs[i].long
-    );
     return (
       <Marker
         key={i}
         coordinate={{
-          latitude: data.items[i].adressesOperateurs[i].lat,
-          longitude: data.items[i].adressesOperateurs[i].lon,
-          // title={data.items}
+          latitude: data.adressesOperateurs[0].lat,
+          longitude: data.adressesOperateurs[0].long,
         }}
+        title={data.denominationcourante}
       />
     );
   });
@@ -80,7 +74,9 @@ export default function AccueilScreen({ navigation }) {
       </View>
       <View style={styles.map}>
         <MapView region={currentPosition} style={styles.map}>
-          {currentPosition && <Marker coordinate={currentPosition}></Marker>}
+          {currentPosition && (
+            <Marker coordinate={currentPosition} pinColor="blue"></Marker>
+          )}
           {markers}
         </MapView>
       </View>
