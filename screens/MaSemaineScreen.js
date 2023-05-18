@@ -7,16 +7,15 @@ import {
   ScrollView,
   TouchableOpacity,
   Switch,
-  FlatList,
   Item,
-  VirtualizedList,
 } from "react-native";
 //import CheckBox from '@react-native-community/checkbox';
-import Checkbox from "expo-checkbox";
+//import Checkbox from "expo-checkbox";
 //import { NativeBaseProvider, Checkbox } from "native-base";
-// import BouncyCheckboxGroup, {
-//   ICheckboxButton,
-// } from "react-native-bouncy-checkbox-group";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+import BouncyCheckboxGroup, {
+  ICheckboxButton,
+} from "react-native-bouncy-checkbox-group";
 //import SelectMultiple from 'react-native-select-multiple'
 import { Picker } from "@react-native-picker/picker";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -105,24 +104,24 @@ const [lundiRepas, setLundiRepas] = useState(false);
   //   setUserState({...userState, semaine})
   // }, [semaine])
 
-  // bouton ajout du repas dans la semaine
-  // const handleOnChange = () => {
-  //   fetch(`http://10.2.0.221:3000/users/newsemaine/${user.token}`, {
-  //     method: 'PUT',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({}),
-  //   })
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //       // Dispatch Redux store les repas choisis
-  //       if (data) {
-  //         //dispatch(addSemaine(jour: , midi: value , soir: repas: nbPersonneSemaine: nbPersonneSemaine))
-  //         setLundiMidi(!lundiMidi);
-  //         console.log(data)
-  //       };
-  //       }
-  //     );
-  // };
+  //bouton ajout du repas dans la semaine
+  const handleOnChange = () => {
+    fetch(`http://10.2.0.221:3000/users/newsemaine/${user.token}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({}),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        // Dispatch Redux store les repas choisis
+        if (data) {
+          //dispatch(addSemaine(jour: , midi: value , soir: repas: nbPersonneSemaine: nbPersonneSemaine))
+          setLundiMidi(!lundiMidi);
+          console.log(data)
+        };
+        }
+      );
+  };
 
   //effet pour le bouton favori si cliqué
   // let iconHeart = {};
@@ -134,61 +133,13 @@ const [lundiRepas, setLundiRepas] = useState(false);
   const [checkedList, setCheckedList] = useState([]);
   const [isChecked, setChecked] = useState(false);
 
-  const listData = [
+  const listDataLundi = [
     { id: "1", value: "Midi" },
     { id: "2", value: "Soir" },
     { id: "3", value: "les 2" },
   ];
 
-  let ICheckboxButton = [
-    {
-      id: 0,
-    },
-    {
-      id: 1,
-    },
-    {
-      id: 2,
-    },
-    {
-      id: 3,
-    },
-  ];
-
-  // const handleSelect = (event) => {
-  //   // const value = event.target.value;
-  //   // const isChecked = event.target.checked;
-
-  //   if (isChecked) {
-  //     //Add checked item into checkList
-  //     setCheckedList([...checkedList, value]);
-  //   } else {
-  //     //Remove unchecked item from checkList
-  //     const filteredList = checkedList.filter((item) => item !== value);
-  //     setCheckedList(filteredList);
-  //   }
-  // };
-
-  //   const masemainecheckedbox = listData.map((item, i) => {
-  //     return (
-
-  //           <View key={i} style={styles.containerCheckbox} >
-
-  //         <Checkbox
-  //        style={styles.checkbox}
-
-  //         value={item.value}
-  //         disabled={isDisabled}
-  //         onSelectionsChange={() => this.handleSelect}
-  //         //onChange={() => this.handleSelect}
-  //        //onValueChange={() => this.handleSelect}
-  //         color={item.value ? '#E4631B' : undefined} />
-
-  //         <Text>{item.value}</Text>
-  //         </View>
-
-  //         );
-  //   });
+  
 
   return (
     <SafeAreaView style={styles.container}>
@@ -219,12 +170,17 @@ const [lundiRepas, setLundiRepas] = useState(false);
         </View>
         <View style={styles.rowCheckbox}></View>
 
-        <BouncyCheckboxGroup
-        text={listData.value}
-       
-  data={listData}
- style={styles.checkbox}
-  onChange={() => {
+        <BouncyCheckboxGroup 
+        size={25}
+        fillColor="red"
+        unfillColor="#FFFFFF"
+        iconStyle={{ borderColor: "yellow" }}
+        innerIconStyle={{ borderWidth: 2 }}
+        textStyle={{ fontFamily: "JosefinSans-Regular" }}
+        text="checkbox"
+  data={listDataLundi}
+  onChange={(selectedItem: ICheckboxButton) => {
+    handleOnChange 
     console.log("SelectedItem: ", JSON.stringify(selectedItem));
   }}
 />
@@ -308,6 +264,7 @@ const styles = StyleSheet.create({
   checkbox: {
     alignSelf: "center",
     marginRight: 10,
+    fillColor: "blue",
   },
 
   rowToggleWeekEnd: {
