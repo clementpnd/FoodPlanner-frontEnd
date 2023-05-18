@@ -306,7 +306,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 60,
     backgroundColor: "#E4631B",
-    fontFamily: "Fredoka One",
+    fontFamily: "Fredoka",
     fontSize: 20,
     borderRadius: 10,
     width: "90%",

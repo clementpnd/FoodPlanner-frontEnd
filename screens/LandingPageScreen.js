@@ -7,6 +7,7 @@ import {
   View,
   Modal,
   TextInput,
+  KeyboardAvoidingView,
 } from "react-native";
 //import React
 import { useState } from "react";
@@ -14,6 +15,7 @@ import { useState } from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 //.env du front
 import { ADDRESSE_BACKEND } from "@env";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export default function LandingPageScreen({ navigation }) {
   const [isModalVisible, setIsModalVisible] = useState(false); // variable d'état qui gère la modale
@@ -97,7 +99,6 @@ export default function LandingPageScreen({ navigation }) {
                     value={password}
                   />
                 </View>
-
                 <TouchableOpacity
                   style={styles.connectButton}
                   onPress={() => handleConnection()}
@@ -130,7 +131,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logo: { width: 200, height: 200, borderRadius: 100, margin: 10 },
-  title: { fontSize: 70 },
+  title: {
+    display: "flex",
+    fontSize: 80,
+    fontWeight: 900,
+    fontFamily: "FredokaBold",
+    color: "#263238",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   buttonContainer: {
     display: "flex",
     justifyContent: "center",
@@ -139,31 +148,32 @@ const styles = StyleSheet.create({
     height: "5%",
     backgroundColor: "#E4631B",
     borderRadius: 4,
-    marginBottom: "5%",
+    marginBottom: 25,
   },
   connexionButton: {
     width: 300,
-    height: 35,
+    height: 45,
     justifyContent: "center",
     alignItems: "center",
   },
   inscriptionButton: {
     width: 300,
-    height: 35,
+    height: 45,
     justifyContent: "center",
     alignItems: "center",
   },
   centeredView: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    marginTop: 215,
     alignItems: "center",
-    marginTop: 22,
   },
   modalView: {
-    margin: 3,
     backgroundColor: "#ffff",
     borderRadius: 4,
-    padding: 10,
+    paddingTop: 30,
+    paddingBottom: 30,
+    paddingHorizontal: 10,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -175,24 +185,31 @@ const styles = StyleSheet.create({
     elevation: 15,
   },
   emailSection: {
+    fontFamily: "Fredoka",
     justifyContent: "center",
     backgroundColor: "rgba(239, 239, 239, 0.8)",
     width: 300,
     height: 40,
     borderRadius: 4,
+    marginTop: 5,
     marginBottom: 10,
   },
   passwordSection: {
+    fontFamily: "Fredoka",
     justifyContent: "center",
     backgroundColor: "rgba(239, 239, 239, 0.8)",
+    marginBottom: 20,
+    marginTop: 20,
     width: 300,
     height: 40,
     borderRadius: 4,
   },
   input: {
+    fontFamily: "Fredoka",
     color: "black",
   },
   connectButton: {
+    fontFamily: "Fredoka",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -204,9 +221,9 @@ const styles = StyleSheet.create({
   },
   closebutton: {
     marginLeft: 260,
-    marginBottom: 15,
   },
   error: {
+    fontFamily: "Fredoka",
     color: "red",
     marginBottom: 10,
   },

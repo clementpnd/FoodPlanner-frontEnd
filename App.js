@@ -12,6 +12,8 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import storage from "redux-persist/lib/types";
+//import du hook pour les fonts
+import { useFonts } from "expo-font";
 
 const reducers = combineReducers({ users });
 const persistConfig = { key: "foodPlaner", storage: AsyncStorage };
@@ -38,10 +40,6 @@ import SuggestionScreen from "./screens/SuggestionScreen";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-/**Logo  */
-//heart : heart-o/
-//Home : home
-//
 styleTabBar = {
   backgroundColor: "#E4631B",
   borderTopLeftRadius: 8,
@@ -79,15 +77,24 @@ const TabNavigator = () => {
   );
 };
 export default function App() {
+  //utilisation des fonts
+  const [loaded] = useFonts({
+    Fredoka: require("./assets/fonts/Fredoka-Regular.ttf"),
+    FredokaBold: require("./assets/fonts/Fredoka_Condensed-Bold.ttf"),
+  });
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <NavigationContainer>
-          <Stack.Navigator screensOption={{ headerShown: false }}>
-            <Stack.Screen
-              name="LandingPageScreen"
-              component={LandingPageScreen}
-            />
+          <Stack.Navigator
+            screensOption={{ headerShown: false }}
+            // headerMode={false}
+          >
+            <Stack.Screen name=" " component={LandingPageScreen} />
             <Stack.Screen
               name="CreateProfilScreen"
               component={CreateProfilScreen}

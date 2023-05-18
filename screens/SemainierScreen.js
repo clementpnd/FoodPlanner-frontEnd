@@ -35,7 +35,10 @@ export default function SemainierScreen({ navigation }) {
     return (
       <View key={i} style={styles.card}>
         <ImageBackground source={{ uri: data.image }} style={styles.imageCard}>
-          <TouchableOpacity style={styles.recettefavorite}>
+          <TouchableOpacity
+            style={styles.recettefavorite}
+            onPress={() => console.log(data._id)}
+          >
             <FontAwesome name="heart-o" size={20} color="black" />
           </TouchableOpacity>
         </ImageBackground>
