@@ -10,18 +10,16 @@ import {
 } from "react-native";
 import { useState, useRef, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUsers, removeUsers } from "../reducers/users";
-
+//import de .env front
+import { ADDRESSE_BACKEND } from "@env";
 
 export default function CreateProfilScreen({ navigation }) {
   const user = useSelector((state) => state.users.value);
 
-  const [userState, setUserState] = useState({...user});
+  const [userState, setUserState] = useState({ ...user });
   const dispatch = useDispatch();
-
-
-
 
   //HOOK D'ETAT
   const [aucun, setAucun] = useState(false);
@@ -44,32 +42,38 @@ export default function CreateProfilScreen({ navigation }) {
   };
 
   ///HOOK D'EFFET
-  useEffect(() =>{
-    setUserState({...userState, preference : preference, nbPersonne : nbPersonne})
-  }, [preference, nbPersonne])
-
+  useEffect(() => {
+    setUserState({
+      ...userState,
+      preference: preference,
+      nbPersonne: nbPersonne,
+    });
+  }, [preference, nbPersonne]);
 
   const preference = [];
-  vege ===true ? preference.push("vege") : preference.filter(d => d !== vege);
-  hallal ===true ? preference.push("hallal") : preference.filter(d => d !== hallal);
-  kasher ===true ? preference.push("kasher") : preference.filter(d => d !== kasher);
-  
+  vege === true
+    ? preference.push("vege")
+    : preference.filter((d) => d !== vege);
+  hallal === true
+    ? preference.push("hallal")
+    : preference.filter((d) => d !== hallal);
+  kasher === true
+    ? preference.push("kasher")
+    : preference.filter((d) => d !== kasher);
 
   const planifionsSemaine = () => {
-    
-    fetch("http://10.2.1.12:3000/users/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userState),
-      })
+    fetch(`${ADDRESSE_BACKEND}/users/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userState),
+    })
       .then((response) => response.json())
       .then((data) => {
-        if(data.result){
-          navigation.navigate("TabNavigator", { screen: "Accueil" })
+        if (data.result) {
+          navigation.navigate("TabNavigator", { screen: "Accueil" });
         }
-      })
-    };
-
+      });
+  };
 
   //////VARIABLE
   items = [];
@@ -78,23 +82,21 @@ export default function CreateProfilScreen({ navigation }) {
     items.push(<Picker.Item label={j} value={j} />);
   }
 
-      let image = require("../assets/User.png");
+  let image = require("../assets/User.png");
 
-if(user.photoProfil !==undefined ){
-    image = {uri :user.photoProfil}
-    if(!userState.photoProfil){
-      setUserState({...userState, photoProfil : user.photoProfil})
+  if (user.photoProfil !== undefined) {
+    image = { uri: user.photoProfil };
+    if (!userState.photoProfil) {
+      setUserState({ ...userState, photoProfil: user.photoProfil });
     }
   }
-
- 
 
   return (
     <View style={styles.container}>
       <View style={styles.imgDiv}>
         <Image source={image} style={styles.img} />
         <TouchableOpacity onPress={() => camera()} style={styles.pictureButton}>
-        <Text style={styles.picturesText}>Take pictures</Text>
+          <Text style={styles.picturesText}>Take pictures</Text>
         </TouchableOpacity>
         <Text style={styles.slogan}>Apprenons à nous connaitre</Text>
       </View>
@@ -172,16 +174,16 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   pictureButton: {
-    marginTop : 10,
+    marginTop: 10,
     width: 130,
     height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(228, 99, 27, 0.6)',
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(228, 99, 27, 0.6)",
     borderRadius: 10,
   },
-  picturesText : {
-    fontSize : 20,
+  picturesText: {
+    fontSize: 20,
   },
   slogan: {
     fontSize: 25,

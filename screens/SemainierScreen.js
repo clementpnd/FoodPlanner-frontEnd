@@ -11,6 +11,9 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 //import des hooks
 import { useEffect, useState } from "react";
 
+//import de .env front
+import { ADDRESSE_BACKEND } from "@env";
+
 export default function SemainierScreen({ navigation }) {
   //fonction pour basculer vers la page de suggestion
   const handleSuggestion = () => {
@@ -20,7 +23,7 @@ export default function SemainierScreen({ navigation }) {
 
   //fonction qui recupère les recettes en fonction du nombre de repas sélectionner
   useEffect(() => {
-    fetch("http://10.2.0.221:3000/recettes")
+    fetch(`${ADDRESSE_BACKEND}/recettes`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data.data);

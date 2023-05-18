@@ -12,6 +12,8 @@ import {
 import { useState } from "react";
 //import fontawesome pour les icones
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+//.env du front
+import { ADDRESSE_BACKEND } from "@env";
 
 export default function LandingPageScreen({ navigation }) {
   const [isModalVisible, setIsModalVisible] = useState(false); // variable d'état qui gère la modale
@@ -26,11 +28,11 @@ export default function LandingPageScreen({ navigation }) {
   let showModal = () => {
     setIsModalVisible(true);
   };
- 
+
   //fonction qui gère la connexion de l'utilisateur
   const handleConnection = () => {
     if (EMAIL_REGEX.test(email)) {
-      fetch("http://10.2.0.221:3000/users/signin", {
+      fetch(`${ADDRESSE_BACKEND}/users/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ mail: email, password: password }),

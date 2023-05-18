@@ -35,7 +35,8 @@ import ProfilsScreen from "./ProfilsScreen";
 
 const Tab = createBottomTabNavigator();
 
-const BACKEND_ADDRESS = "http://10.2.0.221:3000"; // exp://10.2.1.16:19000
+//import de .env front
+import { ADDRESSE_BACKEND } from "@env";
 
 export default function MaSemaineScreen({ navigation }) {
   //fonction counter avec reducer nb de personnes par repas
@@ -58,7 +59,7 @@ export default function MaSemaineScreen({ navigation }) {
 
   // fetch nb de personnes enregistrées dans Profil
   const decrementSubmit = () => {
-    fetch(`${BACKEND_ADDRESS}/nbPersonne/:token`)
+    fetch(`${ADDRESSE_BACKEND}/nbPersonne/:token`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -76,7 +77,7 @@ export default function MaSemaineScreen({ navigation }) {
   //         <TouchableOpacity style={styles.incrementBtn}  onPress={() => dispatch(increment())}><Text>+</Text></TouchableOpacity> */}
 
   // useEffect(() => {
-  //   fetch(`http://10.2.0.221:3000/users/${users.token}`)
+  //   fetch(`${ADDRESSE_BACKEND}`/${users.token}`)
   //     .then((response) => response.json())
   //     .then((data) => {
   //       console.log(data.user)
@@ -85,7 +86,7 @@ export default function MaSemaineScreen({ navigation }) {
   // }, []);
 
   // useEffect(() => {
-  //   fetch(`http://10.2.0.221:3000/users/nbPersonne/${users.token}`)
+  //   fetch(`${ADDRESSE_BACKEND}`/users/nbPersonne/${users.token}`)
   //     .then((response) => response.json())
   //     .then((data) => {
   //       console.log(data)
@@ -94,7 +95,7 @@ export default function MaSemaineScreen({ navigation }) {
   // }, []);
 
   // var responseClone; // 1
-  // fetch(`http://10.2.0.221:3000/users/${users.token}`)
+  // fetch(`${ADDRESSE_BACKEND}`/users/${users.token}`)
   // .then(function (response) {
   //     responseClone = response.clone(); // 2
   //     return response.json();

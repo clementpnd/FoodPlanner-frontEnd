@@ -13,10 +13,10 @@ import {
   Keyboard,
 } from "react-native";
 import { useState } from "react";
-const BACKEND_ADDRESS = 'http://10.2.1.16:3000'; //10.2.1.16
 import { useDispatch, useSelector } from "react-redux";
 import { addUsers, removeUsers } from "../reducers/users";
-
+//import de .env front
+import { ADDRESSE_BACKEND } from "@env";
 
 export default function ConnexionScreen({ navigation }) {
   const [prenom, setPrenom] = useState("");
@@ -30,8 +30,8 @@ export default function ConnexionScreen({ navigation }) {
     const data = {
       mail: mail,
     };
- 
-    fetch("http://10.2.1.12:3000/users/verify", {
+
+    fetch(`${ADDRESSE_BACKEND}/users/verify"`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -66,8 +66,10 @@ export default function ConnexionScreen({ navigation }) {
                 source={require("../assets/logo.jpg")}
                 style={styles.logo}
               />
-        <Button title="remove" onPress={() => dispatch(removeUsers())}></Button>
-
+              <Button
+                title="remove"
+                onPress={() => dispatch(removeUsers())}
+              ></Button>
             </View>
             <View style={styles.content}>
               <Text style={styles.label}>Prenom</Text>
