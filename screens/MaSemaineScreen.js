@@ -42,7 +42,6 @@ import ProfilsScreen from "./ProfilsScreen";
 
 const Tab = createBottomTabNavigator();
 
-const BACKEND_ADDRESS = "http://10.2.0.221:3000"; // exp://10.2.1.16:19000
 //import de .env front
 import { ADDRESSE_BACKEND } from "@env";
 
@@ -79,17 +78,28 @@ export default function MaSemaineScreen({ navigation }) {
       });
   }, []);
 
-  // dataList pour nb de personnes par repas
-  let items = [];
-  for (let i = 1; i < 11; i++) {
-    j = i.toString();
-    items.push(<Picker.Item key={j} label={j} value={j} />);
-  }
+// fetch nb de personnes enregistrées dans Profil
+useEffect(() => {
+  fetch(`${ADDRESSE_BACKEND}/users/nbPersonne/${user.token}`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(user.token)
+      console.log(data)
+      setNbPersonneSemaine(nbPersonneSemaine)
+    });
+}, []);
 
-  //variables d'état pour chaquejour/ chaque repas
-  const [lundiMidi, setLundiMidi] = useState(false);
-  const [lundiSoir, setLundiSoir] = useState(false);
-  const [lundiRepas, setLundiRepas] = useState(false);
+// dataList pour nb de personnes par repas
+let items = [];
+for (let i = 1; i < 11; i++) {
+  j = i.toString();
+  items.push(<Picker.Item key={j} label={j} value={j} />);
+}
+
+//variables d'état pour chaquejour/ chaque repas
+const [lundiMidi, setLundiMidi] = useState(false);
+const [lundiSoir, setLundiSoir] = useState(false);
+const [lundiRepas, setLundiRepas] = useState(false);
 
   // useEffect(() =>{
   //   setUserState({...userState, semaine})
@@ -210,10 +220,15 @@ export default function MaSemaineScreen({ navigation }) {
         <View style={styles.rowCheckbox}></View>
 
         <BouncyCheckboxGroup
-          text={listData.value}
-          data={listData}
-          style={{ flexDirection: "column" }}
-        />
+        text={listData.value}
+       
+  data={listData}
+ style={styles.checkbox}
+  onChange={() => {
+    console.log("SelectedItem: ", JSON.stringify(selectedItem));
+  }}
+/>
+      
 
         <View style={styles.rowToggleWeekEnd}>
           <Text>WeekEnd</Text>
