@@ -31,6 +31,7 @@ export default function SuggestionScreen({ navigation }) {
     })
       .then((response) => response.json())
       .then((data) => {
+        
         setRecetteSuggerer(data.responseRecette);
         if (data.pref) {
           setHavePref(true);
