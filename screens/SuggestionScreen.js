@@ -8,8 +8,20 @@ export default function SuggestionScreen({ navigation }) {
   const dispatch = useDispatch();
 
   console.log("redux", recettes);
-  <View>
+  return(
+
+  <View style={styles.container}>
     <Text>Suggestion</Text>
     <Button  title ="remove" onPress={() =>dispatch(removeAllRecette())}/>
-  </View>;
+  </View>
+  )
 }
+
+const styles = StyleSheet.create({
+  container : {
+    width : "100%",
+    flex: 1,
+    justifyContent : "center",
+    alignItems: "center", 
+  }
+})

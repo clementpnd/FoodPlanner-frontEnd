@@ -26,8 +26,9 @@ export default function CreateProfilScreen({ navigation }) {
   //HOOK D'ETAT
   const [aucun, setAucun] = useState(false);
   const [vege, setVege] = useState(false);
-  const [hallal, setHallal] = useState(false);
-  const [kasher, setKasher] = useState(false);
+  const [poulet, setPoulet] = useState(false);
+  const [poisson, setPoisson] = useState(false);
+  const [feculent, setFeculent] = useState(false);
   const [nbPersonne, setNbPersonne] = useState("1");
   ///
   const pickerRef = useRef();
@@ -35,8 +36,9 @@ export default function CreateProfilScreen({ navigation }) {
   //   FUNCTION
   const disabled = () => {
     setVege(false);
-    setHallal(false);
-    setKasher(false);
+    setPoulet(false);
+    setPoisson(false);
+    setFeculent(false);
     setAucun(!aucun);
   };
   const camera = () => {
@@ -45,14 +47,17 @@ export default function CreateProfilScreen({ navigation }) {
 
   ///HOOK D'EFFET
   useEffect(() =>{
+    console.log("useEffect", preference)
     setUserState({...userState, preference : preference, nbPersonne : nbPersonne})
+    console.log(("userState", userState))
   }, [preference, nbPersonne])
 
 
   const preference = [];
   vege ===true ? preference.push("vege") : preference.filter(d => d !== vege);
-  hallal ===true ? preference.push("hallal") : preference.filter(d => d !== hallal);
-  kasher ===true ? preference.push("kasher") : preference.filter(d => d !== kasher);
+  poulet ===true ? preference.push("poulet") : preference.filter(d => d !== poulet);
+  poisson ===true ? preference.push("poisson") : preference.filter(d => d !== poisson);
+  feculent ===true ? preference.push("feculent") : preference.filter(d => d !== feculent);
   
 
   const planifionsSemaine = () => {
@@ -116,19 +121,27 @@ if(user.photoProfil !==undefined ){
             />
           </View>
           <View style={styles.regime}>
-            <Text>Hallal</Text>
+            <Text>poulet</Text>
             <Switch
-              value={hallal}
+              value={poulet}
               disabled={aucun}
-              onValueChange={() => setHallal(!hallal)}
+              onValueChange={() => setPoulet(!poulet)}
             />
           </View>
           <View style={styles.regime}>
-            <Text>Kasher</Text>
+            <Text>poisson</Text>
             <Switch
-              value={kasher}
+              value={poisson}
               disabled={aucun}
-              onValueChange={() => setKasher(!kasher)}
+              onValueChange={() => setPoisson(!poisson)}
+            />
+          </View>
+          <View style={styles.regime}>
+            <Text>feculent</Text>
+            <Switch
+              value={feculent}
+              disabled={aucun}
+              onValueChange={() => setFeculent(!feculent)}
             />
           </View>
           <View style={styles.personneDiv}>

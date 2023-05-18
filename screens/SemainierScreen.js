@@ -27,7 +27,6 @@ export default function SemainierScreen({ navigation }) {
     fetch("http://10.2.1.12:3000/recettes")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.data);
         setRecetteData(data.data);
       });
   }, []);
