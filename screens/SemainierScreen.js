@@ -13,6 +13,9 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addRecette, removeRecette } from "../reducers/recettes";
 
+//import de .env front
+import { ADDRESSE_BACKEND } from "@env";
+
 export default function SemainierScreen({ navigation }) {
 
   const dispatch = useDispatch();
@@ -24,7 +27,11 @@ export default function SemainierScreen({ navigation }) {
 
   //fonction qui recupère les recettes en fonction du nombre de repas sélectionner
   useEffect(() => {
+<<<<<<< HEAD
     fetch("http://10.2.1.12:3000/recettes")
+=======
+    fetch(`${ADDRESSE_BACKEND}/recettes`)
+>>>>>>> 813906a85e01507a8a0781ea13c34bfb5a8b9c8c
       .then((response) => response.json())
       .then((data) => {
         setRecetteData(data.data);
@@ -36,7 +43,10 @@ export default function SemainierScreen({ navigation }) {
     return (
       <View key={i} style={styles.card}>
         <ImageBackground source={{ uri: data.image }} style={styles.imageCard}>
-          <TouchableOpacity style={styles.recettefavorite}>
+          <TouchableOpacity
+            style={styles.recettefavorite}
+            onPress={() => console.log(data._id)}
+          >
             <FontAwesome name="heart-o" size={20} color="black" />
           </TouchableOpacity>
         </ImageBackground>

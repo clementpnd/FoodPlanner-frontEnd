@@ -1,23 +1,13 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 //import des hooks d'effets
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import React from "react";
-
-//import des fonctions du reducer
-// import { addPlace, importPlaces } from "../reducers/users";
-
 //import du module map
 import MapView, { Marker } from "react-native-maps";
 //import du module de geoloc
 import * as Location from "expo-location";
 
 export default function AccueilScreen({ navigation }) {
-  const mapRef = React.createRef();
-
-  // const dispatch = useDispatch();
-  // const user = useSelector((state) => state.user.value);
-
   const [currentPosition, setCurrentPosition] = useState({
     latitude: 44,
     longitude: 5,
@@ -25,8 +15,6 @@ export default function AccueilScreen({ navigation }) {
     longitudeDelta: 0.01,
   }); //variable d'état de location de l'utilisateur
   const [apiData, setApiData] = useState([]); //variable d'état qui recupère les données de l'api
-
-  // const [tempCoordinates, setTempCoordinates] = useState(null); //varaible d'état pour gérer les marqueurs
 
   //Attente d'autorisation de la géoloc
   useEffect(() => {
@@ -95,6 +83,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-around",
     alignItems: "center",
+    fontFamily: "Fredoka",
   },
   semaineEnCours: {
     display: "flex",
