@@ -47,9 +47,7 @@ export default function CreateProfilScreen({ navigation }) {
 
   ///HOOK D'EFFET
   useEffect(() =>{
-    console.log("useEffect", preference)
     setUserState({...userState, preference : preference, nbPersonne : nbPersonne})
-    console.log(("userState", userState))
   }, [preference, nbPersonne])
 
 
@@ -58,6 +56,7 @@ export default function CreateProfilScreen({ navigation }) {
   poulet ===true ? preference.push("poulet") : preference.filter(d => d !== poulet);
   poisson ===true ? preference.push("poisson") : preference.filter(d => d !== poisson);
   feculent ===true ? preference.push("feculent") : preference.filter(d => d !== feculent);
+  console.log(preference)
   
 
   const planifionsSemaine = () => {

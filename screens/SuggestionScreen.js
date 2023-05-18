@@ -5,6 +5,10 @@ export default function SuggestionScreen({ navigation }) {
 
   const recettes = useSelector((state) => state.recettes.value);
 
+  const user = useSelector((state) => state.users.value);
+
+  console.log(user);
+
   const dispatch = useDispatch();
 
   console.log("redux", recettes);
