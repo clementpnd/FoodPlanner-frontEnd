@@ -53,24 +53,12 @@ export default function CreateProfilScreen({ navigation }) {
   }, [preference, nbPersonne]);
 
   const preference = [];
-<<<<<<< HEAD
   vege ===true ? preference.push("vege") : preference.filter(d => d !== vege);
   poulet ===true ? preference.push("poulet") : preference.filter(d => d !== poulet);
   poisson ===true ? preference.push("poisson") : preference.filter(d => d !== poisson);
   feculent ===true ? preference.push("feculent") : preference.filter(d => d !== feculent);
   console.log(preference)
   
-=======
-  vege === true
-    ? preference.push("vege")
-    : preference.filter((d) => d !== vege);
-  hallal === true
-    ? preference.push("hallal")
-    : preference.filter((d) => d !== hallal);
-  kasher === true
-    ? preference.push("kasher")
-    : preference.filter((d) => d !== kasher);
->>>>>>> 813906a85e01507a8a0781ea13c34bfb5a8b9c8c
 
   const planifionsSemaine = () => {
     fetch(`${ADDRESSE_BACKEND}/users/signup`, {

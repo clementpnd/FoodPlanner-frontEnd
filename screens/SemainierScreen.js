@@ -27,11 +27,7 @@ export default function SemainierScreen({ navigation }) {
 
   //fonction qui recupère les recettes en fonction du nombre de repas sélectionner
   useEffect(() => {
-<<<<<<< HEAD
-    fetch("http://10.2.1.12:3000/recettes")
-=======
     fetch(`${ADDRESSE_BACKEND}/recettes`)
->>>>>>> 813906a85e01507a8a0781ea13c34bfb5a8b9c8c
       .then((response) => response.json())
       .then((data) => {
         setRecetteData(data.data);
