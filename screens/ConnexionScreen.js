@@ -13,10 +13,10 @@ import {
   Keyboard,
 } from "react-native";
 import { useState } from "react";
-const BACKEND_ADDRESS = 'http://10.2.1.16:3000'; //10.2.1.16
 import { useDispatch, useSelector } from "react-redux";
 import { addUsers, removeUsers } from "../reducers/users";
-
+//import de .env front
+import { ADDRESSE_BACKEND } from "@env";
 
 export default function ConnexionScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -29,14 +29,14 @@ export default function ConnexionScreen({ navigation }) {
 
   // regex pour la validation de l'email
   const EMAIL_REGEX =
-  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   const letsGo = () => {
     const data = {
       mail: mail,
     };
-  //  if(EMAIL_REGEX.test(mail)) {
-    fetch("http://10.2.1.12:3000/users/verify", {
+
+    fetch(`${ADDRESSE_BACKEND}/users/verify"`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -60,9 +60,9 @@ export default function ConnexionScreen({ navigation }) {
     // else{
     //     setMailError(true);
     // }
-};
+  };
 
-console.log(mailError);
+  console.log(mailError);
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -76,8 +76,10 @@ console.log(mailError);
                 source={require("../assets/logo.jpg")}
                 style={styles.logo}
               />
-        <Button title="remove" onPress={() => dispatch(removeUsers())}></Button>
-
+              <Button
+                title="remove"
+                onPress={() => dispatch(removeUsers())}
+              ></Button>
             </View>
             <View style={styles.content}>
               <Text style={styles.label}>Prenom</Text>
@@ -102,24 +104,22 @@ console.log(mailError);
             <View style={styles.content}>
               <Text style={styles.label}>Adresse mail</Text>
               <View style={styles.inputDiv}>
-              
                 <TextInput
                   placeholder="Adresse mail"
                   style={styles.input}
                   onChangeText={(e) => setMail(e)}
                 ></TextInput>
-                {mailError && 
+                {mailError && (
                   <Text style={styles.error}>Format du mail invalide</Text>
-                }
-                
+                )}
               </View>
             </View>
             <View style={styles.content}>
               <Text style={styles.label}>Mot de passe</Text>
               <View style={styles.inputDiv}>
                 <TextInput
-                secureTextEntry={true}
-                type="password"
+                  secureTextEntry={true}
+                  type="password"
                   placeholder="Mot de passe"
                   style={styles.input}
                   textContentType="password"
@@ -191,6 +191,6 @@ const styles = StyleSheet.create({
   error: {
     color: "red",
     marginBottom: 10,
-    backgroundColor : "red"
+    backgroundColor: "red",
   },
 });
