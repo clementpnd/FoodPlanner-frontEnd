@@ -36,7 +36,7 @@ export default function AccueilScreen({ navigation }) {
       if (status === "granted") {
         Location.watchPositionAsync({ distanceInterval: 10 }, (location) => {
           setCurrentPosition(location.coords);
-          fetchData();
+          // fetchData();
         });
       }
     })();

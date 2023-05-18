@@ -12,8 +12,11 @@ import {
 import { useState } from "react";
 //import fontawesome pour les icones
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { useDispatch } from "react-redux";
+import { addUsers } from "../reducers/users";
 
 export default function LandingPageScreen({ navigation }) {
+  const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false); // variable d'état qui gère la modale
   const [email, setEmail] = useState(""); //variable d'état pour le mail
   const [password, setPassword] = useState(""); //variable d'état pour le mdp
@@ -41,6 +44,11 @@ export default function LandingPageScreen({ navigation }) {
             setEmail("");
             setPassword("");
             setIsModalVisible(false);
+            console.log(data);
+            user={
+              token : data.token
+            }
+            dispatch(addUsers(user));
             navigation.navigate("TabNavigator", { screen: "Accueil" });
           }
         });
