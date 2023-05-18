@@ -32,7 +32,6 @@ import ProfilsScreen from "./ProfilsScreen";
 const Tab = createBottomTabNavigator();
 
 
-const BACKEND_ADDRESS = 'http://10.2.0.221:3000';// exp://10.2.1.16:19000
 //import de .env front
 import { ADDRESSE_BACKEND } from "@env";
 
@@ -59,7 +58,7 @@ const toggleSwitchWeekEnd= () => setIsEnabledWeekEnd(previousState => !previousS
 
 // fetch nb de personnes enregistrées dans Profil
 useEffect(() => {
-  fetch(`http://10.2.0.221:3000/users/nbPersonne/${user.token}`)
+  fetch(`${ADDRESSE_BACKEND}/users/nbPersonne/${user.token}`)
     .then((response) => response.json())
     .then((data) => {
       console.log(user.token)
@@ -216,7 +215,7 @@ let ICheckboxButton = [
         text={listData.value}
        
   data={listData}
-  style={{ flexDirection: "column" }}
+ style={styles.checkbox}
   onChange={(selectedItem: ICheckboxButton) => {
     console.log("SelectedItem: ", JSON.stringify(selectedItem));
   }}
