@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from "react";
-import { Text, View, StyleSheet, ScrollView } from "react-native";
+import { Text, View, StyleSheet, ScrollView, Image } from "react-native";
 import { ADDRESSE_BACKEND } from "@env";
 import { useSelector } from "react-redux";
 
@@ -15,13 +15,14 @@ function FavorisRecettes() {
   };
 
   useEffect(() => {
-    affichageRecetteFavorite(recetteToDisplay);
+    affichageRecetteFavorite();
   }, []);
 
   // console.log("varible d etat : ", recetteToDisplay);
   const displayedRecette = recetteToDisplay.map((data, i) => {
     return (
       <View key={i} style={styles.card}>
+        <Image source={{ uri: data.image }} style={styles.imageCard}></Image>
         <Text>{data.title}</Text>
         <Text>{data.description}</Text>
       </View>
@@ -54,6 +55,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     borderRadius: 4,
+  },
+  imageCard: {
+    width: "100%",
+    height: 90,
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 4,
   },
 });
 

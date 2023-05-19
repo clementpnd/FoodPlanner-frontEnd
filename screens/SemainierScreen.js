@@ -17,7 +17,6 @@ import { addRecette, removeRecette } from "../reducers/recettes";
 import { ADDRESSE_BACKEND } from "@env";
 
 export default function SemainierScreen({ navigation }) {
-
   const dispatch = useDispatch();
   //fonction pour basculer vers la page de suggestion
   const handleSuggestion = () => {
@@ -35,14 +34,11 @@ export default function SemainierScreen({ navigation }) {
   }, []);
 
   const recetteAffichées = recetteData.map((data, i) => {
-    dispatch(addRecette(data))
+    dispatch(addRecette(data));
     return (
       <View key={i} style={styles.card}>
         <ImageBackground source={{ uri: data.image }} style={styles.imageCard}>
-          <TouchableOpacity
-            style={styles.recettefavorite}
-            onPress={() => console.log(data._id)}
-          >
+          <TouchableOpacity style={styles.recettefavorite}>
             <FontAwesome name="heart-o" size={20} color="black" />
           </TouchableOpacity>
         </ImageBackground>
