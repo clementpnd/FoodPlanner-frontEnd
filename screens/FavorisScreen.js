@@ -1,45 +1,89 @@
-import { Button, StyleSheet, Text, View } from "react-native";
-import { Carousel, Radio } from "antd";
+import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useState } from "react";
+//import des composants
+import FavorisRecettes from "../components/FavorisRecettes";
+import FavorisSemaine from "../components/favorisSemaine";
 
 export default function FavorisScreen({ navigation }) {
-  const [dotPosition, setDotPosition] = useState("bottom");
-  const handlePositionChange = ({ target: { value } }) => {
-    setDotPosition(value);
+  const [recetteActive, setRecetteActive] = useState(true); //variable d'état pour gérer l'affichage du composant recette
+  const [semaineActive, setSemaineActive] = useState(false); //variable d'état pour gérer l'affichage du composant semaine
+
+  //au clic sur le bouton recette
+  const handleRecetteClick = () => {
+    setRecetteActive(true);
+    setSemaineActive(false);
+  };
+  //au click sur le bouton semaine
+  const handleSemaineClick = () => {
+    setRecetteActive(false);
+    setSemaineActive(true);
+  };
+
+  const affichage = () => {
+    if (recetteActive === true) {
+      return <FavorisRecettes />;
+    } else {
+      return <FavorisSemaine />;
+    }
   };
 
   return (
-    <View>
-      <Radio.Group
-        onChange={handlePositionChange}
-        value={dotPosition}
-        style={{
-          marginBottom: 8,
-        }}
-      >
-        <Radio.Button value="top">Top</Radio.Button>
-        <Radio.Button value="bottom">Bottom</Radio.Button>
-        <Radio.Button value="left">Left</Radio.Button>
-        <Radio.Button value="right">Right</Radio.Button>
-      </Radio.Group>
-      <Carousel dotPosition={dotPosition}>
-        <View>
-          <Text>Slide 1</Text>
+    <View style={styles.container}>
+      {affichage()}
+      <View style={styles.buttonContainer}>
+        <View style={styles.recetteButtonView}>
+          <TouchableOpacity
+            style={styles.Button}
+            onPress={() => handleRecetteClick()}
+          >
+            <Text>Recette</Text>
+          </TouchableOpacity>
         </View>
-        <View>
-          <Text>Slide2</Text>
+        <View style={styles.semaineButtonView}>
+          <TouchableOpacity
+            style={styles.Button}
+            onPress={() => handleSemaineClick()}
+          >
+            <Text>Semaine</Text>
+          </TouchableOpacity>
         </View>
-      </Carousel>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  main: {
-    height: "160px",
-    color: "#fff",
-    lineHeight: "160px",
-    textAlign: "center",
-    background: "#364d79",
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100%",
+    width: "100%",
+    justifyContent: "space-between",
   },
+  buttonContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: 360,
+    height: 74,
+    marginBottom: 10,
+  },
+  recetteButtonView: {
+    display: "flex",
+    borderRadius: 4,
+
+    backgroundColor: "blue",
+    width: 175,
+    height: 70,
+  },
+  semaineButtonView: {
+    display: "flex",
+    borderRadius: 4,
+    backgroundColor: "green",
+    width: 175,
+    height: 70,
+  },
+  Button: { height: "100%", width: "100%" },
 });
