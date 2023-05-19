@@ -17,7 +17,7 @@ import storage from "redux-persist/lib/types";
 //import du hook pour les fonts
 import { useFonts } from "expo-font";
 
-const reducers = combineReducers({ users, recettes });
+const reducers = combineReducers({ users, recettes, semaine });
 const persistConfig = { key: "foodPlaner", storage: AsyncStorage };
 
 const store = configureStore({
@@ -96,15 +96,18 @@ export default function App() {
             screensOption={{ headerShown: false }}
             // headerMode={false}
           >
+         <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
             <Stack.Screen name=" " component={LandingPageScreen} />
             <Stack.Screen
               name="CreateProfilScreen"
               component={CreateProfilScreen}
             />
+          
           <Stack.Screen name="Semainier" component={SemainierScreen} />
             <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
+            
+            
             <Stack.Screen name="Suggestion" component={SuggestionScreen} />
           </Stack.Navigator>
         </NavigationContainer>

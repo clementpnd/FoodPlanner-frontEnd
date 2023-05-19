@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: 
-    {jour: '',
-    nbPersonneSemaine: '',
+  { 
+    
   },
 };
 
@@ -12,8 +12,7 @@ export const semaineSlice = createSlice({
   initialState,
   reducers: {
     addSemaine: (state, action) => {
-      state.value.jour.push(action.payload.jour);
-      state.value.nbPersonneSemaine.push(action.payload.nbPersonneSemaine);
+      state.value = action.payload
     },
   
   },
