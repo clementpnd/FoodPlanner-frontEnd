@@ -12,15 +12,18 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { removeAllRecette } from "../reducers/recettes";
 import { useEffect, useState } from "react";
+import { addAllRecette } from "../reducers/recettes";
+
 export default function SuggestionScreen({ navigation }) {
   const dispatch = useDispatch();
 
-  const recettes = useSelector((state) => state.recettes.value);
+  const recettesRedux = useSelector((state) => state.recettes.value);
 
+  console.log('recettesRedux', recettesRedux)
   const user = useSelector((state) => state.users.value);
 
-  const [preferenceUser, setPreferenceUser] = useState([]);
   const [recetteSuggerer, setRecetteSuggerer] = useState([]);
+  const [recetteSemainier, setRecetteSemainier] = useState([]);
 
   useEffect(() => {
     fetch("http://10.2.1.12:3000/recettes/recettePref", {
@@ -30,16 +33,16 @@ export default function SuggestionScreen({ navigation }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        
         setRecetteSuggerer(data.responseRecette);
+        setRecetteSemainier(recettesRedux);
       });
   }, []);
 
   let recetteAffiche = [];
   if (recetteSuggerer.length > 0) {
-   recetteAffiche = recetteSuggerer.map((recette,i) => {
-        return (
-          <TouchableOpacity onPress={() => replace(i)}>
+    recetteAffiche = recetteSuggerer.map((recette, i) => {
+      return (
+        <TouchableOpacity onPress={() => replace(i)}>
           <View key={i} style={styles.card}>
             <View style={styles.imgDiv}>
               <Image style={styles.img} source={{ uri: recette.image }} />
@@ -49,14 +52,18 @@ export default function SuggestionScreen({ navigation }) {
               <Text style={styles.desc}>{recette.description}</Text>
             </View>
           </View>
-          </TouchableOpacity>
-        );
-      });
+        </TouchableOpacity>
+      );
+    });
   }
 
-  const replace = (nb) =>{
-    console.warn(nb);
-  }
+  const replace = (nb) => {
+    console.log('recetteSemainier', recetteSemainier);
+    
+    // setRecetteSemainier((recetteSemainier[nb] = recetteSuggerer[nb]));
+    // dispatch(addAllRecette(recetteSemainier));
+    // navigation.navigate("Semainier");
+  };
 
   return (
     <View style={styles.container}>
