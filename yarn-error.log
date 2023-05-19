@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\belle\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add react-native-bouncy-checkbox:  2.1.5
+  C:\Program Files\nodejs\node.exe C:\Users\belle\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add react-native-bouncy-checkbox: 2.1.5
 
 PATH: 
   C:\Users\belle\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\belle\bin;C:\Python311\Scripts;C:\Python311;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Users\belle\AppData\Local\Microsoft\WindowsApps;C:\Users\belle\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\belle\AppData\Roaming\npm;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
@@ -61,6 +61,7 @@ npm manifest:
       "native-base": "^3.4.28",
       "react": "18.2.0",
       "react-native": "0.71.8",
+      "react-native-bouncy-checkbox": "^3.0.7",
       "react-native-bouncy-checkbox-group": "^0.1.1",
       "react-native-dotenv": "^3.4.8",
       "react-native-maps": "1.3.2",
@@ -6934,6 +6935,11 @@ Lockfile:
     version "0.1.1"
     resolved "https://registry.yarnpkg.com/react-native-bouncy-checkbox-group/-/react-native-bouncy-checkbox-group-0.1.1.tgz#415d2a2699b512b598ba60e0353a2f1c45eae2d5"
     integrity sha512-mWSkpQid+u7s6yqnKgWP7gr8hyyuGXzD3akqR51aKmHT3LM5MdE1qKgwb4ogDmMZ1YdPoHKCnw7T41Z6SMA4uA==
+  
+  react-native-bouncy-checkbox@^3.0.7:
+    version "3.0.7"
+    resolved "https://registry.yarnpkg.com/react-native-bouncy-checkbox/-/react-native-bouncy-checkbox-3.0.7.tgz#011aef92b4fbde2a1f223165626c56a9ffe637fb"
+    integrity sha512-776TgMGt9wTpOQA1TcvFjL5VUn6o945wFYf3Ztqva62/vT2o3JAezLiP7hYh2Svd+PewfWBYSPMs4jeaSoS8Sg==
   
   react-native-codegen@^0.71.5:
     version "0.71.5"
