@@ -9,7 +9,7 @@ import * as Location from "expo-location";
 
 export default function AccueilScreen({ navigation }) {
   const [currentPosition, setCurrentPosition] = useState({
-    latitude: 44,
+    latitude: 45,
     longitude: 5,
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,

@@ -42,7 +42,6 @@ import ProfilsScreen from "./ProfilsScreen";
 
 const Tab = createBottomTabNavigator();
 
-const BACKEND_ADDRESS = "http://10.2.0.221:3000"; // exp://10.2.1.16:19000
 //import de .env front
 import { ADDRESSE_BACKEND } from "@env";
 

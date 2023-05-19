@@ -1,16 +1,58 @@
-import React, { Component } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import React, { Component, useState, useEffect } from "react";
+import { Text, View, StyleSheet, ScrollView } from "react-native";
+import { ADDRESSE_BACKEND } from "@env";
 
 function FavorisRecettes() {
+  const [recetteToDisplay, setRecetteToDisplay] = useState([]);
+  const affichageRecetteFavorite = () => {
+    fetch(`${ADDRESSE_BACKEND}/recetteFavorites/:token`)
+      .then((response) => response.json())
+      .then((data) => {
+        setRecetteToDisplay(data);
+      });
+  };
+
+  useEffect(() => {
+    affichageRecetteFavorite();
+  }, []);
+
+  console.log("varible d etat : ", recetteToDisplay);
+  // const displayedRecette = recetteToDisplay.map((data, i) => {
+  //   return (
+  //     <View key={i} style={styles.card}>
+  //       <Text>{data.title}</Text>
+  //       <Text>{data.description}</Text>
+  //     </View>
+  //   );
+  // });
   return (
     <View style={styles.main}>
-      <Text>Favoris Recettes</Text>
+      <Text style={styles.title}>Favoris Recettes</Text>
+      {/* <ScrollView>{displayedRecette}</ScrollView> */}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  main: { flex: 1, backgroundColor: "blue", height: 100, width: 300 },
+  main: {
+    flex: 1,
+    backgroundColor: "blue",
+    height: 100,
+    width: 370,
+    alignItems: "center",
+    marginBottom: 4,
+  },
+  title: { fontFamily: "Fredoka", fontSize: 30 },
+  card: {
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "purple",
+    width: 350,
+    height: 120,
+    marginTop: 10,
+    marginBottom: 10,
+    borderRadius: 4,
+  },
 });
 
 export default FavorisRecettes;

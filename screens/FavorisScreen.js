@@ -2,7 +2,7 @@ import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useState } from "react";
 //import des composants
 import FavorisRecettes from "../components/FavorisRecettes";
-import FavorisSemaine from "../components/favorisSemaine";
+import FavorisSemaine from "../components/FavorisSemaine";
 
 export default function FavorisScreen({ navigation }) {
   const [recetteActive, setRecetteActive] = useState(true); //variable d'état pour gérer l'affichage du composant recette
