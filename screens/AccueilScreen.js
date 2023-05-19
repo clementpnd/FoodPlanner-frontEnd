@@ -24,31 +24,35 @@ export default function AccueilScreen({ navigation }) {
       if (status === "granted") {
         Location.watchPositionAsync({ distanceInterval: 10 }, (location) => {
           setCurrentPosition(location.coords);
-          // fetchData();
+          fetchData();
         });
       }
     })();
   }, []);
 
+  //fonction qui fetch l'API en fonction de ta localisation
+  const fetchData = async () => {
+    fetch(`https://opendata.agencebio.org/api/gouv/operateurs/?activite=Distribution&lat=${currentPosition.latitude}&lng=${currentPosition.longitude}
+  `)
+      .then((response) => response.json())
+      .then((data) => {
+        setApiData(data.items);
+      });
+  };
+
   //ajout des marqueurs graces aux données en dur récupéré via l'api du gouvernement sur le bio
-  // const markers = apiData.map((data, i) => {
-  //   console.log(
-  //     "latitude: ",
-  //     data.items[i].adressesOperateurs[i].lat,
-  //     "longitude:",
-  //     data.items[i].adressesOperateurs[i].long
-  //   );
-  //   return (
-  //     <Marker
-  //       key={i}
-  //       coordinate={{
-  //         latitude: data.items[i].adressesOperateurs[i].lat,
-  //         longitude: data.items[i].adressesOperateurs[i].lon,
-  //         // title={data.items}
-  //       }}
-  //     />
-  //   );
-  // });
+  const markers = apiData.map((data, i) => {
+    return (
+      <Marker
+        key={i}
+        coordinate={{
+          latitude: data.adressesOperateurs[0].lat,
+          longitude: data.adressesOperateurs[0].long,
+        }}
+        title={data.denominationcourante}
+      />
+    );
+  });
 
   return (
     <View style={styles.main}>
@@ -70,8 +74,10 @@ export default function AccueilScreen({ navigation }) {
       </View>
       <View style={styles.map}>
         <MapView region={currentPosition} style={styles.map}>
-          {currentPosition && <Marker coordinate={currentPosition}></Marker>}
-          {/* {markers} */}
+          {currentPosition && (
+            <Marker coordinate={currentPosition} pinColor="blue"></Marker>
+          )}
+          {markers}
         </MapView>
       </View>
     </View>

@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  value: [semaine:
+  value: 
     {jour: '',
     nbPersonneSemaine: '',
-  }],
+  },
 };
 
-export const userSlice = createSlice({
-  name: "semaines",
+export const semaineSlice = createSlice({
+  name: "semaine",
   initialState,
   reducers: {
     addSemaine: (state, action) => {
@@ -19,5 +19,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { addSemaine} = userSlice.actions;
-export default userSlice.reducer;
+export const { addSemaine} = semaineSlice.actions;
+export default semaineSlice.reducer;

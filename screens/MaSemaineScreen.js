@@ -13,13 +13,20 @@ import {
 } from "react-native";
 //import CheckBox from '@react-native-community/checkbox';
 import Checkbox from "expo-checkbox";
+//import { NativeBaseProvider, Checkbox } from "native-base";
+// import BouncyCheckboxGroup, {
+//   ICheckboxButton,
+// } from "react-native-bouncy-checkbox-group";
+//import SelectMultiple from 'react-native-select-multiple'
 import { Picker } from "@react-native-picker/picker";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 //import "@fontsource/fredoka-one"
-// import { useFonts, FredokaOne_400Regular } from '@expo-google-fonts/fredoka-one';
+//import { useFonts, FredokaOne_400Regular } from '@expo-google-fonts/fredoka-one';
 //import { useFonts } from 'expo-font';
 import * as Font from "expo-font";
+
+import { addSemaine } from "../reducers/semaine";
 
 //import des hooks d'effets
 import { useState, useEffect, useRef } from "react";
@@ -35,16 +42,20 @@ import ProfilsScreen from "./ProfilsScreen";
 
 const Tab = createBottomTabNavigator();
 
+const BACKEND_ADDRESS = "http://10.2.0.221:3000"; // exp://10.2.1.16:19000
 //import de .env front
 import { ADDRESSE_BACKEND } from "@env";
 
 export default function MaSemaineScreen({ navigation }) {
   //fonction counter avec reducer nb de personnes par repas
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.users.value);
+  const user = useSelector((state) => state.users.value);
+  const [userState, setUserState] = useState({ ...user });
+
+  //const semaine = useSelector((state) => state.semaine.value);
   const [counterRepas, setCounterRepas] = useState();
-  const counter = users.nbPersonne;
-  const [isChecked, setChecked] = useState(false);
+  const counter = user.nbPersonne;
+  //const [isChecked, setChecked] = useState(false);
   const [nbPersonneSemaine, setNbPersonneSemaine] = useState(""); // mettre nb personne enrgistré dans profil
   const pickerRef = useRef();
 
@@ -58,65 +69,116 @@ export default function MaSemaineScreen({ navigation }) {
     setIsEnabledWeekEnd((previousState) => !previousState);
 
   // fetch nb de personnes enregistrées dans Profil
-  const decrementSubmit = () => {
-    fetch(`${ADDRESSE_BACKEND}/nbPersonne/:token`)
+  useEffect(() => {
+    fetch(`http://10.2.0.221:3000/users/nbPersonne/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log(user.token);
         console.log(data);
-        {
-          counterRepas;
-        }
-
-        dispatch(decrement(counter));
-        setCounterRepas(data);
+        setNbPersonneSemaine(nbPersonneSemaine);
       });
-  };
-
-  // {/* <TouchableOpacity style={styles.decrementBtn} onPress={() => decrementSubmit()}><Text>-</Text></TouchableOpacity>
-  //         <Text className={styles.counter}></Text>
-  //         <TouchableOpacity style={styles.incrementBtn}  onPress={() => dispatch(increment())}><Text>+</Text></TouchableOpacity> */}
-
-  // useEffect(() => {
-  //   fetch(`${ADDRESSE_BACKEND}`/${users.token}`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data.user)
-  //       setNbPersonneSemaine(nbPersonneSemaine)
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   fetch(`${ADDRESSE_BACKEND}`/users/nbPersonne/${users.token}`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data)
-  //       //setNbPersonneSemaine(nbPersonneSemaine)
-  //     });
-  // }, []);
-
-  // var responseClone; // 1
-  // fetch(`${ADDRESSE_BACKEND}`/users/${users.token}`)
-  // .then(function (response) {
-  //     responseClone = response.clone(); // 2
-  //     return response.json();
-  // })
-  // .then(function (data) {
-  //     // Do something with data
-  // }, function (rejectionReason) { // 3
-  //     console.log('Error parsing JSON from response:', rejectionReason, responseClone); // 4
-  //     responseClone.text() // 5
-  //     .then(function (bodyText) {
-  //         console.log('Received the following instead of valid JSON:', bodyText); // 6
-  //     });
-  // });
+  }, []);
 
   // dataList pour nb de personnes par repas
-
   let items = [];
   for (let i = 1; i < 11; i++) {
     j = i.toString();
     items.push(<Picker.Item key={j} label={j} value={j} />);
   }
+
+  //variables d'état pour chaquejour/ chaque repas
+  const [lundiMidi, setLundiMidi] = useState(false);
+  const [lundiSoir, setLundiSoir] = useState(false);
+  const [lundiRepas, setLundiRepas] = useState(false);
+
+  // useEffect(() =>{
+  //   setUserState({...userState, semaine})
+  // }, [semaine])
+
+  // bouton ajout du repas dans la semaine
+  // const handleOnChange = () => {
+  //   fetch(`http://10.2.0.221:3000/users/newsemaine/${user.token}`, {
+  //     method: 'PUT',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({}),
+  //   })
+  //   .then((response) => response.json())
+  //   .then((data) => {
+  //       // Dispatch Redux store les repas choisis
+  //       if (data) {
+  //         //dispatch(addSemaine(jour: , midi: value , soir: repas: nbPersonneSemaine: nbPersonneSemaine))
+  //         setLundiMidi(!lundiMidi);
+  //         console.log(data)
+  //       };
+  //       }
+  //     );
+  // };
+
+  //effet pour le bouton favori si cliqué
+  // let iconHeart = {};
+  //   if () {
+  //     iconHeart = { 'color': '#E9BE59' };
+  //   }
+
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [checkedList, setCheckedList] = useState([]);
+  const [isChecked, setChecked] = useState(false);
+
+  const listData = [
+    { id: "1", value: "Midi" },
+    { id: "2", value: "Soir" },
+    { id: "3", value: "les 2" },
+  ];
+
+  let ICheckboxButton = [
+    {
+      id: 0,
+    },
+    {
+      id: 1,
+    },
+    {
+      id: 2,
+    },
+    {
+      id: 3,
+    },
+  ];
+
+  // const handleSelect = (event) => {
+  //   // const value = event.target.value;
+  //   // const isChecked = event.target.checked;
+
+  //   if (isChecked) {
+  //     //Add checked item into checkList
+  //     setCheckedList([...checkedList, value]);
+  //   } else {
+  //     //Remove unchecked item from checkList
+  //     const filteredList = checkedList.filter((item) => item !== value);
+  //     setCheckedList(filteredList);
+  //   }
+  // };
+
+  //   const masemainecheckedbox = listData.map((item, i) => {
+  //     return (
+
+  //           <View key={i} style={styles.containerCheckbox} >
+
+  //         <Checkbox
+  //        style={styles.checkbox}
+
+  //         value={item.value}
+  //         disabled={isDisabled}
+  //         onSelectionsChange={() => this.handleSelect}
+  //         //onChange={() => this.handleSelect}
+  //        //onValueChange={() => this.handleSelect}
+  //         color={item.value ? '#E4631B' : undefined} />
+
+  //         <Text>{item.value}</Text>
+  //         </View>
+
+  //         );
+  //   });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -145,41 +207,13 @@ export default function MaSemaineScreen({ navigation }) {
             {items}
           </Picker>
         </View>
+        <View style={styles.rowCheckbox}></View>
 
-        <View style={styles.rowCheckbox}>
-          <View style={styles.containerCheckbox}>
-            <Checkbox
-              style={styles.checkbox}
-              disabled={false}
-              value={isChecked}
-              onValueChange={setChecked}
-              color={isChecked ? "#E4631B" : undefined}
-            />
-
-            <Text>Midi</Text>
-          </View>
-          <View style={styles.containerCheckbox}>
-            <Checkbox
-              style={styles.checkbox}
-              disabled={false}
-              value={isChecked}
-              onValueChange={setChecked}
-              color={isChecked ? "#E4631B" : undefined}
-            />
-            <Text>Soir</Text>
-          </View>
-
-          <View style={styles.containerCheckbox}>
-            <Checkbox
-              style={styles.checkbox}
-              disabled={false}
-              value={isChecked}
-              onValueChange={setChecked}
-              color={isChecked ? "#E4631B" : undefined}
-            />
-            <Text>Les 2</Text>
-          </View>
-        </View>
+        <BouncyCheckboxGroup
+          text={listData.value}
+          data={listData}
+          style={{ flexDirection: "column" }}
+        />
 
         <View style={styles.rowToggleWeekEnd}>
           <Text>WeekEnd</Text>
@@ -207,33 +241,6 @@ export default function MaSemaineScreen({ navigation }) {
           <Text styme={styles.buttonText}>Planifions ma semaine</Text>
         </TouchableOpacity>
       </View>
-
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ color, size }) => {
-            let iconName = "";
-            if (route.name === "Favoris") {
-              iconName = "heart-o";
-            } else if (route.name === "Accueil") {
-              iconName = "home";
-            } else if (route.name === "Profils") {
-              iconName = "user-circle";
-            }
-            return <FontAwesome name={iconName} size={size} color={color} />;
-          },
-          headerShown: false,
-          tabBarActiveTintColor: "#FDFEFE",
-          tabBarInactiveTintColor: "#979A9A",
-          tabBarLabelStyle: { color: "white" },
-          tabBarStyle: styleTabBar,
-          initialRouteName: "Ma Semaine",
-          tabBarBadgeStyle: { backgroundColor: "red" },
-        })}
-      >
-        <Tab.Screen name="Favoris" component={FavorisScreen} />
-        <Tab.Screen name="Accueil" component={AccueilScreen} />
-        <Tab.Screen name="Profils" component={ProfilsScreen} />
-      </Tab.Navigator>
     </SafeAreaView>
   );
 }
@@ -306,7 +313,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 60,
     backgroundColor: "#E4631B",
-    fontFamily: "Fredoka",
+    //fontFamily: 'Fredoka One',
     fontSize: 20,
     borderRadius: 10,
     width: "90%",
