@@ -269,6 +269,10 @@ const listDataDimanche = [
       );
   };
 
+  // toggle qui selectonne tous les repas de la semaine
+  const handleOnToogle = () => {
+    
+  }
  
   return (
     <SafeAreaView style={styles.container}>
