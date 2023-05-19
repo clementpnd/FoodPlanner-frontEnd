@@ -1,11 +1,13 @@
 import React, { Component, useState, useEffect } from "react";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
 import { ADDRESSE_BACKEND } from "@env";
+import { useSelector } from "react-redux";
 
 function FavorisRecettes() {
+  const user = useSelector((state) => state.users.value);
   const [recetteToDisplay, setRecetteToDisplay] = useState([]);
   const affichageRecetteFavorite = () => {
-    fetch(`${ADDRESSE_BACKEND}/recetteFavorites/:token`)
+    fetch(`${ADDRESSE_BACKEND}/users/recetteFavorites/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         setRecetteToDisplay(data);
@@ -13,22 +15,22 @@ function FavorisRecettes() {
   };
 
   useEffect(() => {
-    affichageRecetteFavorite();
+    affichageRecetteFavorite(recetteToDisplay);
   }, []);
 
-  console.log("varible d etat : ", recetteToDisplay);
-  // const displayedRecette = recetteToDisplay.map((data, i) => {
-  //   return (
-  //     <View key={i} style={styles.card}>
-  //       <Text>{data.title}</Text>
-  //       <Text>{data.description}</Text>
-  //     </View>
-  //   );
-  // });
+  // console.log("varible d etat : ", recetteToDisplay);
+  const displayedRecette = recetteToDisplay.map((data, i) => {
+    return (
+      <View key={i} style={styles.card}>
+        <Text>{data.title}</Text>
+        <Text>{data.description}</Text>
+      </View>
+    );
+  });
   return (
     <View style={styles.main}>
       <Text style={styles.title}>Favoris Recettes</Text>
-      {/* <ScrollView>{displayedRecette}</ScrollView> */}
+      <ScrollView>{displayedRecette}</ScrollView>
     </View>
   );
 }
