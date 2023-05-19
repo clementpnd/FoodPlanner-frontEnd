@@ -62,7 +62,6 @@ export default function ConnexionScreen({ navigation }) {
     // }
   };
 
-  console.log(mailError);
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView

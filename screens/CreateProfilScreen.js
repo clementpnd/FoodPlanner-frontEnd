@@ -57,7 +57,6 @@ export default function CreateProfilScreen({ navigation }) {
   poulet ===true ? preference.push("poulet") : preference.filter(d => d !== poulet);
   poisson ===true ? preference.push("poisson") : preference.filter(d => d !== poisson);
   feculent ===true ? preference.push("feculent") : preference.filter(d => d !== feculent);
-  console.log(preference)
   
 
   const planifionsSemaine = () => {
@@ -69,6 +68,7 @@ export default function CreateProfilScreen({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
+          dispatch(addUsers({token : data.token}));
           navigation.navigate("TabNavigator", { screen: "Accueil" });
         }
       });
