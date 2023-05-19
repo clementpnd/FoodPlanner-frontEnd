@@ -21,7 +21,6 @@ export default function SuggestionScreen({ navigation }) {
 
   const [preferenceUser, setPreferenceUser] = useState([]);
   const [recetteSuggerer, setRecetteSuggerer] = useState([]);
-  const [havePref, setHavePref] = useState(false);
 
   useEffect(() => {
     fetch("http://10.2.1.12:3000/recettes/recettePref", {
@@ -33,17 +32,14 @@ export default function SuggestionScreen({ navigation }) {
       .then((data) => {
         
         setRecetteSuggerer(data.responseRecette);
-        if (data.pref) {
-          setHavePref(true);
-        }
       });
   }, []);
 
   let recetteAffiche = [];
-  if (havePref && recetteSuggerer.length > 0) {
-    recetteSuggerer.map((obj) => {
-      let recette = obj.map((recette, i) => {
+  if (recetteSuggerer.length > 0) {
+   recetteAffiche = recetteSuggerer.map((recette,i) => {
         return (
+          <TouchableOpacity onPress={() => replace(i)}>
           <View key={i} style={styles.card}>
             <View style={styles.imgDiv}>
               <Image style={styles.img} source={{ uri: recette.image }} />
@@ -53,24 +49,13 @@ export default function SuggestionScreen({ navigation }) {
               <Text style={styles.desc}>{recette.description}</Text>
             </View>
           </View>
+          </TouchableOpacity>
         );
       });
-      recetteAffiche.push(recette);
-    });
-  } else {
-    recetteAffiche = recetteSuggerer.map((recette, i) => {
-      return (
-        <View key={i} style={styles.card}>
-          <View style={styles.imgDiv}>
-            <Image style={styles.img} source={{ uri: recette.image }} />
-          </View>
-          <View style={styles.textDiv}>
-            <Text style={styles.titre}>{recette.nom}</Text>
-            <Text style={styles.desc}>{recette.description}</Text>
-          </View>
-        </View>
-      );
-    });
+  }
+
+  const replace = (nb) =>{
+    console.warn(nb);
   }
 
   return (
