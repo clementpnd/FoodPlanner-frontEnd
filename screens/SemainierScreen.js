@@ -45,15 +45,21 @@ export default function SemainierScreen({ navigation }) {
         }
       });
   }, []);
-  // console.log(recetteData._id);
 
   //fonction pour ajouter une recette en favoris
-  const addRecetteHandler = () => {
-    fetch(`${ADDRESSE_BACKEND}/addRecetteFavorite/${user.token}`, {
+  const addRecetteHandler = (_id) => {
+    // console.log("id", _id);
+    fetch(`${ADDRESSE_BACKEND}/users/addRecetteFavorite/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ recetteFavoris: [recetteData] }),
-    });
+      body: JSON.stringify({ recetteFavoris: _id }),
+    })
+      .then((response) => response.json)
+      .then((data) => {
+        if (data.result) {
+          console.log("pushed dans les fav");
+        }
+      });
   };
 
   
@@ -64,7 +70,7 @@ export default function SemainierScreen({ navigation }) {
         <ImageBackground source={{ uri: data.image }} style={styles.imageCard}>
           <TouchableOpacity
             style={styles.recettefavorite}
-            onPress={() => addRecetteHandler()}
+            onPress={() => addRecetteHandler(data._id)}
           >
             <FontAwesome name="heart-o" size={20} color="black" />
           </TouchableOpacity>
