@@ -5,36 +5,49 @@ import {
   View,
   ScrollView,
   ImageBackground,
+  Button
 } from "react-native";
 //import fontawesome pour les icones
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 //import des hooks
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { addRecette, removeRecette } from "../reducers/recettes";
+import { useDispatch,useSelector } from "react-redux";
+import { addRecette, changeRecette, removeRecette } from "../reducers/recettes";
+import { addUsers } from "../reducers/users";
+import { addIndexRecette } from "../reducers/users";
+import { removeAllRecette } from "../reducers/recettes";
 
 //import de .env front
 import { ADDRESSE_BACKEND } from "@env";
 
 export default function SemainierScreen({ navigation }) {
   const dispatch = useDispatch();
+  const recetteRedux = useSelector((state)=>state.recettes.value);
+
   //fonction pour basculer vers la page de suggestion
-  const handleSuggestion = () => {
+  const handleSuggestion = (nb) => {
+    const idRecette = {
+      idRecette : nb
+    }
+    dispatch(addIndexRecette(idRecette));
     navigation.navigate("Suggestion");
   };
   const [recetteData, setRecetteData] = useState([]); //variable d'état des recettes
 
   //fonction qui recupère les recettes en fonction du nombre de repas sélectionner
   useEffect(() => {
-    fetch(`${ADDRESSE_BACKEND}/recettes`)
+    fetch(`http://10.2.1.12:3000/recettes`)
       .then((response) => response.json())
       .then((data) => {
-        setRecetteData(data.data);
+        if(!recetteRedux.recettes.length>0){
+          dispatch(changeRecette(data.data));
+        }
       });
   }, []);
 
-  const recetteAffichées = recetteData.map((data, i) => {
-    dispatch(addRecette(data));
+  
+  const recetteAffichées = recetteRedux.recettes.map((data, i) => {
+    // dispatch(addRecette(data));
     return (
       <View key={i} style={styles.card}>
         <ImageBackground source={{ uri: data.image }} style={styles.imageCard}>
@@ -47,7 +60,7 @@ export default function SemainierScreen({ navigation }) {
           <Text style={styles.desc}>{data.description}</Text>
         </View>
         <TouchableOpacity
-          onPress={() => handleSuggestion()}
+          onPress={() => handleSuggestion(i)}
           style={styles.modifierRecette}
         >
           <FontAwesome name="gear" size={20} color="black" />

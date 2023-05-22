@@ -61,9 +61,6 @@ useEffect(() => {
   fetch(`${ADDRESSE_BACKEND}/users/nbPersonne/${user.token}`)
     .then((response) => response.json())
     .then((data) => {
-      //console.log(user.token)
-      console.log(data)
-    console.log(user.token)
       setNbPersonneSemaine(nbPersonneSemaine)
     });
 }, []);

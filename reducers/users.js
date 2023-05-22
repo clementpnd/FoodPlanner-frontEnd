@@ -30,8 +30,15 @@ export const userSlice = createSlice({
     removePhotoProfil : (state, action) => {
       state.value.photoProfil = "";
     },
+    addIndexRecette : (state,action) =>{
+      state.value.idRecette = action.payload;
+    },
+    removeIndexRecette : (state,action) =>{
+      state.value.idRecette = "";
+    },
+
   },
 });
 
-export const { addUsers, removeUsers, addPhotoProfil, removePhotoProfil} = userSlice.actions;
+export const { addUsers,addIndexRecette, removeUsers, addPhotoProfil, removePhotoProfil,removeIndexRecette} = userSlice.actions;
 export default userSlice.reducer;

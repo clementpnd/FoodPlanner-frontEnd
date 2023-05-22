@@ -60,7 +60,7 @@ export default function CreateProfilScreen({ navigation }) {
   
 
   const planifionsSemaine = () => {
-    fetch(`${ADDRESSE_BACKEND}/users/signup`, {
+    fetch(`http://10.2.1.12:3000/users/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userState),

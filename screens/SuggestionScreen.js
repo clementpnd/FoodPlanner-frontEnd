@@ -13,18 +13,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeAllRecette } from "../reducers/recettes";
 import { useEffect, useState } from "react";
 import { addAllRecette } from "../reducers/recettes";
+import { changeRecette } from "../reducers/recettes";
 
 export default function SuggestionScreen({ navigation }) {
   const dispatch = useDispatch();
 
   const recettesRedux = useSelector((state) => state.recettes.value);
 
-  console.log('recettesRedux', recettesRedux)
   const user = useSelector((state) => state.users.value);
 
   const [recetteSuggerer, setRecetteSuggerer] = useState([]);
   const [recetteSemainier, setRecetteSemainier] = useState([]);
 
+  //USE EFFECT
   useEffect(() => {
     fetch("http://10.2.1.12:3000/recettes/recettePref", {
       method: "POST",
@@ -34,10 +35,11 @@ export default function SuggestionScreen({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         setRecetteSuggerer(data.responseRecette);
-        setRecetteSemainier(recettesRedux);
+        setRecetteSemainier(recettesRedux.recettes);
       });
   }, []);
 
+  //RETURN CART RECETTE
   let recetteAffiche = [];
   if (recetteSuggerer.length > 0) {
     recetteAffiche = recetteSuggerer.map((recette, i) => {
@@ -56,13 +58,12 @@ export default function SuggestionScreen({ navigation }) {
       );
     });
   }
-
+// FUNCTION REPLACE RECETTE DANS LE SEMAINIER
   const replace = (nb) => {
-    console.log('recetteSemainier', recetteSemainier);
-    
-    // setRecetteSemainier((recetteSemainier[nb] = recetteSuggerer[nb]));
-    // dispatch(addAllRecette(recetteSemainier));
-    // navigation.navigate("Semainier");
+    const updateRecetteSemainier = [...recetteSemainier];
+    updateRecetteSemainier.splice(user.idRecette.idRecette, 1, recetteSuggerer[nb]);
+    dispatch(changeRecette(updateRecetteSemainier));
+    navigation.navigate("Semainier")
   };
 
   return (
@@ -70,7 +71,6 @@ export default function SuggestionScreen({ navigation }) {
       <View style={styles.recetteDiv}>
         <ScrollView>{recetteAffiche}</ScrollView>
       </View>
-      <Button title="remove" onPress={() => dispatch(removeAllRecette())} />
     </View>
   );
 }
