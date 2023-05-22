@@ -41,6 +41,7 @@ export default function SemainierScreen({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         if (!recetteRedux.recettes.length > 0) {
+          dispatch(removeAllRecette());
           dispatch(changeRecette(data.data));
         }
       });
