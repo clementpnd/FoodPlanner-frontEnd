@@ -5,13 +5,13 @@ import {
   View,
   ScrollView,
   ImageBackground,
-  Button
+  Button,
 } from "react-native";
 //import fontawesome pour les icones
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 //import des hooks
 import { useEffect, useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addRecette, changeRecette, removeRecette } from "../reducers/recettes";
 import { addUsers } from "../reducers/users";
 import { addIndexRecette } from "../reducers/users";
@@ -23,13 +23,13 @@ import { ADDRESSE_BACKEND } from "@env";
 export default function SemainierScreen({ navigation }) {
   const user = useSelector((state) => state.users.value);
   const dispatch = useDispatch();
-  const recetteRedux = useSelector((state)=>state.recettes.value);
+  const recetteRedux = useSelector((state) => state.recettes.value);
 
   //fonction pour basculer vers la page de suggestion
   const handleSuggestion = (nb) => {
     const idRecette = {
-      idRecette : nb
-    }
+      idRecette: nb,
+    };
     dispatch(addIndexRecette(idRecette));
     navigation.navigate("Suggestion");
   };
@@ -37,10 +37,10 @@ export default function SemainierScreen({ navigation }) {
 
   //fonction qui recupère les recettes en fonction du nombre de repas sélectionner
   useEffect(() => {
-    fetch(`http://10.2.1.12:3000/recettes`)
+    fetch(`${ADDRESSE_BACKEND}/recettes`)
       .then((response) => response.json())
       .then((data) => {
-        if(!recetteRedux.recettes.length>0){
+        if (!recetteRedux.recettes.length > 0) {
           dispatch(changeRecette(data.data));
         }
       });
@@ -62,7 +62,6 @@ export default function SemainierScreen({ navigation }) {
       });
   };
 
-  
   const recetteAffichées = recetteRedux.recettes.map((data, i) => {
     // dispatch(addRecette(data));
     return (
