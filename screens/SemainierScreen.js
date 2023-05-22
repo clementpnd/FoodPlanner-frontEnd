@@ -40,8 +40,9 @@ export default function SemainierScreen({ navigation }) {
     fetch(`${ADDRESSE_BACKEND}/recettes`)
       .then((response) => response.json())
       .then((data) => {
+        setRecetteData(data.data);
         if (!recetteRedux.recettes.length > 0) {
-          dispatch(removeAllRecette());
+          // dispatch(removeAllRecette());
           dispatch(changeRecette(data.data));
         }
       });
