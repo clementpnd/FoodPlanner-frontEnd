@@ -21,6 +21,7 @@ import { removeAllRecette } from "../reducers/recettes";
 import { ADDRESSE_BACKEND } from "@env";
 
 export default function SemainierScreen({ navigation }) {
+  const user = useSelector((state) => state.users.value);
   const dispatch = useDispatch();
   const recetteRedux = useSelector((state)=>state.recettes.value);
 
@@ -32,7 +33,7 @@ export default function SemainierScreen({ navigation }) {
     dispatch(addIndexRecette(idRecette));
     navigation.navigate("Suggestion");
   };
-  const [recetteData, setRecetteData] = useState([]); //variable d'état des recettes
+  const [recetteData, setRecetteData] = useState([]); //variable d'état des recettes deja en BDD
 
   //fonction qui recupère les recettes en fonction du nombre de repas sélectionner
   useEffect(() => {
@@ -44,6 +45,16 @@ export default function SemainierScreen({ navigation }) {
         }
       });
   }, []);
+  // console.log(recetteData._id);
+
+  //fonction pour ajouter une recette en favoris
+  const addRecetteHandler = () => {
+    fetch(`${ADDRESSE_BACKEND}/addRecetteFavorite/${user.token}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ recetteFavoris: [recetteData] }),
+    });
+  };
 
   
   const recetteAffichées = recetteRedux.recettes.map((data, i) => {
@@ -51,7 +62,10 @@ export default function SemainierScreen({ navigation }) {
     return (
       <View key={i} style={styles.card}>
         <ImageBackground source={{ uri: data.image }} style={styles.imageCard}>
-          <TouchableOpacity style={styles.recettefavorite}>
+          <TouchableOpacity
+            style={styles.recettefavorite}
+            onPress={() => addRecetteHandler()}
+          >
             <FontAwesome name="heart-o" size={20} color="black" />
           </TouchableOpacity>
         </ImageBackground>
