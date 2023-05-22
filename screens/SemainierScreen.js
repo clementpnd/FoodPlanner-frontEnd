@@ -96,7 +96,7 @@ export default function SemainierScreen({ navigation }) {
         <View style={styles.scrollContent}>{recetteAffichées}</View>
       </ScrollView>
       <View style={styles.listeButton}>
-        <TouchableOpacity style={styles.btn}>
+        <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate("ShoppingList")}>
           <Text>Faison une liste de courses</Text>
         </TouchableOpacity>
       </View>
