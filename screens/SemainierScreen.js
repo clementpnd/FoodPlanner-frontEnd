@@ -10,19 +10,20 @@ import {
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 //import des hooks
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addRecette, removeRecette } from "../reducers/recettes";
 
 //import de .env front
 import { ADDRESSE_BACKEND } from "@env";
 
 export default function SemainierScreen({ navigation }) {
+  const user = useSelector((state) => state.users.value);
   const dispatch = useDispatch();
   //fonction pour basculer vers la page de suggestion
   const handleSuggestion = () => {
     navigation.navigate("Suggestion");
   };
-  const [recetteData, setRecetteData] = useState([]); //variable d'état des recettes
+  const [recetteData, setRecetteData] = useState([]); //variable d'état des recettes deja en BDD
 
   //fonction qui recupère les recettes en fonction du nombre de repas sélectionner
   useEffect(() => {
@@ -32,13 +33,26 @@ export default function SemainierScreen({ navigation }) {
         setRecetteData(data.data);
       });
   }, []);
+  // console.log(recetteData._id);
+
+  //fonction pour ajouter une recette en favoris
+  const addRecetteHandler = () => {
+    fetch(`${ADDRESSE_BACKEND}/addRecetteFavorite/${user.token}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ recetteFavoris: [recetteData] }),
+    });
+  };
 
   const recetteAffichées = recetteData.map((data, i) => {
     dispatch(addRecette(data));
     return (
       <View key={i} style={styles.card}>
         <ImageBackground source={{ uri: data.image }} style={styles.imageCard}>
-          <TouchableOpacity style={styles.recettefavorite}>
+          <TouchableOpacity
+            style={styles.recettefavorite}
+            onPress={() => addRecetteHandler()}
+          >
             <FontAwesome name="heart-o" size={20} color="black" />
           </TouchableOpacity>
         </ImageBackground>
