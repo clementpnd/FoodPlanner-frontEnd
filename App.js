@@ -7,7 +7,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import users from "./reducers/users";
 import recettes from "./reducers/recettes";
-import semaine from "./reducers/semaine";
+import semaines from "./reducers/semaines";
 
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
@@ -17,7 +17,7 @@ import storage from "redux-persist/lib/types";
 //import du hook pour les fonts
 import { useFonts } from "expo-font";
 
-const reducers = combineReducers({ users, recettes, semaine });
+const reducers = combineReducers({ users, recettes, semaines });
 const persistConfig = { key: "foodPlaner", storage: AsyncStorage };
 
 const store = configureStore({
@@ -97,8 +97,7 @@ export default function App() {
             screensOption={{ headerShown: false }}
             // headerMode={false}
           >
-          <Stack.Screen name="Semainier" component={SemainierScreen} />
-
+            
             <Stack.Screen name=" " component={LandingPageScreen} />
             <Stack.Screen
               name="CreateProfilScreen"
