@@ -10,35 +10,63 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { ADDRESSE_BACKEND } from "@env";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import recettesFavorites, {
+  addFavoriteRecette,
+  removeFavoriteRecette,
+  displayFavoriteRecette,
+  findId,
+} from "../reducers/recettesFavorites";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 function FavorisRecettes() {
+  const dispatch = useDispatch();
+  // const recetteRedux = useSelector((state) => state.recettesFavorites.value);
   const user = useSelector((state) => state.users.value);
+
   const [recetteToDisplay, setRecetteToDisplay] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false); // variable d'état qui gère la modale
 
-  //fonction qui gère l'affichage de la modale
-  let showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const affichageRecetteFavorite = () => {
+  useEffect(() => {
     fetch(`${ADDRESSE_BACKEND}/users/recetteFavorites/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         setRecetteToDisplay(data);
+        dispatch(addFavoriteRecette(recetteToDisplay));
       });
-  };
+  }, [isModalVisible]);
 
-  useEffect(() => {
-    affichageRecetteFavorite();
-  }, []);
+  //fonction qui gère l'affichage de la modale
+  let showModal = () => {
+    dispatch(findId());
+    setIsModalVisible(true);
+  };
+  //fonction qui supprime une recette des favoris
+  // const handleDeleteFavorite = () => {
+  //   fetch(`${ADDRESSE_BACKEND}/users/deleteFav`, {
+  //     method: "DELETE",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ recetteFavoris: recetteRedux }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       data.result && dispatch(removeFavoriteRecette(recetteToDisplay));
+  //     });
+  // };
 
   const displayedRecette = recetteToDisplay.map((data, i) => {
     return (
       <View key={i} style={styles.card}>
-        <TouchableOpacity onPress={() => showModal()}>
+        <TouchableOpacity
+          // onPress={() => handleDeleteFavorite()}
+          style={styles.closebuttonCard}
+        >
+          <FontAwesome name="times" size={20} color="#000000" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.modalOPening}
+          onPress={() => showModal()}
+        >
           <Modal
             animationType="slide"
             transparent={true}
@@ -50,14 +78,14 @@ function FavorisRecettes() {
             <View style={styles.modal}>
               <ScrollView style={styles.modalContent}>
                 <TouchableOpacity
-                  style={styles.closebutton}
+                  style={styles.closebuttonModal}
                   onPress={() => setIsModalVisible(!isModalVisible)}
                 >
                   <FontAwesome name="times" size={20} color="#000000" />
                 </TouchableOpacity>
                 <Text>{data.nom}</Text>
                 <Text>Ingrédients</Text>
-                <Text></Text>
+                {/* <Text>{displayedIngredients}</Text> */}
                 <Text>Instruction</Text>
                 <Text>{data.instruction}</Text>
               </ScrollView>
@@ -72,6 +100,7 @@ function FavorisRecettes() {
       </View>
     );
   });
+
   return (
     <View style={styles.main}>
       <Text style={styles.title}>Favoris Recettes</Text>
@@ -92,8 +121,8 @@ const styles = StyleSheet.create({
   card: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    // justifyContent: "center",
+    // alignItems: "center",
     backgroundColor: "green",
     width: Dimensions.get("window").width - 20,
     height: 160,
@@ -103,11 +132,12 @@ const styles = StyleSheet.create({
   },
   imageCard: {
     width: 100,
-    height: 100,
+    height: 70,
     marginLeft: 4,
     borderRadius: 4,
   },
   text: {},
+  modalOPening: { width: "85%", height: "100%" },
   modal: {
     flex: 1,
     // justifyContent: "center",
@@ -119,14 +149,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 10,
     shadowColor: "#000",
-    //   shadowOffset: {
-    //     width: 0,
-    //     height: 0,
-    //   },
-    //   shadowOpacity: 0.25,
-    //   shadowRadius: 6,
-    //   elevation: 15,
   },
+  closebuttonModal: { position: "relative", marginLeft: 330 },
+  closebuttonCard: { position: "absolute", marginLeft: 330 },
 });
 
 export default FavorisRecettes;
