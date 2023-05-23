@@ -2,8 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: {
-    recettes: [
-    ],
+    recettes: [],
   },
 };
 
@@ -14,7 +13,7 @@ export const recetteSlice = createSlice({
     addRecette: (state, action) => {
       state.value.recettes.push(action.payload);
     },
-    changeRecette : (state, action) =>{
+    changeRecette: (state, action) => {
       state.value.recettes = action.payload;
     },
     removeRecette: (state, action) => {
@@ -26,6 +25,6 @@ export const recetteSlice = createSlice({
   },
 });
 
-
-export const {addRecette,changeRecette, removeRecette, removeAllRecette} = recetteSlice.actions;
+export const { addRecette, changeRecette, removeRecette, removeAllRecette } =
+  recetteSlice.actions;
 export default recetteSlice.reducer;
