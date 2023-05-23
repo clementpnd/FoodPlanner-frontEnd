@@ -39,6 +39,7 @@ import SemainierScreen from "./screens/SemainierScreen";
 import CameraScreen from "./screens/CameraScreen";
 import SuggestionScreen from "./screens/SuggestionScreen";
 import ShoppingListScreen from "./screens/ShoppingListScreen";
+import SemainierTestScreen from "./screens/SemainierTestScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -98,6 +99,8 @@ export default function App() {
             // headerMode={false}
           >
            
+            <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
+            
             <Stack.Screen name=" " component={LandingPageScreen} />
             <Stack.Screen
               name="CreateProfilScreen"
@@ -109,6 +112,7 @@ export default function App() {
             <Stack.Screen name="Semainier" component={SemainierScreen} />
             <Stack.Screen name="ShoppingList" component={ShoppingListScreen} />
             <Stack.Screen name="CameraScreen" component={CameraScreen} />
+            <Stack.Screen name="Semainier" component={SemainierScreen} />
             <Stack.Screen name="Suggestion" component={SuggestionScreen} />
            
           </Stack.Navigator>
