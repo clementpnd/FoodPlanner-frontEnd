@@ -21,10 +21,12 @@ import { removeAllRecette } from "../reducers/recettes";
 import { ADDRESSE_BACKEND } from "@env";
 
 export default function SemainierScreen({ navigation }) {
-  const user = useSelector((state) => state.users.value);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.users.value);
   const recetteRedux = useSelector((state) => state.recettes.value);
+  const semaineRedux = useSelector((state) => state.semaines.value);
 
+  console.log("semaineRedux", semaineRedux);
   //fonction pour basculer vers la page de suggestion
   const handleSuggestion = (nb) => {
     const idRecette = {
@@ -37,12 +39,17 @@ export default function SemainierScreen({ navigation }) {
 
   //fonction qui recupère les recettes en fonction du nombre de repas sélectionner
   useEffect(() => {
-    fetch(`${ADDRESSE_BACKEND}/recettes`)
+    const nbJour = semaineRedux.allCheckBoxSelected.length;
+
+    fetch(`http://10.2.1.12:3000/recettes`)
       .then((response) => response.json())
       .then((data) => {
+        console.log("recette", data);
+        const nbRecette = data.data.slice(0, nbJour);
+        console.log("nbRecette", nbRecette);
         if (!recetteRedux.recettes.length > 0) {
           dispatch(removeAllRecette());
-          dispatch(changeRecette(data.data));
+          dispatch(changeRecette(nbRecette));
         }
       });
   }, []);
@@ -94,8 +101,12 @@ export default function SemainierScreen({ navigation }) {
       <ScrollView>
         <View style={styles.scrollContent}>{recetteAffichées}</View>
       </ScrollView>
+      <Button title="remove" onPress={() => dispatch(removeAllRecette())} />
       <View style={styles.listeButton}>
-        <TouchableOpacity style={styles.btn}>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => navigation.navigate("ShoppingList")}
+        >
           <Text>Faison une liste de courses</Text>
         </TouchableOpacity>
       </View>

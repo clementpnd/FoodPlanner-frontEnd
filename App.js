@@ -7,7 +7,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import users from "./reducers/users";
 import recettes from "./reducers/recettes";
-import semaine from "./reducers/semaine";
+import semaines from "./reducers/semaines";
 
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
@@ -17,7 +17,7 @@ import storage from "redux-persist/lib/types";
 //import du hook pour les fonts
 import { useFonts } from "expo-font";
 
-const reducers = combineReducers({ users, recettes, semaine });
+const reducers = combineReducers({ users, recettes, semaines });
 const persistConfig = { key: "foodPlaner", storage: AsyncStorage };
 
 const store = configureStore({
@@ -38,6 +38,8 @@ import CreateProfilScreen from "./screens/CreateProfilScreen";
 import SemainierScreen from "./screens/SemainierScreen";
 import CameraScreen from "./screens/CameraScreen";
 import SuggestionScreen from "./screens/SuggestionScreen";
+import ShoppingListScreen from "./screens/ShoppingListScreen";
+import SemainierTestScreen from "./screens/SemainierTestScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -96,18 +98,20 @@ export default function App() {
             screensOption={{ headerShown: false }}
             // headerMode={false}
           >
+            <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
+            
             <Stack.Screen name=" " component={LandingPageScreen} />
             <Stack.Screen
               name="CreateProfilScreen"
               component={CreateProfilScreen}
             />
-          <Stack.Screen name="Semainier" component={SemainierScreen} />
             <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
-            
+            <Stack.Screen name="SemainierTest" component={SemainierTestScreen} />
             <Stack.Screen name="CameraScreen" component={CameraScreen} />
+            <Stack.Screen name="Semainier" component={SemainierScreen} />
             <Stack.Screen name="Suggestion" component={SuggestionScreen} />
+            <Stack.Screen name="ShoppingList" component={ShoppingListScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
