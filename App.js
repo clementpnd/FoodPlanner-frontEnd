@@ -7,7 +7,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import users from "./reducers/users";
 import recettes from "./reducers/recettes";
-import semaine from "./reducers/semaine";
+import semaines from "./reducers/semaines";
 import recettesFavorites from "./reducers/recettesFavorites";
 
 import { Provider } from "react-redux";
@@ -21,7 +21,7 @@ import { useFonts } from "expo-font";
 const reducers = combineReducers({
   users,
   recettes,
-  semaine,
+  semaines,
   recettesFavorites,
 });
 const persistConfig = { key: "foodPlaner", storage: AsyncStorage };
@@ -104,19 +104,16 @@ export default function App() {
             screensOption={{ headerShown: false }}
             // headerMode={false}
           >
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name=" " component={LandingPageScreen} />
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="Semainier" component={SemainierScreen} />
             <Stack.Screen
               name="CreateProfilScreen"
               component={CreateProfilScreen}
             />
             <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
-
             <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
-
             <Stack.Screen name="CameraScreen" component={CameraScreen} />
-            <Stack.Screen name="Semainier" component={SemainierScreen} />
             <Stack.Screen name="Suggestion" component={SuggestionScreen} />
             <Stack.Screen name="ShoppingList" component={ShoppingListScreen} />
           </Stack.Navigator>
