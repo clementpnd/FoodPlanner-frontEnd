@@ -7,12 +7,8 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import users from "./reducers/users";
 import recettes from "./reducers/recettes";
-<<<<<<< HEAD
-import semaines from "./reducers/semaines";
-=======
 import semaine from "./reducers/semaine";
 import recettesFavorites from "./reducers/recettesFavorites";
->>>>>>> gestionRecettesFavorites
 
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
@@ -22,16 +18,12 @@ import storage from "redux-persist/lib/types";
 //import du hook pour les fonts
 import { useFonts } from "expo-font";
 
-<<<<<<< HEAD
-const reducers = combineReducers({ users, recettes, semaines });
-=======
 const reducers = combineReducers({
   users,
   recettes,
   semaine,
   recettesFavorites,
 });
->>>>>>> gestionRecettesFavorites
 const persistConfig = { key: "foodPlaner", storage: AsyncStorage };
 
 const store = configureStore({
@@ -112,12 +104,7 @@ export default function App() {
             screensOption={{ headerShown: false }}
             // headerMode={false}
           >
-<<<<<<< HEAD
-            <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
-            
-=======
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
->>>>>>> gestionRecettesFavorites
             <Stack.Screen name=" " component={LandingPageScreen} />
             <Stack.Screen name="Semainier" component={SemainierScreen} />
             <Stack.Screen
@@ -125,14 +112,9 @@ export default function App() {
               component={CreateProfilScreen}
             />
             <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
-<<<<<<< HEAD
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            <Stack.Screen name="SemainierTest" component={SemainierTestScreen} />
-=======
 
             <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
 
->>>>>>> gestionRecettesFavorites
             <Stack.Screen name="CameraScreen" component={CameraScreen} />
             <Stack.Screen name="Semainier" component={SemainierScreen} />
             <Stack.Screen name="Suggestion" component={SuggestionScreen} />
