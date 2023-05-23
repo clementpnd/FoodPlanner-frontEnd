@@ -99,7 +99,7 @@ export default function App() {
             // headerMode={false}
           >
            
-            <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
+           
             
             <Stack.Screen name=" " component={LandingPageScreen} />
             <Stack.Screen
@@ -109,7 +109,7 @@ export default function App() {
             <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
-            <Stack.Screen name="Semainier" component={SemainierScreen} />
+    
             <Stack.Screen name="ShoppingList" component={ShoppingListScreen} />
             <Stack.Screen name="CameraScreen" component={CameraScreen} />
             <Stack.Screen name="Semainier" component={SemainierScreen} />
