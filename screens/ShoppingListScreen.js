@@ -15,12 +15,33 @@ export default function ShoppingListScreen({ navigation }) {
   const [isChecked, setCheck] = useState(false);
   const recette = useSelector((state) => state.recettes.value);
 
-  console.log("recette", recette);
+  //console.log("recette", recette);
 
   const AllIngredients = [];
   let ingredients;
   recette.recettes.map((data, i) => {
+  
     ingredients = data.ingredients.map((ing, i) => {
+
+    //fonction
+function parseValue(val) {
+  var v = parseFloat(val);
+  return {
+    'value': v,
+    'unit': val.replace(v, '')}
+      }
+//appel de la fonction
+for (let i = 0; i < ing.length; i++){
+  if (ing[i].quantite === null){
+          ing[i].quantite = 0;
+        }
+  else { console.log(parseValue(ing[i].quantite))}
+       }
+
+      
+ // console.log("ingr:", Number(ing.quantite.replace(/[^\d]/g, "")))
+
+      //à faire : si null /// et selon name des ingrédients
       return (
         <View style={styles.div} key={i}>
           <BouncyCheckbox onPress={() => setCheck(!isChecked)} />
@@ -31,8 +52,9 @@ export default function ShoppingListScreen({ navigation }) {
       );
     });
     AllIngredients.push(ingredients);
+   
   });
-
+  
   return (
     <View style={styles.content}>
         <Text style={styles.title}>Liste de course</Text>
