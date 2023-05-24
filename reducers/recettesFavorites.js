@@ -16,9 +16,9 @@ export const recettesFavoritesSlice = createSlice({
         (e) => e.nom !== action.payload
       );
     },
-    displayFavoriteRecette: (state, action) => {
-      state.value.recettesFavorites.filter((e) => e._id === action.payload);
-    },
+    // displayFavoriteRecette: (state, action) => {
+    //   state.value.recettesFavorites.filter((e) => e._id === action.payload);
+    // },
     findId: (state, action) => {
       state.value.id = action.payload;
     },

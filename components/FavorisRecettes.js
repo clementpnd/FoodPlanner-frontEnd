@@ -41,7 +41,6 @@ function FavorisRecettes() {
   let showModal = () => {
     setIsModalVisible(true);
   };
-<<<<<<< HEAD
   //fonction qui supprime une recette des favoris
   // const handleDeleteFavorite = () => {
   //   fetch(`http://192.168.1.51:3000/users/deleteFav`, {
@@ -54,8 +53,6 @@ function FavorisRecettes() {
   //       data.result && dispatch(removeFavoriteRecette(recetteToDisplay));
   //     });
   // };
-=======
->>>>>>> 3_2
 
   //fonction qui supprime une recette des favoris
   const handleDeleteFavorite = (nb) => {
