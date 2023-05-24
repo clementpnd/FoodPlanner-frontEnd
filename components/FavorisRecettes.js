@@ -41,22 +41,7 @@ function FavorisRecettes() {
   let showModal = () => {
     setIsModalVisible(true);
   };
-<<<<<<< HEAD
-=======
-  //fonction qui supprime une recette des favoris
-  // const handleDeleteFavorite = () => {
-  //   fetch(`http://192.168.1.51:3000/users/deleteFav`, {
-  //     method: "DELETE",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ recetteFavoris: recetteRedux }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       data.result && dispatch(removeFavoriteRecette(recetteToDisplay));
-  //     });
-  // };
->>>>>>> 2ef834245822454a6449a9fa09fd13b2680946d0
-
+ 
   //fonction qui supprime une recette des favoris
   // const handleDeleteFavorite = (nb) => {
   //   console.log(

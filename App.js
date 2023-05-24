@@ -103,8 +103,13 @@ export default function App() {
             screensOption={{ headerShown: false }}
             // headerMode={false}
           >
+
+<Stack.Screen
+              name="ShoppingListScreen"
+              component={ShoppingListScreen}
+            />
             <Stack.Screen name=" " component={LandingPageScreen} />
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
+          
             <Stack.Screen
               name="CreateProfilScreen"
               component={CreateProfilScreen}
@@ -119,10 +124,7 @@ export default function App() {
 
             <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
       
-            <Stack.Screen
-              name="ShoppingListScreen"
-              component={ShoppingListScreen}
-            />
+            
             <Stack.Screen name="Suggestion" component={SuggestionScreen} />
           </Stack.Navigator>
         </NavigationContainer>
