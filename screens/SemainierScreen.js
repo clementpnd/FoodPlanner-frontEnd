@@ -41,7 +41,7 @@ export default function SemainierScreen({ navigation }) {
   useEffect(() => {
     const nbJour = semaineRedux.allCheckBoxSelected.length;
 
-    fetch(`http://10.2.1.12:3000/recettes`)
+    fetch(`${ADDRESSE_BACKEND}/recettes`)
       .then((response) => response.json())
       .then((data) => {
         console.log("recette", data)

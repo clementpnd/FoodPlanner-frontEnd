@@ -7,6 +7,7 @@ import {
   Switch,
   Dimensions,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import { useState, useRef, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
@@ -60,7 +61,7 @@ export default function CreateProfilScreen({ navigation }) {
   
 
   const planifionsSemaine = () => {
-    fetch(`http://10.2.1.12:3000/users/signup`, {
+    fetch(`${ADDRESSE_BACKEND}/users/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userState),
@@ -97,8 +98,10 @@ export default function CreateProfilScreen({ navigation }) {
         <TouchableOpacity onPress={() => camera()} style={styles.pictureButton}>
           <Text style={styles.picturesText}>Take pictures</Text>
         </TouchableOpacity>
+
         <Text style={styles.slogan}>Apprenons à nous connaitre</Text>
       </View>
+      
       <View style={styles.regimeDiv}>
         <Text style={styles.regimeText}>
           Avez-vous un régime alimentaire particulier ?
