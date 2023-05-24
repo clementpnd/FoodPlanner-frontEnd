@@ -60,7 +60,7 @@ export default function MaSemaineScreen({ navigation }) {
 
   // fetch nb de personnes enregistrées dans Profil
   // useEffect(() => {
-  //   fetch(`${ADDRESSE_BACKEND}/users/nbPersonne/${user.token}`)
+  //   fetch(`http://10.2.1.12:3000/users/nbPersonne/${user.token}`)
   //     .then((response) => response.json())
   //     .then((data) => {
   //       setNbPersonneSemaine(nbPersonneSemaine)
@@ -82,12 +82,12 @@ export default function MaSemaineScreen({ navigation }) {
 
   //DataList pour les repas de la semaine
   const listData = [
-    { rang: "0", jour: "Lundi", value: "Midi", nbPersonne: nbPersonneLundi },
-    { rang: "1", jour: "Lundi", value: "Soir", nbPersonne: nbPersonneLundi },
-    { rang: "2", jour: "Lundi", value: "lesdeux", nbPersonne: nbPersonneLundi },
-    { rang: "3", jour: "Mardi", value: "Midi", nbPersonne: nbPersonneMardi },
-    { rang: "4", jour: "Mardi", value: "Soir", nbPersonne: nbPersonneMardi },
-    { rang: "5", jour: "Mardi", value: "lesdeux", nbPersonne: nbPersonneMardi },
+    { rang: "0", jour: "Lundi", repas: "Midi", nbPersonne: nbPersonneLundi },
+    { rang: "1", jour: "Lundi", repas: "Soir", nbPersonne: nbPersonneLundi },
+    { rang: "2", jour: "Lundi", repas: "lesdeux", nbPersonne: nbPersonneLundi },
+    { rang: "3", jour: "Mardi", repas: "Midi", nbPersonne: nbPersonneMardi },
+    { rang: "4", jour: "Mardi", repas: "Soir", nbPersonne: nbPersonneMardi },
+    { rang: "5", jour: "Mardi", repas: "lesdeux", nbPersonne: nbPersonneMardi },
     {
       rang: "6",
       jour: "Mercredi",
@@ -162,7 +162,7 @@ export default function MaSemaineScreen({ navigation }) {
 
   //bouton ajout de la semaine en favoris
   // const submitFavoriteWeek = () => {
-  //   fetch(`${ADDRESSE_BACKEND}/users/newsemaine/${user.token}`, {
+  //   fetch(`http://10.2.1.12:3000/users/newsemaine/${user.token}`, {
   //     method: 'PUT',
   //     headers: { 'Content-Type': 'application/json' },
   //     body: JSON.stringify({token: user.token, jour: selectedItem.jour, repas: selectedItem.value}),
@@ -260,9 +260,8 @@ export default function MaSemaineScreen({ navigation }) {
 
   //dispatch
   const handleOnSubmit = () => {
-    dispatch(addSemaine({ allCheckBoxSelected }));
     dispatch(removeAllRecette())
-    console.log(allCheckBoxSelected)
+    dispatch(addSemaine({ allCheckBoxSelected }));
     navigation.navigate("Semainier");
   };
 
@@ -288,7 +287,7 @@ export default function MaSemaineScreen({ navigation }) {
   }
 
   const favorisSemaine = () =>{
-    fetch(`http:10.2.1.12:3000/users/addsemaineFavorite/${user.token}`, 
+    fetch(`http:10.2.1.12:3000/users/addSemaineFavorite/${user.token}`, 
     {
       method: "PUT",
       headers: { "Content-Type": "application/json" },

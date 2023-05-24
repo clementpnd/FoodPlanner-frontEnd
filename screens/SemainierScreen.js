@@ -5,13 +5,13 @@ import {
   View,
   ScrollView,
   ImageBackground,
-  Button
+  Button,
 } from "react-native";
 //import fontawesome pour les icones
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 //import des hooks
 import { useEffect, useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addRecette, changeRecette, removeRecette } from "../reducers/recettes";
 import { addUsers } from "../reducers/users";
 import { addIndexRecette } from "../reducers/users";
@@ -23,15 +23,15 @@ import { ADDRESSE_BACKEND } from "@env";
 export default function SemainierScreen({ navigation }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.users.value);
-  const recetteRedux = useSelector((state)=>state.recettes.value);
-  const semaineRedux = useSelector((state) =>state.semaines.value);
+  const recetteRedux = useSelector((state) => state.recettes.value);
+  const semaineRedux = useSelector((state) => state.semaines.value);
 
-  console.log("semaineRedux",semaineRedux);
+  console.log("semaineRedux", semaineRedux);
   //fonction pour basculer vers la page de suggestion
   const handleSuggestion = (nb) => {
     const idRecette = {
-      idRecette : nb
-    }
+      idRecette: nb,
+    };
     dispatch(addIndexRecette(idRecette));
     navigation.navigate("Suggestion");
   };
@@ -44,29 +44,32 @@ export default function SemainierScreen({ navigation }) {
     fetch(`http://10.2.1.12:3000/recettes`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("recette", data)
-        const nbRecette = data.data.slice(0,nbJour);
-        console.log('nbRecette',nbRecette);
-        if(!recetteRedux.recettes.length>0){
+        console.log("recette", data);
+        const nbRecette = data.data.slice(0, nbJour);
+        console.log("nbRecette", nbRecette);
+        if (!recetteRedux.recettes.length > 0) {
           dispatch(removeAllRecette());
           dispatch(changeRecette(nbRecette));
         }
       });
   }, []);
 
-  console.log("recetteRedux",recetteRedux );
-  // console.log(recetteData._id);
-
   //fonction pour ajouter une recette en favoris
-  const addRecetteHandler = () => {
-    fetch(`${ADDRESSE_BACKEND}/addRecetteFavorite/${user.token}`, {
+  const addRecetteHandler = (_id) => {
+    console.log("id", _id);
+    fetch(`http://10.2.1.12:3000/users/addRecetteFavorite/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ recetteFavoris: [recetteData] }),
-    });
+      body: JSON.stringify({ recetteFavoris: _id }),
+    })
+      .then((response) => response.json)
+      .then((data) => {
+        if (data.result) {
+          console.log("pushed dans les fav");
+        }
+      });
   };
 
-  
   const recetteAffichées = recetteRedux.recettes.map((data, i) => {
     // dispatch(addRecette(data));
     return (
@@ -74,7 +77,7 @@ export default function SemainierScreen({ navigation }) {
         <ImageBackground source={{ uri: data.image }} style={styles.imageCard}>
           <TouchableOpacity
             style={styles.recettefavorite}
-            onPress={() => addRecetteHandler()}
+            onPress={() => addRecetteHandler(data._id)}
           >
             <FontAwesome name="heart-o" size={20} color="black" />
           </TouchableOpacity>
@@ -98,9 +101,12 @@ export default function SemainierScreen({ navigation }) {
       <ScrollView>
         <View style={styles.scrollContent}>{recetteAffichées}</View>
       </ScrollView>
-    <Button title="remove" onPress={() =>dispatch(removeAllRecette())}/>
+      <Button title="remove" onPress={() => dispatch(removeAllRecette())} />
       <View style={styles.listeButton}>
-        <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate("ShoppingList")}>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => navigation.navigate("ShoppingList")}
+        >
           <Text>Faison une liste de courses</Text>
         </TouchableOpacity>
       </View>

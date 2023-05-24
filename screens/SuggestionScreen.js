@@ -58,12 +58,16 @@ export default function SuggestionScreen({ navigation }) {
       );
     });
   }
-// FUNCTION REPLACE RECETTE DANS LE SEMAINIER
+  // FUNCTION REPLACE RECETTE DANS LE SEMAINIER
   const replace = (nb) => {
     const updateRecetteSemainier = [...recetteSemainier];
-    updateRecetteSemainier.splice(user.idRecette.idRecette, 1, recetteSuggerer[nb]);
+    updateRecetteSemainier.splice(
+      user.idRecette.idRecette,
+      1,
+      recetteSuggerer[nb]
+    );
     dispatch(changeRecette(updateRecetteSemainier));
-    navigation.navigate("Semainier")
+    navigation.navigate("Semainier");
   };
 
   return (
@@ -102,7 +106,7 @@ const styles = StyleSheet.create({
   img: {
     width: 100,
     height: 100,
-    borderRadius: 20,
+    borderRadius: 4,
   },
   desc: { fontWeight: 300, fontSize: 10 },
   recetteDiv: {

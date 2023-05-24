@@ -18,6 +18,8 @@ import { addUsers } from "../reducers/users";
 //.env du front
 import { ADDRESSE_BACKEND } from "@env";
 import { Colors } from "react-native/Libraries/NewAppScreen";
+import { removeAllRecette } from "../reducers/recettes";
+import { removeAllSemaine } from "../reducers/semaines";
 
 export default function LandingPageScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -59,6 +61,8 @@ export default function LandingPageScreen({ navigation }) {
       setEmailError(true);
     }
   };
+  dispatch(removeAllRecette());
+  dispatch(removeAllSemaine());
   return (
     <View style={styles.main}>
       <Image source={require("../assets/logo.jpg")} style={styles.logo}></Image>
