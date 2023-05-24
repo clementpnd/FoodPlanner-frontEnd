@@ -7,11 +7,7 @@ import {
   Switch,
   Dimensions,
   TouchableOpacity,
-<<<<<<< HEAD
-  ScrollView
-=======
   ScrollView,
->>>>>>> 3_2
 } from "react-native";
 import { useState, useRef, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
@@ -100,80 +96,13 @@ export default function CreateProfilScreen({ navigation }) {
   let image = require("../assets/User.png");
 
   if (user.photoProfil !== undefined) {
-    image 
-    = { uri: user.photoProfil };
+    image = { uri: user.photoProfil };
     if (!userState.photoProfil) {
       setUserState({ ...userState, photoProfil: user.photoProfil });
     }
   }
 
   return (
-<<<<<<< HEAD
-    <View style={styles.container}>
-      <View style={styles.imgDiv}>
-        <Image source={image} style={styles.img} />
-        <TouchableOpacity onPress={() => camera()} style={styles.pictureButton}>
-          <Text style={styles.picturesText}>Photo de profil</Text>
-        </TouchableOpacity>
-        <Text style={styles.slogan}>Apprenons à nous connaitre</Text>
-      </View>
-      <View style={styles.regimeDiv}>
-        <Text style={styles.regimeText}>
-          Avez-vous un régime alimentaire particulier ?
-        </Text>
-        <View style={styles.switchDiv}>
-          <View style={styles.regime}>
-            <Text>Aucun</Text>
-            <Switch value={aucun} onValueChange={() => disabled()} />
-          </View>
-          <View style={styles.regime}>
-            <Text>Végé</Text>
-            <Switch
-              value={vege}
-              disabled={aucun}
-              onValueChange={() => setVege(!vege)}
-            />
-          </View>
-          <View style={styles.regime}>
-            <Text>poulet</Text>
-            <Switch
-              value={poulet}
-              disabled={aucun}
-              onValueChange={() => setPoulet(!poulet)}
-            />
-          </View>
-          <View style={styles.regime}>
-            <Text>poisson</Text>
-            <Switch
-              value={poisson}
-              disabled={aucun}
-              onValueChange={() => setPoisson(!poisson)}
-            />
-          </View>
-          <View style={styles.regime}>
-            <Text>feculent</Text>
-            <Switch
-              value={feculent}
-              disabled={aucun}
-              onValueChange={() => setFeculent(!feculent)}
-            />
-          </View>
-          <View style={styles.personneDiv}>
-            <Text style={styles.personneText}>
-              On cuisine pour combien de personne ?
-            </Text>
-            <Picker
-              ref={pickerRef}
-              selectedValue={nbPersonne}
-              onValueChange={(itemValue, itemIndex) => setNbPersonne(itemValue)}
-            >
-              {items}
-            </Picker>
-            <View style={styles.submitDiv}>
-              <TouchableOpacity
-                style={styles.submit}
-                onPress={() => planifionsSemaine()}
-=======
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.imgDiv}>
@@ -237,7 +166,6 @@ export default function CreateProfilScreen({ navigation }) {
                 onValueChange={(itemValue, itemIndex) =>
                   setNbPersonne(itemValue)
                 }
->>>>>>> 3_2
               >
                 {items}
               </Picker>
