@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -29,33 +29,18 @@ function FavorisRecettes() {
   const [isModalVisible, setIsModalVisible] = useState(false); // variable d'état qui gère la modale
 
   useEffect(() => {
-    fetch(`http://192.168.1.51:3000/users/recetteFavorites/${user.token}`)
+    fetch(`${ADDRESSE_BACKEND}/users/recetteFavorites/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         setRecetteToDisplay(data);
         dispatch(addFavoriteRecette(data));
       });
-  }, []);
+  }, [isModalVisible]);
 
   //fonction qui gère l'affichage de la modale
   let showModal = () => {
     setIsModalVisible(true);
   };
-<<<<<<< HEAD
-=======
-  //fonction qui supprime une recette des favoris
-  // const handleDeleteFavorite = () => {
-  //   fetch(`http://192.168.1.51:3000/users/deleteFav`, {
-  //     method: "DELETE",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ recetteFavoris: recetteRedux }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       data.result && dispatch(removeFavoriteRecette(recetteToDisplay));
-  //     });
-  // };
->>>>>>> 2ef834245822454a6449a9fa09fd13b2680946d0
 
   //fonction qui supprime une recette des favoris
   // const handleDeleteFavorite = (nb) => {
@@ -148,8 +133,6 @@ const styles = StyleSheet.create({
   card: {
     display: "flex",
     flexDirection: "row",
-    // justifyContent: "center",
-    // alignItems: "center",
     backgroundColor: "green",
     width: Dimensions.get("window").width - 20,
     height: 160,
