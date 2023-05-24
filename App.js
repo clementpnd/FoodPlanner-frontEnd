@@ -105,7 +105,7 @@ export default function App() {
             // headerMode={false}
           >
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
-
+            <Stack.Screen name="ShoppingListScreen" component={ShoppingListScreen} />
             <Stack.Screen name=" " component={LandingPageScreen} />
 
            
@@ -118,7 +118,7 @@ export default function App() {
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="Semainier" component={SemainierScreen} />
     
-            <Stack.Screen name="ShoppingListScreen" component={ShoppingListScreen} />
+            
             <Stack.Screen name="CameraScreen" component={CameraScreen} />
             <Stack.Screen name="Suggestion" component={SuggestionScreen} />
            
