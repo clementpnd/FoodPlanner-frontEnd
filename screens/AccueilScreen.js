@@ -4,6 +4,8 @@ import {
   TouchableOpacity,
   View,
   SafeAreaView,
+  Modal,
+  Button
 } from "react-native";
 //import des hooks d'effets
 import { useState, useEffect } from "react";

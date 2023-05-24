@@ -41,7 +41,7 @@ export default function SemainierScreen({ navigation }) {
   useEffect(() => {
     const nbJour = semaineRedux.allCheckBoxSelected.length;
 
-    fetch(`${ADDRESSE_BACKEND}/recettes`)
+    fetch(`http://10.2.1.12:3000/recettes`)
       .then((response) => response.json())
       .then((data) => {
         console.log("recette", data);
@@ -57,7 +57,7 @@ export default function SemainierScreen({ navigation }) {
   //fonction pour ajouter une recette en favoris
   const addRecetteHandler = (_id) => {
     console.log("id", _id);
-    fetch(`http://10.2.1.12:3000/users/addRecetteFavorite/${user.token}`, {
+    fetch(`http://10.2.1.12:3000:3000/users/addRecetteFavorite/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ recetteFavoris: _id }),
@@ -71,9 +71,11 @@ export default function SemainierScreen({ navigation }) {
   };
 
   const recetteAffichées = recetteRedux.recettes.map((data, i) => {
+    console.log("in map semaine", semaineRedux.allCheckBoxSelected[i])
     // dispatch(addRecette(data));
     return (
       <View key={i} style={styles.card}>
+        <Text style={styles.jourText}>{semaineRedux.allCheckBoxSelected[i].jour} : {semaineRedux.allCheckBoxSelected[i].repas}</Text>
         <ImageBackground source={{ uri: data.image }} style={styles.imageCard}>
           <TouchableOpacity
             style={styles.recettefavorite}
@@ -101,7 +103,6 @@ export default function SemainierScreen({ navigation }) {
       <ScrollView>
         <View style={styles.scrollContent}>{recetteAffichées}</View>
       </ScrollView>
-      <Button title="remove" onPress={() => dispatch(removeAllRecette())} />
       <View style={styles.listeButton}>
         <TouchableOpacity
           style={styles.btn}
@@ -162,4 +163,7 @@ const styles = StyleSheet.create({
     marginTop: 255,
     paddingLeft: 150,
   },
+  jourText:{
+    fontSize :15,
+  }
 });

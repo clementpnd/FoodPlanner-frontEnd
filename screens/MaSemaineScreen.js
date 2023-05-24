@@ -38,7 +38,7 @@ export default function MaSemaineScreen({ navigation }) {
 
    //fetch nb de personnes enregistrées dans Profil
   useEffect(() => {
-    fetch(`${ADDRESSE_BACKEND}/users/${user.token}`)
+    fetch(`http://10.2.1.12:3000/users/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         setNbPersonneLundi(data.user.nbPersonne.toString());
@@ -86,71 +86,71 @@ export default function MaSemaineScreen({ navigation }) {
     {
       rang: "6",
       jour: "Mercredi",
-      value: "Midi",
+      repas: "Midi",
       nbPersonne: nbPersonneMercredi,
     },
     {
       rang: "7",
       jour: "Mercredi",
-      value: "Soir",
+      repas: "Soir",
       nbPersonne: nbPersonneMercredi,
     },
     {
       rang: "8",
       jour: "Mercredi",
-      value: "lesdeux",
+      repas: "lesdeux",
       nbPersonne: nbPersonneMercredi,
     },
-    { rang: "9", jour: "Jeudi", value: "Midi", nbPersonne: nbPersonneJeudi },
-    { rang: "10", jour: "Jeudi", value: "Soir", nbPersonne: nbPersonneJeudi },
+    { rang: "9", jour: "Jeudi", repas: "Midi", nbPersonne: nbPersonneJeudi },
+    { rang: "10", jour: "Jeudi", repas: "Soir", nbPersonne: nbPersonneJeudi },
     {
       rang: "11",
       jour: "Jeudi",
-      value: "lesdeux",
+      repas: "lesdeux",
       nbPersonne: nbPersonneJeudi,
     },
     {
       rang: "12",
       jour: "Vendredi",
-      value: "Midi",
+      repas: "Midi",
       nbPersonne: nbPersonneVendredi,
     },
     {
       rang: "13",
       jour: "Vendredi",
-      value: "Soir",
+      repas: "Soir",
       nbPersonne: nbPersonneVendredi,
     },
     {
       rang: "14",
       jour: "Vendredi",
-      value: "lesdeux",
+      repas: "lesdeux",
       nbPersonne: nbPersonneVendredi,
     },
-    { rang: "15", jour: "Samedi", value: "Midi", nbPersonne: nbPersonneSamedi },
-    { rang: "16", jour: "Samedi", value: "Soir", nbPersonne: nbPersonneSamedi },
+    { rang: "15", jour: "Samedi", repas: "Midi", nbPersonne: nbPersonneSamedi },
+    { rang: "16", jour: "Samedi", repas: "Soir", nbPersonne: nbPersonneSamedi },
     {
       rang: "17",
       jour: "Samedi",
-      value: "lesdeux",
+      repas: "lesdeux",
       nbPersonne: nbPersonneSamedi,
     },
     {
       rang: "18",
       jour: "Dimanche",
-      value: "Midi",
+      repas: "Midi",
       nbPersonne: nbPersonneDimanche,
     },
     {
       rang: "19",
       jour: "Dimanche",
-      value: "Soir",
+      repas: "Soir",
       nbPersonne: nbPersonneDimanche,
     },
     {
       rang: "20",
       jour: "Dimanche",
-      value: "lesdeux",
+      repas: "lesdeux",
       nbPersonne: nbPersonneDimanche,
     },
   ];
@@ -266,7 +266,7 @@ export default function MaSemaineScreen({ navigation }) {
 
 
   const favorisSemaine = () =>{
-    fetch(`http:10.2.1.12:3000/users/addsemaineFavorite/${user.token}`, 
+    fetch(`http:10.2.1.12:3000:3000/users/addsemaineFavorite/${user.token}`, 
     {
       method: "PUT",
       headers: { "Content-Type": "application/json" },

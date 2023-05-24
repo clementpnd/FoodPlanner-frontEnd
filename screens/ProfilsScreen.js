@@ -60,7 +60,7 @@ navigation.navigate(" ")
 const saveData =() =>{
   console.log('user.photoProfil',user.photoProfil);
   setEditable(!editable);
-  fetch(`http://10.2.1.12:3000/users/profilUpdate/${user.token}`, {
+  fetch(`http://10.2.1.12:3000:3000/users/profilUpdate/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
