@@ -1,6 +1,7 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Modal,Button } from "react-native";
 //import des hooks d'effets
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import React from "react";
 //import du module map
 import MapView, { Marker } from "react-native-maps";
@@ -15,7 +16,8 @@ export default function AccueilScreen({ navigation }) {
     longitudeDelta: 0.01,
   }); //variable d'état de location de l'utilisateur
   const [apiData, setApiData] = useState([]); //variable d'état qui recupère les données de l'api
-
+  const [modalErrorSemainier, setModalErrorSemainier] = useState(false);
+  const semaineRedux = useSelector((state) => state.semaines.value);
   //Attente d'autorisation de la géoloc
   useEffect(() => {
     (async () => {
@@ -40,6 +42,13 @@ export default function AccueilScreen({ navigation }) {
       });
   };
 
+  const maSemaine = () => {
+    if (semaineRedux.allCheckBoxSelected !== undefined) {
+      navigation.navigate("Semainier");
+    } else {
+      setModalErrorSemainier(true);
+    }
+  };
   //ajout des marqueurs graces aux données en dur récupéré via l'api du gouvernement sur le bio
   const markers = apiData.map((data, i) => {
     return (
@@ -59,8 +68,27 @@ export default function AccueilScreen({ navigation }) {
       <View style={styles.semaineEnCours}>
         <TouchableOpacity
           style={styles.buttonAccessSemainier}
-          onPress={() => navigation.navigate("Semainier")}
+          onPress={() => maSemaine()}
         >
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalErrorSemainier}
+            onRequestClose={() => {
+              setIsModalVisible(!modalErrorSemainier);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text>Aucune semaine est actuellement en cours</Text>
+                {/* <TouchableOpacity onPress={() => setModalErrorSemainier(false)}> */}
+                  <View style={{marginTop: 50,}}>
+                    <Button title="Close" onPress={() => setModalErrorSemainier(false)}></Button>
+                  </View>
+                {/* </TouchableOpacity> */}
+              </View>
+            </View>
+          </Modal>
           <Text>Ma semaine en cours</Text>
         </TouchableOpacity>
       </View>
@@ -127,6 +155,25 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-end",
     marginRight: 9,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "flex-start",
+    marginTop: 215,
+    alignItems: "center",
+  },
+  modalView: {
+    backgroundColor: "#ffff",
+    borderRadius: 4,
+    paddingTop: 30,
+    paddingBottom: 30,
+    paddingHorizontal: 10,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
   },
 });
 

@@ -41,7 +41,7 @@ export default function SemainierScreen({ navigation }) {
   useEffect(() => {
     const nbJour = semaineRedux.allCheckBoxSelected.length;
 
-    fetch(`${ADDRESSE_BACKEND}/recettes`)
+    fetch(`http://10.2.1.12:3000/recettes`)
       .then((response) => response.json())
       .then((data) => {
         console.log("recette", data);
@@ -57,7 +57,7 @@ export default function SemainierScreen({ navigation }) {
   //fonction pour ajouter une recette en favoris
   const addRecetteHandler = (_id) => {
     console.log("id", _id);
-    fetch(`${ADDRESSE_BACKEND}/users/addRecetteFavorite/${user.token}`, {
+    fetch(`http://10.2.1.12:3000/users/addRecetteFavorite/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ recetteFavoris: _id }),

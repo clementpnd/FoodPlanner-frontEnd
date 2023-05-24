@@ -7,11 +7,14 @@ import {
   Switch,
   Dimensions,
   TouchableOpacity,
+  ScrollView
 } from "react-native";
 import { useState, useRef, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
 import { useDispatch, useSelector } from "react-redux";
 import { addUsers, removeUsers } from "../reducers/users";
+import { removeAllRecette } from "../reducers/recettes";
+import { removeAllSemaine } from "../reducers/semaines";
 //import de .env front
 import { ADDRESSE_BACKEND } from "@env";
 
@@ -60,6 +63,8 @@ export default function CreateProfilScreen({ navigation }) {
   
 
   const planifionsSemaine = () => {
+    dispatch(removeAllRecette);
+    dispatch(removeAllSemaine);
     fetch(`http://10.2.1.12:3000/users/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -84,7 +89,8 @@ export default function CreateProfilScreen({ navigation }) {
   let image = require("../assets/User.png");
 
   if (user.photoProfil !== undefined) {
-    image = { uri: user.photoProfil };
+    image 
+    = { uri: user.photoProfil };
     if (!userState.photoProfil) {
       setUserState({ ...userState, photoProfil: user.photoProfil });
     }
@@ -95,7 +101,7 @@ export default function CreateProfilScreen({ navigation }) {
       <View style={styles.imgDiv}>
         <Image source={image} style={styles.img} />
         <TouchableOpacity onPress={() => camera()} style={styles.pictureButton}>
-          <Text style={styles.picturesText}>Take pictures</Text>
+          <Text style={styles.picturesText}>Photo de profil</Text>
         </TouchableOpacity>
         <Text style={styles.slogan}>Apprenons à nous connaitre</Text>
       </View>

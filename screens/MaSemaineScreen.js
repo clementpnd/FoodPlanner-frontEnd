@@ -60,7 +60,7 @@ export default function MaSemaineScreen({ navigation }) {
 
   // fetch nb de personnes enregistrées dans Profil
   // useEffect(() => {
-  //   fetch(`${ADDRESSE_BACKEND}/users/nbPersonne/${user.token}`)
+  //   fetch(`http://10.2.1.12:3000/users/nbPersonne/${user.token}`)
   //     .then((response) => response.json())
   //     .then((data) => {
   //       setNbPersonneSemaine(nbPersonneSemaine)
@@ -162,7 +162,7 @@ export default function MaSemaineScreen({ navigation }) {
 
   //bouton ajout de la semaine en favoris
   // const submitFavoriteWeek = () => {
-  //   fetch(`${ADDRESSE_BACKEND}/users/newsemaine/${user.token}`, {
+  //   fetch(`http://10.2.1.12:3000/users/newsemaine/${user.token}`, {
   //     method: 'PUT',
   //     headers: { 'Content-Type': 'application/json' },
   //     body: JSON.stringify({token: user.token, jour: selectedItem.jour, repas: selectedItem.value}),
@@ -260,9 +260,8 @@ export default function MaSemaineScreen({ navigation }) {
 
   //dispatch
   const handleOnSubmit = () => {
-    dispatch(addSemaine({ allCheckBoxSelected }));
     dispatch(removeAllRecette())
-    console.log(allCheckBoxSelected)
+    dispatch(addSemaine({ allCheckBoxSelected }));
     navigation.navigate("Semainier");
   };
 

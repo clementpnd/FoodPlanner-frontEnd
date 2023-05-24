@@ -12,9 +12,12 @@ export const semainesSlice = createSlice({
       //console.log("reducer:", action.payload)
      state.value = action.payload
     },
+    removeAllSemaine : (state,action) =>{
+      state.value = [];
+    }
   
   },
 });
 
-export const { addSemaine } = semainesSlice.actions;
+export const { addSemaine,removeAllSemaine } = semainesSlice.actions;
 export default semainesSlice.reducer;
