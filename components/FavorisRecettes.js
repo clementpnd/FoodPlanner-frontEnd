@@ -68,7 +68,7 @@ function FavorisRecettes() {
       <View key={i} style={styles.card}>
         <TouchableOpacity
           // onPress={() => handleDeleteFavorite(i)}
-          onPress={() => dispatch(removeFavoriteRecette(data.nom))}
+          // onPress={() => dispatch(removeFavoriteRecette(data.nom))}
           style={styles.closebuttonCard}
         >
           <FontAwesome name="times" size={20} color="#000000" />

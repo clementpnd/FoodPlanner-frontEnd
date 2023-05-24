@@ -99,17 +99,23 @@ export default function App() {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <NavigationContainer>
-          <Stack.Screen name=" " component={LandingPageScreen} />
-          <Stack.Navigator screensOption={{ headerShown: false }}>
+          <Stack.Navigator
+            screensOption={{ headerShown: false }}
+            // headerMode={false}
+          >
+            <Stack.Screen name=" " component={LandingPageScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen
               name="CreateProfilScreen"
               component={CreateProfilScreen}
             />
             <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
+
+            <Stack.Screen name="Semainier" component={SemainierScreen} />
+
             <Stack.Screen name="CameraScreen" component={CameraScreen} />
             <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
-            <Stack.Screen name="Semainier" component={SemainierScreen} />
+
             <Stack.Screen
               name="ShoppingListScreen"
               component={ShoppingListScreen}

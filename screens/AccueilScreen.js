@@ -5,7 +5,8 @@ import {
   View,
   SafeAreaView,
   Modal,
-  Button
+  Button,
+  Dimensions,
 } from "react-native";
 //import des hooks d'effets
 import { useState, useEffect } from "react";
@@ -89,18 +90,16 @@ export default function AccueilScreen({ navigation }) {
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
                 <Text>Aucune semaine est actuellement en cours</Text>
-                {/* <TouchableOpacity onPress={() => setModalErrorSemainier(false)}> */}
                 <View style={{ marginTop: 50 }}>
                   <Button
                     title="Close"
                     onPress={() => setModalErrorSemainier(false)}
                   ></Button>
                 </View>
-                {/* </TouchableOpacity> */}
               </View>
             </View>
           </Modal>
-          <Text>Ma semaine en cours</Text>
+          <Text style={styles.textButton}>Ma semaine en cours</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.creationSemaine}>
@@ -108,10 +107,10 @@ export default function AccueilScreen({ navigation }) {
           style={styles.buttonCreationSemaine}
           onPress={() => navigation.navigate("Ma Semaine")}
         >
-          <Text>Créer ma semaine</Text>
+          <Text style={styles.textButton}>Créer ma semaine</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.map}>
+      <View style={styles.mapBackground}>
         <MapView region={currentPosition} style={styles.map}>
           {currentPosition && (
             <Marker coordinate={currentPosition} pinColor="blue"></Marker>
@@ -126,9 +125,11 @@ export default function AccueilScreen({ navigation }) {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     alignItems: "center",
     fontFamily: "Fredoka",
+    marginTop: 5,
+    marginBottom: 5,
   },
   semaineEnCours: {
     display: "flex",
@@ -142,29 +143,37 @@ const styles = StyleSheet.create({
   creationSemaine: {
     display: "flex",
     justifyContent: "center",
-    backgroundColor: "purple",
+    backgroundColor: "#78CB26",
     width: 360,
     height: 100,
     marginBottom: 5,
     borderRadius: 4,
   },
+  mapBackground: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "green",
+    width: Dimensions.get("window").width - 10,
+    height: 350,
+    borderRadius: 4,
+  },
   map: {
     display: "flex",
-    backgroundColor: "green",
-    width: 360,
-    height: 350,
+    width: 350,
+    height: 340,
     borderRadius: 4,
   },
   buttonCreationSemaine: {
     height: 100,
     justifyContent: "center",
-    alignItems: "flex-end",
+    alignItems: "center",
     marginRight: 9,
   },
   buttonAccessSemainier: {
     height: 100,
     justifyContent: "center",
-    alignItems: "flex-end",
+    alignItems: "center",
     marginRight: 9,
   },
   centeredView: {
@@ -185,6 +194,13 @@ const styles = StyleSheet.create({
       width: 0,
       height: 0,
     },
+  },
+  textButton: {
+    fontFamily: "Fredoka",
+    fontSize: 30,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
