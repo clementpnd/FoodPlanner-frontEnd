@@ -1,4 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View, Modal,Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  SafeAreaView,
+} from "react-native";
 //import des hooks d'effets
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -64,7 +70,7 @@ export default function AccueilScreen({ navigation }) {
   });
 
   return (
-    <View style={styles.main}>
+    <SafeAreaView style={styles.main}>
       <View style={styles.semaineEnCours}>
         <TouchableOpacity
           style={styles.buttonAccessSemainier}
@@ -82,9 +88,12 @@ export default function AccueilScreen({ navigation }) {
               <View style={styles.modalView}>
                 <Text>Aucune semaine est actuellement en cours</Text>
                 {/* <TouchableOpacity onPress={() => setModalErrorSemainier(false)}> */}
-                  <View style={{marginTop: 50,}}>
-                    <Button title="Close" onPress={() => setModalErrorSemainier(false)}></Button>
-                  </View>
+                <View style={{ marginTop: 50 }}>
+                  <Button
+                    title="Close"
+                    onPress={() => setModalErrorSemainier(false)}
+                  ></Button>
+                </View>
                 {/* </TouchableOpacity> */}
               </View>
             </View>
@@ -108,7 +117,7 @@ export default function AccueilScreen({ navigation }) {
           {markers}
         </MapView>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

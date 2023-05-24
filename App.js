@@ -104,10 +104,11 @@ export default function App() {
             screensOption={{ headerShown: false }}
             // headerMode={false}
           >
-           
-           
-            
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
+
             <Stack.Screen name=" " component={LandingPageScreen} />
+
+           
             <Stack.Screen
               name="CreateProfilScreen"
               component={CreateProfilScreen}
