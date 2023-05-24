@@ -46,7 +46,6 @@ import CameraScreen from "./screens/CameraScreen";
 import SuggestionScreen from "./screens/SuggestionScreen";
 import ShoppingListScreen from "./screens/ShoppingListScreen";
 
-
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -105,23 +104,34 @@ export default function App() {
             // headerMode={false}
           >
             <Stack.Screen name=" " component={LandingPageScreen} />
+<<<<<<< HEAD
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
 
+=======
+>>>>>>> 2ef834245822454a6449a9fa09fd13b2680946d0
 
-           
             <Stack.Screen
               name="CreateProfilScreen"
               component={CreateProfilScreen}
             />
-            <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
             <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
+<<<<<<< HEAD
             <Stack.Screen name="Semainier" component={SemainierScreen} />
     
             <Stack.Screen name="ShoppingListScreen" component={ShoppingListScreen} />
+=======
+>>>>>>> 2ef834245822454a6449a9fa09fd13b2680946d0
             <Stack.Screen name="CameraScreen" component={CameraScreen} />
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
+
+            <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
+            <Stack.Screen name="Semainier" component={SemainierScreen} />
+
+            <Stack.Screen
+              name="ShoppingListScreen"
+              component={ShoppingListScreen}
+            />
             <Stack.Screen name="Suggestion" component={SuggestionScreen} />
-           
-           
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
