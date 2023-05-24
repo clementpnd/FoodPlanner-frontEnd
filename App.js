@@ -45,7 +45,7 @@ import SemainierScreen from "./screens/SemainierScreen";
 import CameraScreen from "./screens/CameraScreen";
 import SuggestionScreen from "./screens/SuggestionScreen";
 import ShoppingListScreen from "./screens/ShoppingListScreen";
-import SemainierTestScreen from "./screens/SemainierTestScreen";
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -104,31 +104,23 @@ export default function App() {
             screensOption={{ headerShown: false }}
             // headerMode={false}
           >
-<<<<<<< HEAD
            
            
             
             <Stack.Screen name=" " component={LandingPageScreen} />
-=======
-            <Stack.Screen name=" " component={LandingPageScreen} /> 
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            <Stack.Screen name="Semainier" component={SemainierScreen} />
->>>>>>> 9cbd39cb3ca58ffd07c96ffb8847170507133793
             <Stack.Screen
               name="CreateProfilScreen"
               component={CreateProfilScreen}
             />
             <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
             <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
-<<<<<<< HEAD
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
+            <Stack.Screen name="Semainier" component={SemainierScreen} />
     
-            <Stack.Screen name="ShoppingList" component={ShoppingListScreen} />
-=======
->>>>>>> 9cbd39cb3ca58ffd07c96ffb8847170507133793
+            <Stack.Screen name="ShoppingListScreen" component={ShoppingListScreen} />
             <Stack.Screen name="CameraScreen" component={CameraScreen} />
             <Stack.Screen name="Suggestion" component={SuggestionScreen} />
+           
            
           </Stack.Navigator>
         </NavigationContainer>

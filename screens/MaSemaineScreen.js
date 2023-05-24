@@ -36,8 +36,9 @@ export default function MaSemaineScreen({ navigation }) {
   const user = useSelector((state) => state.users.value);
   const [userState, setUserState] = useState({ ...user });
 
+   //fetch nb de personnes enregistrées dans Profil
   useEffect(() => {
-    fetch(`http:10.2.1.12:3000/users/${user.token}`)
+    fetch(`${ADDRESSE_BACKEND}/users/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         setNbPersonneLundi(data.user.nbPersonne.toString());
@@ -58,14 +59,8 @@ export default function MaSemaineScreen({ navigation }) {
   const toggleSwitchWeekEnd = () =>
     setIsEnabledWeekEnd((previousState) => !previousState);
 
-  // fetch nb de personnes enregistrées dans Profil
-  // useEffect(() => {
-  //   fetch(`http://10.2.1.12:3000/users/nbPersonne/${user.token}`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setNbPersonneSemaine(nbPersonneSemaine)
-  //     });
-  // }, []);
+ 
+ 
 
   // variables d'états pour le nb de personnes par jour
   const [nbPersonneProfil, setNbPersonneProfil] = useState(user.nbPersonne); // rappel du nb de personnes enrgistrées dans le profil
@@ -160,24 +155,7 @@ export default function MaSemaineScreen({ navigation }) {
     },
   ];
 
-  //bouton ajout de la semaine en favoris
-  // const submitFavoriteWeek = () => {
-  //   fetch(`http://10.2.1.12:3000/users/newsemaine/${user.token}`, {
-  //     method: 'PUT',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({token: user.token, jour: selectedItem.jour, repas: selectedItem.value}),
-  //   })
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //       // Dispatch Redux store les repas choisis
-  //       if (data) {
-  //         data.result  && dispatch(addSemaine({jour: selectedItem.jour, repas: selectedItem.value}))
-  //         //navigation.navigate("Semainier")
-  //       };
 
-  //       }
-  //     );
-  // };// ajout couleur si cliqué voir movies
 
   //bouton pour setter la semaine dans le store pour semainier
   const [checkboxStateLundiMidi, setCheckboxStateLundiMidi] = useState(false);
@@ -286,8 +264,9 @@ export default function MaSemaineScreen({ navigation }) {
     }
   }
 
+
   const favorisSemaine = () =>{
-    fetch(`http:10.2.1.12:3000/users/addSemaineFavorite/${user.token}`, 
+    fetch(`http:10.2.1.12:3000/users/addsemaineFavorite/${user.token}`, 
     {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
