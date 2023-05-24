@@ -1,4 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  SafeAreaView,
+} from "react-native";
 //import des hooks d'effets
 import { useState, useEffect } from "react";
 import React from "react";
@@ -55,7 +61,7 @@ export default function AccueilScreen({ navigation }) {
   });
 
   return (
-    <View style={styles.main}>
+    <SafeAreaView style={styles.main}>
       <View style={styles.semaineEnCours}>
         <TouchableOpacity
           style={styles.buttonAccessSemainier}
@@ -80,7 +86,7 @@ export default function AccueilScreen({ navigation }) {
           {markers}
         </MapView>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

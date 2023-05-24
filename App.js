@@ -104,10 +104,10 @@ export default function App() {
             screensOption={{ headerShown: false }}
             // headerMode={false}
           >
-            <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
 
             <Stack.Screen name=" " component={LandingPageScreen} />
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
+
             <Stack.Screen name="Semainier" component={SemainierScreen} />
             <Stack.Screen
               name="CreateProfilScreen"

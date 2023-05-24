@@ -8,6 +8,7 @@ import {
   Modal,
   Dimensions,
   TouchableOpacity,
+  SafeAreaView,
 } from "react-native";
 import { ADDRESSE_BACKEND } from "@env";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +22,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 function FavorisRecettes() {
   const dispatch = useDispatch();
-  // const recetteRedux = useSelector((state) => state.recettesFavorites.value);
+  const recetteRedux = useSelector((state) => state.recettesFavorites.value);
   const user = useSelector((state) => state.users.value);
 
   const [recetteToDisplay, setRecetteToDisplay] = useState([]);
@@ -32,33 +33,42 @@ function FavorisRecettes() {
       .then((response) => response.json())
       .then((data) => {
         setRecetteToDisplay(data);
-        dispatch(addFavoriteRecette(recetteToDisplay));
+        dispatch(addFavoriteRecette(data));
       });
-  }, [isModalVisible]);
+  }, []);
 
   //fonction qui gère l'affichage de la modale
   let showModal = () => {
-    dispatch(findId());
     setIsModalVisible(true);
   };
-  //fonction qui supprime une recette des favoris
-  // const handleDeleteFavorite = () => {
-  //   fetch(`${ADDRESSE_BACKEND}/users/deleteFav`, {
-  //     method: "DELETE",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ recetteFavoris: recetteRedux }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       data.result && dispatch(removeFavoriteRecette(recetteToDisplay));
-  //     });
-  // };
 
-  const displayedRecette = recetteToDisplay.map((data, i) => {
+  //fonction qui supprime une recette des favoris
+  const handleDeleteFavorite = (nb) => {
+    console.log(
+      "recette redux index dans le tableau ",
+      recetteRedux.recettesFavorites[nb]._id
+    );
+    fetch(`${ADDRESSE_BACKEND}/users/deleteFavorisRecette/${user.token}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        recetteFavoris: recetteRedux.recettesFavorites[nb]._id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          dispatch(removeFavoriteRecette(data.nom));
+        }
+      });
+  };
+
+  const displayedRecette = recetteRedux.recettesFavorites.map((data, i) => {
     return (
       <View key={i} style={styles.card}>
         <TouchableOpacity
           // onPress={() => handleDeleteFavorite()}
+          onPress={() => handleDeleteFavorite(i)}
           style={styles.closebuttonCard}
         >
           <FontAwesome name="times" size={20} color="#000000" />
@@ -102,22 +112,24 @@ function FavorisRecettes() {
   });
 
   return (
-    <View style={styles.main}>
-      <Text style={styles.title}>Favoris Recettes</Text>
+    <SafeAreaView style={styles.main}>
+      <Text style={styles.title}>Recettes favorites</Text>
       <ScrollView>{displayedRecette}</ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-
     alignItems: "center",
     justifyContent: "space-evenly",
     marginBottom: 4,
   },
-  title: { fontFamily: "Fredoka", fontSize: 30 },
+  title: {
+    fontFamily: "Fredoka",
+    fontSize: 30,
+  },
   card: {
     display: "flex",
     flexDirection: "row",

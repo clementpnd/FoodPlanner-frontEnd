@@ -7,7 +7,7 @@ import {
   View,
   Modal,
   TextInput,
-  KeyboardAvoidingView,
+  SafeAreaView,
 } from "react-native";
 //import React
 import { useState } from "react";
@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { addUsers } from "../reducers/users";
 //.env du front
 import { ADDRESSE_BACKEND } from "@env";
+
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export default function LandingPageScreen({ navigation }) {
@@ -36,7 +37,7 @@ export default function LandingPageScreen({ navigation }) {
   //fonction qui gère la connexion de l'utilisateur
   const handleConnection = () => {
     if (EMAIL_REGEX.test(email)) {
-      fetch(`http://10.2.1.12:3000/users/signin`, {
+      fetch(`${ADDRESSE_BACKEND}/users/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ mail: email, password: password }),
@@ -48,9 +49,9 @@ export default function LandingPageScreen({ navigation }) {
             setPassword("");
             setIsModalVisible(false);
             console.log(data);
-            user={
-              token : data.token
-            }
+            user = {
+              token: data.token,
+            };
             dispatch(addUsers(user));
             navigation.navigate("TabNavigator", { screen: "Accueil" });
           }
@@ -60,7 +61,7 @@ export default function LandingPageScreen({ navigation }) {
     }
   };
   return (
-    <View style={styles.main}>
+    <SafeAreaView style={styles.main}>
       <Image source={require("../assets/logo.jpg")} style={styles.logo}></Image>
       <Text style={styles.title}>Food Planner</Text>
       <View style={styles.buttonContainer}>
@@ -129,7 +130,7 @@ export default function LandingPageScreen({ navigation }) {
           <Text>Inscription</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
@@ -152,20 +153,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "80%",
-    height: "5%",
+    height: "7%",
     backgroundColor: "#E4631B",
     borderRadius: 4,
     marginBottom: 25,
   },
   connexionButton: {
-    width: 300,
-    height: 45,
+    width: "100%",
+    height: "100%",
     justifyContent: "center",
     alignItems: "center",
   },
   inscriptionButton: {
-    width: 300,
-    height: 45,
+    width: "100%",
+    height: "100%",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -223,7 +224,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#78CB26",
     borderRadius: 4,
     width: 200,
-    height: 30,
+    height: 50,
     margin: 10,
   },
   closebutton: {

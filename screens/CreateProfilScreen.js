@@ -7,6 +7,7 @@ import {
   Switch,
   Dimensions,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import { useState, useRef, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
@@ -53,11 +54,18 @@ export default function CreateProfilScreen({ navigation }) {
   }, [preference, nbPersonne]);
 
   const preference = [];
-  vege ===true ? preference.push("vege") : preference.filter(d => d !== vege);
-  poulet ===true ? preference.push("poulet") : preference.filter(d => d !== poulet);
-  poisson ===true ? preference.push("poisson") : preference.filter(d => d !== poisson);
-  feculent ===true ? preference.push("feculent") : preference.filter(d => d !== feculent);
-  
+  vege === true
+    ? preference.push("vege")
+    : preference.filter((d) => d !== vege);
+  poulet === true
+    ? preference.push("poulet")
+    : preference.filter((d) => d !== poulet);
+  poisson === true
+    ? preference.push("poisson")
+    : preference.filter((d) => d !== poisson);
+  feculent === true
+    ? preference.push("feculent")
+    : preference.filter((d) => d !== feculent);
 
   const planifionsSemaine = () => {
     fetch(`http://10.2.1.12:3000/users/signup`, {
@@ -68,7 +76,7 @@ export default function CreateProfilScreen({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          dispatch(addUsers({token : data.token}));
+          dispatch(addUsers({ token: data.token }));
           navigation.navigate("TabNavigator", { screen: "Accueil" });
         }
       });
@@ -91,78 +99,85 @@ export default function CreateProfilScreen({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.imgDiv}>
-        <Image source={image} style={styles.img} />
-        <TouchableOpacity onPress={() => camera()} style={styles.pictureButton}>
-          <Text style={styles.picturesText}>Take pictures</Text>
-        </TouchableOpacity>
-        <Text style={styles.slogan}>Apprenons à nous connaitre</Text>
-      </View>
-      <View style={styles.regimeDiv}>
-        <Text style={styles.regimeText}>
-          Avez-vous un régime alimentaire particulier ?
-        </Text>
-        <View style={styles.switchDiv}>
-          <View style={styles.regime}>
-            <Text>Aucun</Text>
-            <Switch value={aucun} onValueChange={() => disabled()} />
-          </View>
-          <View style={styles.regime}>
-            <Text>Végé</Text>
-            <Switch
-              value={vege}
-              disabled={aucun}
-              onValueChange={() => setVege(!vege)}
-            />
-          </View>
-          <View style={styles.regime}>
-            <Text>poulet</Text>
-            <Switch
-              value={poulet}
-              disabled={aucun}
-              onValueChange={() => setPoulet(!poulet)}
-            />
-          </View>
-          <View style={styles.regime}>
-            <Text>poisson</Text>
-            <Switch
-              value={poisson}
-              disabled={aucun}
-              onValueChange={() => setPoisson(!poisson)}
-            />
-          </View>
-          <View style={styles.regime}>
-            <Text>feculent</Text>
-            <Switch
-              value={feculent}
-              disabled={aucun}
-              onValueChange={() => setFeculent(!feculent)}
-            />
-          </View>
-          <View style={styles.personneDiv}>
-            <Text style={styles.personneText}>
-              On cuisine pour combien de personne ?
-            </Text>
-            <Picker
-              ref={pickerRef}
-              selectedValue={nbPersonne}
-              onValueChange={(itemValue, itemIndex) => setNbPersonne(itemValue)}
-            >
-              {items}
-            </Picker>
-            <View style={styles.submitDiv}>
-              <TouchableOpacity
-                style={styles.submit}
-                onPress={() => planifionsSemaine()}
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.imgDiv}>
+          <Image source={image} style={styles.img} />
+          <TouchableOpacity
+            onPress={() => camera()}
+            style={styles.pictureButton}
+          >
+            <Text style={styles.picturesText}>Take pictures</Text>
+          </TouchableOpacity>
+          <Text style={styles.slogan}>Apprenons à nous connaitre</Text>
+        </View>
+        <View style={styles.regimeDiv}>
+          <Text style={styles.regimeText}>
+            Avez-vous un régime alimentaire particulier ?
+          </Text>
+          <View style={styles.switchDiv}>
+            <View style={styles.regime}>
+              <Text>Aucun</Text>
+              <Switch value={aucun} onValueChange={() => disabled()} />
+            </View>
+            <View style={styles.regime}>
+              <Text>Végé</Text>
+              <Switch
+                value={vege}
+                disabled={aucun}
+                onValueChange={() => setVege(!vege)}
+              />
+            </View>
+            <View style={styles.regime}>
+              <Text>poulet</Text>
+              <Switch
+                value={poulet}
+                disabled={aucun}
+                onValueChange={() => setPoulet(!poulet)}
+              />
+            </View>
+            <View style={styles.regime}>
+              <Text>poisson</Text>
+              <Switch
+                value={poisson}
+                disabled={aucun}
+                onValueChange={() => setPoisson(!poisson)}
+              />
+            </View>
+            <View style={styles.regime}>
+              <Text>feculent</Text>
+              <Switch
+                value={feculent}
+                disabled={aucun}
+                onValueChange={() => setFeculent(!feculent)}
+              />
+            </View>
+            <View style={styles.personneDiv}>
+              <Text style={styles.personneText}>
+                On cuisine pour combien de personne ?
+              </Text>
+              <Picker
+                ref={pickerRef}
+                selectedValue={nbPersonne}
+                onValueChange={(itemValue, itemIndex) =>
+                  setNbPersonne(itemValue)
+                }
               >
-                <Text>Planifions ma semaine</Text>
-              </TouchableOpacity>
+                {items}
+              </Picker>
+              <View style={styles.submitDiv}>
+                <TouchableOpacity
+                  style={styles.submit}
+                  onPress={() => planifionsSemaine()}
+                >
+                  <Text>Planifions ma semaine</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -172,12 +187,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   imgDiv: {
-    marginTop: 40,
+    marginTop: 30,
     alignItems: "center",
   },
   img: {
-    width: 200,
-    height: 200,
+    width: 170,
+    height: 170,
     borderRadius: 100,
   },
   pictureButton: {
@@ -198,7 +213,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   regimeDiv: {
-    marginTop: 40,
+    marginTop: 0,
   },
   regimeText: {
     fontSize: 15,
@@ -215,7 +230,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   personneDiv: {
-    marginTop: 40,
+    marginTop: 30,
   },
   personneText: {
     fontSize: 15,
@@ -223,7 +238,7 @@ const styles = StyleSheet.create({
   },
   submitDiv: {
     alignItems: "center",
-    marginTop: 40,
+    marginTop: 20,
   },
   submit: {
     backgroundColor: "#78CB26",

@@ -36,7 +36,7 @@ export default function FavorisScreen({ navigation }) {
             style={styles.Button}
             onPress={() => handleRecetteClick()}
           >
-            <Text>Recette</Text>
+            <Text style={styles.text}>Recette</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.semaineButtonView}>
@@ -73,8 +73,7 @@ const styles = StyleSheet.create({
   recetteButtonView: {
     display: "flex",
     borderRadius: 4,
-
-    backgroundColor: "blue",
+    backgroundColor: "green",
     width: 175,
     height: 70,
   },
@@ -86,4 +85,5 @@ const styles = StyleSheet.create({
     height: 70,
   },
   Button: { height: "100%", width: "100%" },
+  text: { display: "flex", alignItems: "center", justifyContent: "center" },
 });
