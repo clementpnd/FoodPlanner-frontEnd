@@ -55,32 +55,32 @@ function FavorisRecettes() {
   // };
 
   //fonction qui supprime une recette des favoris
-  const handleDeleteFavorite = (nb) => {
-    console.log(
-      "recette redux index dans le tableau ",
-      recetteRedux.recettesFavorites[nb]._id
-    );
-    fetch(`${ADDRESSE_BACKEND}/users/deleteFavorisRecette/${user.token}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        recetteFavoris: recetteRedux.recettesFavorites[nb]._id,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          dispatch(removeFavoriteRecette(data.nom));
-        }
-      });
-  };
+  // const handleDeleteFavorite = (nb) => {
+  //   console.log(
+  //     "recette redux index dans le tableau ",
+  //     recetteRedux.recettesFavorites[nb]._id
+  //   );
+  //   fetch(`${ADDRESSE_BACKEND}/users/deleteFavorisRecette/${user.token}`, {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       recetteFavoris: recetteRedux.recettesFavorites[nb]._id,
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       if (data.result) {
+  //         dispatch(removeFavoriteRecette(data.nom));
+  //       }
+  //     });
+  // };
 
   const displayedRecette = recetteRedux.recettesFavorites.map((data, i) => {
     return (
       <View key={i} style={styles.card}>
         <TouchableOpacity
-          // onPress={() => handleDeleteFavorite()}
-          onPress={() => handleDeleteFavorite(i)}
+          // onPress={() => handleDeleteFavorite(i)}
+          onPress={() => dispatch(removeFavoriteRecette(data.nom))}
           style={styles.closebuttonCard}
         >
           <FontAwesome name="times" size={20} color="#000000" />

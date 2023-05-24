@@ -14,7 +14,6 @@ import { Picker } from "@react-native-picker/picker";
 import { useDispatch, useSelector } from "react-redux";
 import { addUsers, removeUsers } from "../reducers/users";
 import { removeAllRecette } from "../reducers/recettes";
-import { removeAllSemaine } from "../reducers/semaines";
 //import de .env front
 import { ADDRESSE_BACKEND } from "@env";
 
@@ -110,7 +109,7 @@ export default function CreateProfilScreen({ navigation }) {
 
         <Text style={styles.slogan}>Apprenons à nous connaitre</Text>
       </View>
-      
+
       <View style={styles.regimeDiv}>
         <Text style={styles.regimeText}>
           Avez-vous un régime alimentaire particulier ?
@@ -169,22 +168,13 @@ export default function CreateProfilScreen({ navigation }) {
                 style={styles.submit}
                 onPress={() => planifionsSemaine()}
               >
-                {items}
-                </TouchableOpacity>
-            
-              <View style={styles.submitDiv}>
-                <TouchableOpacity
-                  style={styles.submit}
-                  onPress={() => planifionsSemaine()}
-                >
-                  <Text>Planifions ma semaine</Text>
-                </TouchableOpacity>
-              </View>
+                <Text>Planifions ma semaine</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
       </View>
-      </View>
+    </View>
   );
 }
 
