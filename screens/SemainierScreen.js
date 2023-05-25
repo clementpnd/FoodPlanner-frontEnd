@@ -54,7 +54,7 @@ export default function SemainierScreen({ navigation }) {
 
   //fonction pour ajouter une recette en favoris
   const addRecetteHandler = (_id) => {
-    fetch(`${ADDRESSE_BACKEND}/users/addRecetteFavorite/${user.token}`, {
+    fetch(`http://10.2.1.12:3000/users/addRecetteFavorite/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ recetteFavoris: _id }),

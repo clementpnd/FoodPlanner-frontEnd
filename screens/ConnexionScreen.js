@@ -38,7 +38,7 @@ export default function ConnexionScreen({ navigation }) {
       mail: mail,
     };
 
-    fetch(`${ADDRESSE_BACKEND}/users/verify`, {
+    fetch(`http://10.2.1.12:3000/users/verify`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -80,10 +80,6 @@ export default function ConnexionScreen({ navigation }) {
                 source={require("../assets/logo.jpg")}
                 style={styles.logo}
               />
-              <Button
-                title="remove"
-                onPress={() => dispatch(removeUsers())}
-              ></Button>
             </View>
             <View style={styles.content}>
               <Text style={styles.label}>Prenom</Text>
