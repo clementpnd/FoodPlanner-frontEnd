@@ -250,12 +250,7 @@ export default function MaSemaineScreen({ navigation }) {
     8: "8",
     9: "9",
   };
-  
 
-
-  const favorisSemaine = () =>{
-    fetch(`http://10.2.1.16:3000/users/addsemaineFavorite/${user.token}`, 
-    {
   const favorisSemaine = () => {
     fetch(`${ADDRESSE_BACKEND}/users/addsemaineFavorite/${user.token}`, {
       method: "PUT",
@@ -265,23 +260,22 @@ export default function MaSemaineScreen({ navigation }) {
   };
 
   //fonction checker toutes les check box quand on active le toggle
-  function selectAll (ch) {
-    let tab = listData; 
-    for (let i = 0; i < tab.length; i++) { 
+  function selectAll(ch) {
+    let tab = listData;
+    for (let i = 0; i < tab.length; i++) {
       if (tab[i].type == "BouncyCheckbox")
         tab[i].isChecked = toggleSwitchSemaine.checked;
     }
   }
 
   //fonction checker toutes les check box quand on active le toggle
-  function selectAll (ch) {
-    let tab = listData; 
-    for (let i = 0; i < tab.length; i++) { 
+  function selectAll(ch) {
+    let tab = listData;
+    for (let i = 0; i < tab.length; i++) {
       if (tab[i].type == "BouncyCheckbox")
         tab[i].isChecked = toggleSwitchSemaine.checked;
     }
   }
-  
 
   return (
     <SafeAreaView style={styles.container}>
