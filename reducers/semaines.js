@@ -9,7 +9,6 @@ export const semainesSlice = createSlice({
   initialState,
   reducers: {
     addSemaine: (state, action) => {
-      //console.log("reducer:", action.payload)
      state.value = action.payload
     },
     removeAllSemaine : (state,action) =>{

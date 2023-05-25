@@ -22,14 +22,12 @@ function FavorisRecettes() {
   const dispatch = useDispatch();
   const recetteRedux = useSelector((state) => state.recettesFavorites.value);
   const user = useSelector((state) => state.users.value);
-  console.log("recetteRedux", recetteRedux);
   const [isModalVisible, setIsModalVisible] = useState(false); // variable d'état qui gère la modale
 
   useEffect(() => {
     fetch(`http://10.2.1.12:3000/users/recetteFavorites/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("data", data);
         dispatch(addFavoriteRecette(data));
       });
   }, [isModalVisible]);
