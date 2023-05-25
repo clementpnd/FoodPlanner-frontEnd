@@ -31,31 +31,24 @@ export default function ProfilsScreen({ navigation }) {
         setPrenom(data.user.prenom);
         setPseudo(data.user.pseudo);
         setMail(data.user.mail);
-        // if (data.user.photoProfil === "") {
-        //   image = require("../assets/User.png")
-        //   setPhotoProfil(image);
-        // }
-        // else{
-        //   setPhotoProfil(data.user.photoProfil);
-        // }
-
-        if (user.photoProfil !== undefined) {
-          image 
-          = { uri: user.photoProfil };
-          setPhotoProfil(user.photoProfil);
+        if (data.user.photoProfil === "") {
+          image = require("../assets/User.png")
         }
-        
+        else{
+          setPhotoProfil(data.user.photoProfil);
+        }
       });
   }, [photoProfil]);
   
   let image = {uri:photoProfil};
-// if(user.photoProfil){
-  
-//     if (!user.photoProfil) {
-//       setUser({ ...user, photoProfil: user.photoProfil });
-//     }
-//   }
-// }
+  if (user.photoProfil !== undefined) {
+    image 
+    = { uri: user.photoProfil };
+    setPhotoProfil(user.photoProfil);
+    if (!user.photoProfil) {
+      setUser({ ...user, photoProfil: user.photoProfil });
+    }
+  }
 
 
 const logout =() =>{
@@ -95,10 +88,10 @@ const saveData =() =>{
         </TouchableOpacity>
         </View>
       
-    buttonPhoto = 
-    <TouchableOpacity style={styles.pictureButton} onPress={() => navigation.navigate("CameraScreen")}>
-          <Text style={styles.picturesText}>Photo de profil</Text>
-        </TouchableOpacity>
+    // buttonPhoto = 
+    // <TouchableOpacity style={styles.pictureButton} onPress={() => navigation.navigate("CameraScreen")}>
+    //       <Text style={styles.picturesText}>Photo de profil</Text>
+    //     </TouchableOpacity>
   }
 
 
