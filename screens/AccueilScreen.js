@@ -6,7 +6,7 @@ import {
   SafeAreaView,
   Modal,
   Button,
-  Dimensions,
+  Image,
 } from "react-native";
 //import des hooks d'effets
 import { useState, useEffect } from "react";
@@ -16,6 +16,9 @@ import React from "react";
 import MapView, { Marker } from "react-native-maps";
 //import du module de geoloc
 import * as Location from "expo-location";
+import symbolicateStackTrace from "react-native/Libraries/Core/Devtools/symbolicateStackTrace";
+
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function AccueilScreen({ navigation }) {
   const [currentPosition, setCurrentPosition] = useState({
@@ -71,52 +74,68 @@ export default function AccueilScreen({ navigation }) {
       />
     );
   });
+  // <Image source={require('../assets/calendrier.png')} style={styles.calendrier} />
 
+  //<Image source={require('../assets/calendrierencours.png')} style={styles.calendrierencours} />
   return (
     <SafeAreaView style={styles.main}>
-      <View style={styles.semaineEnCours}>
-        <TouchableOpacity
-          style={styles.buttonAccessSemainier}
-          onPress={() => maSemaine()}
-        >
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalErrorSemainier}
-            onRequestClose={() => {
-              setIsModalVisible(!modalErrorSemainier);
-            }}
-          >
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text>Aucune semaine est actuellement en cours</Text>
-                <View style={{ marginTop: 50 }}>
-                  <Button
-                    title="Close"
-                    onPress={() => setModalErrorSemainier(false)}
-                  ></Button>
+      <View style={styles.container}>
+        <View style={styles.semaineEnCours}>
+          <View>
+            <TouchableOpacity
+              style={styles.buttonAccessSemainier}
+              onPress={() => maSemaine()}
+            >
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalErrorSemainier}
+                onRequestClose={() => {
+                  setIsModalVisible(!modalErrorSemainier);
+                }}
+              >
+                <View style={styles.centeredView}>
+                  <View style={styles.modalView}>
+                    <Text>Aucune semaine est actuellement en cours</Text>
+                    <Text>Allons en créer une !</Text>
+                    <View style={{ marginTop: 50 }}>
+                      <TouchableOpacity
+                        style={styles.buttonCLose}
+                        onPress={() => setModalErrorSemainier(false)}
+                      >
+                        <Text>Fermer</Text>
+                      </TouchableOpacity>
+                    </View>
+                    {/* </TouchableOpacity> */}
+                  </View>
                 </View>
-              </View>
-            </View>
-          </Modal>
-          <Text style={styles.textButton}>Ma semaine en cours</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.creationSemaine}>
-        <TouchableOpacity
-          style={styles.buttonCreationSemaine}
-          onPress={() => navigation.navigate("Ma Semaine")}
-        >
-          <Text style={styles.textButton}>Créer ma semaine</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.mapBackground}>
-        <MapView region={currentPosition} style={styles.map}>
-          {currentPosition && (
-            <Marker coordinate={currentPosition} pinColor="blue"></Marker>
-          )}
-          {markers}
-        </MapView>
+              </Modal>
+              <FontAwesome name="calendar" size={40} color="#979797" />
+              <Text style={styles.buttonTextEnCours}>Ma semaine en cours</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.creationSemaine}>
+          <TouchableOpacity
+            style={styles.buttonCreationSemaine}
+            onPress={() => navigation.navigate("Ma Semaine")}
+          >
+            <Text style={styles.buttonTextCreate}>Créer ma semaine</Text>
+
+            <FontAwesome name="calendar" size={40} color="#E4631B" />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.mapContainer}>
+          <MapView region={currentPosition} style={styles.mapview}>
+            {currentPosition && (
+              <Marker coordinate={currentPosition} pinColor="blue"></Marker>
+            )}
+            {markers}
+          </MapView>
+          <Text style={styles.mapText}>Où faires ses courses ?</Text>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -125,56 +144,73 @@ export default function AccueilScreen({ navigation }) {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    justifyContent: "space-between",
     alignItems: "center",
     fontFamily: "Fredoka",
-    marginTop: 5,
-    marginBottom: 5,
+  },
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    width: "95%",
   },
   semaineEnCours: {
     display: "flex",
-    justifyContent: "center",
-    backgroundColor: "#78CB26",
-    width: 360,
-    height: 100,
-    marginBottom: 5,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    backgroundColor: "rgba(	120, 203, 38, 0.4)r",
+    width: "100%",
+    height: "20%",
+    marginBottom: "2%",
     borderRadius: 4,
+  },
+  buttonClose: {
+    backgroundColor: "#E4631B",
   },
   creationSemaine: {
     display: "flex",
-    justifyContent: "center",
-    backgroundColor: "#78CB26",
-    width: 360,
-    height: 100,
-    marginBottom: 5,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    backgroundColor: "rgba(	120, 203, 38, 0.4)r",
+    width: "100%",
+    height: "20%",
+    marginBottom: "2%",
+    borderRadius: 4,
+    paddingTop: "1%",
+  },
+  mapContainer: {
+    display: "flex",
+    height: "55%",
+    flexDirection: "column",
+    backgroundColor: "rgba(	228, 97, 27, 1, 0.6)",
     borderRadius: 4,
   },
-  mapBackground: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "green",
-    width: Dimensions.get("window").width - 10,
-    height: 350,
-    borderRadius: 4,
+  mapview: {
+    height: "90%",
   },
-  map: {
-    display: "flex",
-    width: 350,
-    height: 340,
-    borderRadius: 4,
+  mapText: {
+    fontFamily: "FredokaBold",
+    alignSelf: "center",
+    marginTop: "2%",
   },
   buttonCreationSemaine: {
-    height: 100,
-    justifyContent: "center",
+    height: "100%",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignContent: "space-around",
     alignItems: "center",
     marginRight: 9,
+    paddingRight: "10%",
   },
   buttonAccessSemainier: {
-    height: 100,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignContent: "space-around",
+    height: "100%",
     justifyContent: "center",
     alignItems: "center",
-    marginRight: 9,
+    marginLeft: 9,
   },
   centeredView: {
     flex: 1,
@@ -183,6 +219,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalView: {
+    fontFamily: "Fredoka",
     backgroundColor: "#ffff",
     borderRadius: 4,
     paddingTop: 30,
@@ -195,12 +232,33 @@ const styles = StyleSheet.create({
       height: 0,
     },
   },
+  buttonCLose: {
+    fontFamily: "Fredoka",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#78CB26",
+    borderRadius: 4,
+    width: 200,
+    height: 50,
+  },
   textButton: {
     fontFamily: "Fredoka",
     fontSize: 30,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+  },
+  buttonTextCreate: {
+    fontFamily: "FredokaBold",
+    marginRight: "30%",
+    fontSize: 20,
+  },
+
+  buttonTextEnCours: {
+    fontFamily: "FredokaBold",
+    marginLeft: "30%",
+    fontSize: 20,
   },
 });
 
