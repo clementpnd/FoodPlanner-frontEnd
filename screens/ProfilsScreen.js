@@ -25,7 +25,7 @@ export default function ProfilsScreen({ navigation }) {
 
 
   useEffect(() => {
-    fetch(`http://10.2.1.12:3000/users/${user.token}`)
+    fetch(`http://10.2.1.16:3000/users/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         setPrenom(data.user.prenom);

@@ -104,11 +104,8 @@ export default function App() {
             // headerMode={false}
           >
 
-<Stack.Screen
-              name="ShoppingListScreen"
-              component={ShoppingListScreen}
-            />
-            <Stack.Screen name=" " component={LandingPageScreen} />
+
+            <Stack.Screen name="LandingPageScreen" component={LandingPageScreen} />
           
             <Stack.Screen
               name="CreateProfilScreen"
@@ -123,8 +120,8 @@ export default function App() {
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
 
             <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
-      
-            
+            <Stack.Screen name="ShoppingList" component={ShoppingListScreen}/>
+           
             <Stack.Screen name="Suggestion" component={SuggestionScreen} />
           </Stack.Navigator>
         </NavigationContainer>

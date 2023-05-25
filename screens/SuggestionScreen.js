@@ -27,7 +27,7 @@ export default function SuggestionScreen({ navigation }) {
 
   //USE EFFECT
   useEffect(() => {
-    fetch("http://10.2.1.12:3000/recettes/recettePref", {
+    fetch("http://10.2.1.16:3000/recettes/recettePref", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token: user.token }),

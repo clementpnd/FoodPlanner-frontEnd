@@ -5,7 +5,8 @@ import {
   View,
   SafeAreaView,
   Modal,
-  Button
+  Button,
+  Image,
 } from "react-native";
 //import des hooks d'effets
 import { useState, useEffect } from "react";
@@ -15,6 +16,8 @@ import React from "react";
 import MapView, { Marker } from "react-native-maps";
 //import du module de geoloc
 import * as Location from "expo-location";
+
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function AccueilScreen({ navigation }) {
   const [currentPosition, setCurrentPosition] = useState({
@@ -70,10 +73,15 @@ export default function AccueilScreen({ navigation }) {
       />
     );
   });
+ // <Image source={require('../assets/calendrier.png')} style={styles.calendrier} />
 
+  //<Image source={require('../assets/calendrierencours.png')} style={styles.calendrierencours} />
   return (
     <SafeAreaView style={styles.main}>
+      <View style={styles.container}>
       <View style={styles.semaineEnCours}>
+     
+         <View>
         <TouchableOpacity
           style={styles.buttonAccessSemainier}
           onPress={() => maSemaine()}
@@ -91,7 +99,7 @@ export default function AccueilScreen({ navigation }) {
                 <Text>Aucune semaine est actuellement en cours</Text>
                 {/* <TouchableOpacity onPress={() => setModalErrorSemainier(false)}> */}
                 <View style={{ marginTop: 50 }}>
-                  <Button
+                  <Button style={styles.buttonClose}
                     title="Close"
                     onPress={() => setModalErrorSemainier(false)}
                   ></Button>
@@ -100,24 +108,36 @@ export default function AccueilScreen({ navigation }) {
               </View>
             </View>
           </Modal>
-          <Text>Ma semaine en cours</Text>
+          <FontAwesome name="calendar" size={40} color="#979797" />
+          <Text style={styles.buttonTextEnCours}>Ma semaine en cours</Text>
         </TouchableOpacity>
+        </View>
       </View>
+
+      
       <View style={styles.creationSemaine}>
+   
         <TouchableOpacity
           style={styles.buttonCreationSemaine}
           onPress={() => navigation.navigate("Ma Semaine")}
         >
-          <Text>Créer ma semaine</Text>
+          <Text style={styles.buttonTextCreate}>Créer ma semaine</Text>
+          
+          <FontAwesome name="calendar" size={40} color="#E4631B" />
         </TouchableOpacity>
+        
       </View>
-      <View style={styles.map}>
-        <MapView region={currentPosition} style={styles.map}>
+     
+      <View style={styles.mapContainer}>
+        <MapView region={currentPosition} style={styles.mapview}>
           {currentPosition && (
             <Marker coordinate={currentPosition} pinColor="blue"></Marker>
           )}
           {markers}
         </MapView>
+        <Text style={styles.mapText}>Où faires ses courses ?</Text>
+     
+      </View>
       </View>
     </SafeAreaView>
   );
@@ -126,46 +146,98 @@ export default function AccueilScreen({ navigation }) {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    justifyContent: "space-around",
+    //justifyContent: "space-around",
     alignItems: "center",
     fontFamily: "Fredoka",
   },
+  container: {
+    display: "flex",
+    flexDirection: "column",
+  justifyContent: "center",
+  width: "95%",
+    //marginLeft: "5%",
+    //marginRight: "5%",
+  },
   semaineEnCours: {
     display: "flex",
-    justifyContent: "center",
-    backgroundColor: "#78CB26",
-    width: 360,
-    height: 100,
-    marginBottom: 5,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    //alignContent: "center",
+    //alignItems: "center",
+    backgroundColor: "rgba(	120, 203, 38, 0.4)r",
+    width: "100%",
+    height: "20%",
+    marginBottom: "2%",
     borderRadius: 4,
+   // marginRight: "5%",
+    //marginLeft: "5%",
+  
   },
+
+buttonClose: {
+  backgroundColor: "#E4631B",
+},
+
+
   creationSemaine: {
     display: "flex",
-    justifyContent: "center",
-    backgroundColor: "purple",
-    width: 360,
-    height: 100,
-    marginBottom: 5,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    //alignContent: "flex-start",
+    //alignItems: "flex-start",
+    backgroundColor: "rgba(	120, 203, 38, 0.4)r",
+    width: "100%",
+    height: "20%",
+   
+    marginBottom: "2%",
     borderRadius: 4,
+    paddingTop: "1%",
   },
+
+ mapContainer: {
+  display: "flex",
+  height: "55%",
+    flexDirection: "column",
+    //justifyContent: "flex-start",
+    //alignContent: "center",
+  backgroundColor: "rgba(	228, 97, 27, 1, 0.6)",
+   borderRadius: 4,
+ },
   map: {
-    display: "flex",
-    backgroundColor: "green",
-    width: 360,
-    height: 350,
-    borderRadius: 4,
+   
   },
+
+  mapview: {
+    //display: "flex",
+    height: "90%",
+    //borderRadius: 4,
+  },
+  mapText: {
+    fontFamily: "FredokaBold",
+    alignSelf: "center", 
+    marginTop: "2%",
+  },
+ 
   buttonCreationSemaine: {
-    height: 100,
-    justifyContent: "center",
-    alignItems: "flex-end",
+    height: "100%",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignContent: "space-around",
+    alignItems: "center",
     marginRight: 9,
+    paddingRight:"10%",
+
   },
   buttonAccessSemainier: {
-    height: 100,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignContent: "space-around",
+    height: "100%",
     justifyContent: "center",
-    alignItems: "flex-end",
-    marginRight: 9,
+    alignItems: "center",
+    marginLeft: 9,
   },
   centeredView: {
     flex: 1,
@@ -186,7 +258,46 @@ const styles = StyleSheet.create({
       height: 0,
     },
   },
+ 
+  buttonTextCreate: {
+    fontFamily: "FredokaBold",
+    marginRight: "30%",
+    fontSize: 20,
+  },
+
+  buttonTextEnCours: {
+    fontFamily: "FredokaBold",
+    marginLeft: "30%",
+    fontSize: 20,
+  },
+  
 });
+
+
+// vueimageEnCours: {
+
+//   padding: "1%",
+// },
+// vueboutonsemaineEnCours: {
+
+// },
+// vuecalendrierencours: {
+//   display: "flex",
+//   backgroundColor: "green",
+
+// },
+// calendrierencours: {
+//   width: "100%",
+//   height: "100%",
+//   padding: "3%",
+// },
+// calendrier: {
+    
+//   width: "70%",
+//   height: "40%",
+
+// },
+
 
 //données recupérées de l'API du gouvernement
 // const apiData = [
