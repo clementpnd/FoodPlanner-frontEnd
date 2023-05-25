@@ -31,88 +31,30 @@ export default function ProfilsScreen({ navigation }) {
         setPrenom(data.user.prenom);
         setPseudo(data.user.pseudo);
         setMail(data.user.mail);
-
-        // if (data.user.photoProfil === "") {
-        //   image = require("../assets/User.png")
-        //   setPhotoProfil(image);
-        // }
-        // else{
-        //   setPhotoProfil(data.user.photoProfil);
-        // }
-
-        if (user.photoProfil !== undefined) {
-          image 
-          = { uri: user.photoProfil };
-          setPhotoProfil(user.photoProfil);
-=======
         if (data.user.photoProfil === "") {
           image = require("../assets/User.png");
         } else {
           setPhotoProfil(data.user.photoProfil);
->>>>>>> style
-=======
-        if (data.user.photoProfil === "") {
-          image = require("../assets/User.png")
-        }
-        else{
-          setPhotoProfil(data.user.photoProfil);
->>>>>>> 0fa74d777476360e94df470dec4bf4a2ce7d511e
         }
       });
   }, [photoProfil]);
-<<<<<<< HEAD
-  
-  let image = {uri:photoProfil};
-<<<<<<< HEAD
-// if(user.photoProfil){
-  
-//     if (!user.photoProfil) {
-//       setUser({ ...user, photoProfil: user.photoProfil });
-//     }
-//   }
-// }
-=======
-=======
-  if (user.photoProfil !== undefined) {
-    image 
-    = { uri: user.photoProfil };
-    setPhotoProfil(user.photoProfil);
-    if (!user.photoProfil) {
-      setUser({ ...user, photoProfil: user.photoProfil });
-    }
-  }
->>>>>>> 0fa74d777476360e94df470dec4bf4a2ce7d511e
 
   let image = { uri: photoProfil };
   if (user.photoProfil !== undefined) {
     image = { uri: user.photoProfil };
-    setPhotoProfil(user.photoProfil);
     if (!user.photoProfil) {
-      setUser({ ...user, photoProfil: user.photoProfil });
+      setPhotoProfil({ ...user, photoProfil: user.photoProfil });
     }
   }
->>>>>>> style
 
   const logout = () => {
     dispatch(removeUsers());
     navigation.navigate(" ");
   };
 
-<<<<<<< HEAD
-const logout =() =>{
-dispatch(removeUsers());
-navigation.navigate(" ")
-}
-
-const saveData =() =>{
-  setEditable(!editable);
-  fetch(`http://10.2.1.12:3000:3000/users/profilUpdate/${user.token}`, {
-=======
   const saveData = () => {
-    console.log("user.photoProfil", user.photoProfil);
     setEditable(!editable);
     fetch(`${ADDRESSE_BACKEND}/users/profilUpdate/${user.token}`, {
->>>>>>> style
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -140,30 +82,17 @@ const saveData =() =>{
         <TouchableOpacity style={styles.saveButton} onPress={() => saveData()}>
           <Text style={styles.picturesText}>Save</Text>
         </TouchableOpacity>
-<<<<<<< HEAD
-        </View>
-      
-<<<<<<< HEAD
-    buttonPhoto = 
-    <TouchableOpacity style={styles.pictureButton} onPress={() => navigation.navigate("CameraScreen")}>
-          <Text style={styles.picturesText}>Photo de profil</Text>
-        </TouchableOpacity>
-=======
       </View>
     );
-=======
-    // buttonPhoto = 
-    // <TouchableOpacity style={styles.pictureButton} onPress={() => navigation.navigate("CameraScreen")}>
-    //       <Text style={styles.picturesText}>Photo de profil</Text>
-    //     </TouchableOpacity>
-  }
->>>>>>> 0fa74d777476360e94df470dec4bf4a2ce7d511e
 
-    // buttonPhoto =
-    // <TouchableOpacity style={styles.pictureButton} onPress={() => navigation.navigate("CameraScreen")}>
-    //       <Text style={styles.picturesText}>Photo de profil</Text>
-    //     </TouchableOpacity>
->>>>>>> style
+    buttonPhoto = (
+      <TouchableOpacity
+        style={styles.pictureButton}
+        onPress={() => navigation.navigate("CameraScreen")}
+      >
+        <Text style={styles.picturesText}>Photo de profil</Text>
+      </TouchableOpacity>
+    );
   }
 
   return (

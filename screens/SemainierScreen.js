@@ -5,18 +5,16 @@ import {
   View,
   ScrollView,
   ImageBackground,
-  Button,
 } from "react-native";
 //import fontawesome pour les icones
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 //import des hooks
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addRecette, changeRecette, removeRecette } from "../reducers/recettes";
-import { addUsers } from "../reducers/users";
+//import des reducers
+import { addRecette, changeRecette } from "../reducers/recettes";
 import { addIndexRecette } from "../reducers/users";
 import { removeAllRecette } from "../reducers/recettes";
-
 //import de .env front
 import { ADDRESSE_BACKEND } from "@env";
 
@@ -25,8 +23,8 @@ export default function SemainierScreen({ navigation }) {
   const user = useSelector((state) => state.users.value);
   const recetteRedux = useSelector((state) => state.recettes.value);
   const semaineRedux = useSelector((state) => state.semaines.value);
+  const [recetteData, setRecetteData] = useState([]); //variable d'état des recettes deja en BDD
 
-  console.log("semaineRedux", semaineRedux);
   //fonction pour basculer vers la page de suggestion
   const handleSuggestion = (nb) => {
     const idRecette = {
@@ -35,7 +33,6 @@ export default function SemainierScreen({ navigation }) {
     dispatch(addIndexRecette(idRecette));
     navigation.navigate("Suggestion");
   };
-  const [recetteData, setRecetteData] = useState([]); //variable d'état des recettes deja en BDD
 
   //fonction qui recupère les recettes en fonction du nombre de repas sélectionner
   useEffect(() => {
@@ -44,9 +41,7 @@ export default function SemainierScreen({ navigation }) {
     fetch(`${ADDRESSE_BACKEND}/recettes`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("recette", data);
         const nbRecette = data.data.slice(0, nbJour);
-        console.log("nbRecette", nbRecette);
         if (!recetteRedux.recettes.length > 0) {
           dispatch(removeAllRecette());
           dispatch(changeRecette(nbRecette));
@@ -56,7 +51,6 @@ export default function SemainierScreen({ navigation }) {
 
   //fonction pour ajouter une recette en favoris
   const addRecetteHandler = (_id) => {
-    console.log("id", _id);
     fetch(`${ADDRESSE_BACKEND}/users/addRecetteFavorite/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -65,31 +59,36 @@ export default function SemainierScreen({ navigation }) {
       .then((response) => response.json)
       .then((data) => {
         if (data.result) {
-          console.log("pushed dans les fav");
+          dispatch(addRecette(data));
         }
       });
   };
 
+  //fonction qui affiche les recettes ajoutées en favoris
   const recetteAffichées = recetteRedux.recettes.map((data, i) => {
-    console.log("in map semaine", semaineRedux.allCheckBoxSelected[i]);
-    // dispatch(addRecette(data));
     return (
       <View key={i} style={styles.card}>
-        <Text style={styles.jourText}>
-          {semaineRedux.allCheckBoxSelected[i].jour} :{" "}
-          {semaineRedux.allCheckBoxSelected[i].repas}
-        </Text>
-        <ImageBackground source={{ uri: data.image }} style={styles.imageCard}>
+        <View style={styles.headCard}>
           <TouchableOpacity
             style={styles.recettefavorite}
             onPress={() => addRecetteHandler(data._id)}
           >
-            <FontAwesome name="heart-o" size={20} color="black" />
+            <FontAwesome name="heart-o" size={18} color="black" />
           </TouchableOpacity>
-        </ImageBackground>
+          <Text style={styles.jourText}>
+            {semaineRedux.allCheckBoxSelected[i].jour} :{" "}
+            {semaineRedux.allCheckBoxSelected[i].repas}
+          </Text>
+        </View>
+        <ImageBackground
+          source={{ uri: data.image }}
+          style={styles.imageCard}
+        ></ImageBackground>
         <View style={styles.text}>
           <Text style={styles.title}>{data.nom}</Text>
-          <Text style={styles.desc}>{data.description}</Text>
+          <Text numberOfLines={6} style={styles.desc}>
+            {data.description}
+          </Text>
         </View>
         <TouchableOpacity
           onPress={() => handleSuggestion(i)}
@@ -118,25 +117,32 @@ export default function SemainierScreen({ navigation }) {
   );
 }
 const styles = StyleSheet.create({
-  main: { flex: 1, alignItems: "center" },
+  main: { flex: 1, alignItems: "center", fontFamily: "Fredoka" },
+  card: {
+    display: "flex",
+    alignItems: "center",
+    width: 175,
+    height: 280,
+    borderRadius: 4,
+    backgroundColor: "#78CB26",
+    margin: 6,
+  },
+  headCard: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  recettefavorite: { margin: 1, marginRight: 20 },
+  jourText: {
+    fontSize: 16,
+  },
   scrollContent: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     flexWrap: "wrap",
   },
-  card: {
-    display: "flex",
-    alignItems: "center",
-
-    width: 175,
-    height: 280,
-    borderRadius: 4,
-    backgroundColor: "green",
-    margin: 6,
-  },
   listeButton: {
-    backgroundColor: "green",
+    backgroundColor: "#78CB26",
     width: 300,
     height: 40,
     justifyContent: "center",
@@ -157,16 +163,12 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 4,
     borderTopRightRadius: 4,
   },
-  title: { fontWeight: 900, fontSize: 19 },
+  title: { fontWeight: 900, fontSize: 17, margin: 2 },
   desc: { fontWeight: 300, fontSize: 10 },
-  recettefavorite: { margin: 3 },
   text: { width: "100%", margin: 3 },
   modifierRecette: {
     position: "absolute",
     marginTop: 255,
     paddingLeft: 150,
-  },
-  jourText: {
-    fontSize: 15,
   },
 });

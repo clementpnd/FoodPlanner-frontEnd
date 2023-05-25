@@ -105,6 +105,7 @@ export default function App() {
           >
             <Stack.Screen name=" " component={LandingPageScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
+
             <Stack.Screen
               name="CreateProfilScreen"
               component={CreateProfilScreen}
@@ -114,10 +115,6 @@ export default function App() {
             <Stack.Screen name="Semainier" component={SemainierScreen} />
 
             <Stack.Screen name="CameraScreen" component={CameraScreen} />
-<<<<<<< HEAD
-=======
-
->>>>>>> style
             <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
 
             <Stack.Screen
