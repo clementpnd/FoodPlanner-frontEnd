@@ -40,7 +40,7 @@ export default function LandingPageScreen({ navigation }) {
   //fonction qui gère la connexion de l'utilisateur
   const handleConnection = () => {
     if (EMAIL_REGEX.test(email)) {
-      fetch(`http://10.2.1.12:3000/users/signin`, {
+      fetch(`${ADDRESSE_BACKEND}/users/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ mail: email, password: password }),
@@ -51,6 +51,7 @@ export default function LandingPageScreen({ navigation }) {
             setEmail("");
             setPassword("");
             setIsModalVisible(false);
+            console.log("data connexion", data);
             user = {
               token: data.token,
             };

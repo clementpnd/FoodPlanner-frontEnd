@@ -28,7 +28,7 @@ export default function ProfilsScreen({ navigation }) {
   const user = useSelector((state) => state.users.value);
 
   useEffect(() => {
-    fetch(`http://10.2.1.12:3000/users/${user.token}`)
+    fetch(`${ADDRESSE_BACKEND}/users/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         setPrenom(data.user.prenom);
@@ -57,7 +57,7 @@ export default function ProfilsScreen({ navigation }) {
 
   const saveData = () => {
     setEditable(!editable);
-    fetch(`http://10.2.1.12:3000/users/profilUpdate/${user.token}`, {
+    fetch(`${ADDRESSE_BACKEND}/users/profilUpdate/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -87,7 +87,6 @@ export default function ProfilsScreen({ navigation }) {
         </TouchableOpacity>
       </View>
     );
-
     buttonPhoto = (
       <TouchableOpacity
         style={styles.pictureButton}
@@ -155,17 +154,17 @@ export default function ProfilsScreen({ navigation }) {
                 />
               </View>
               <View style={styles.regime}>
-              <Text>poulet</Text>
-              <Switch value={true} />
-            </View>
-            <View style={styles.regime}>
-              <Text>poisson</Text>
-              <Switch value={true} />
-            </View>
-            <View style={styles.regime}>
-              <Text>feculent</Text>
-              <Switch value={true} />
-            </View>
+                <Text>poulet</Text>
+                <Switch value={true} />
+              </View>
+              <View style={styles.regime}>
+                <Text>poisson</Text>
+                <Switch value={true} />
+              </View>
+              <View style={styles.regime}>
+                <Text>feculent</Text>
+                <Switch value={true} />
+              </View>
             </View>
           </View>
         </View>
@@ -248,11 +247,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between"
-  //   alignItems: "flex-start",
-  //   width: Dimensions.get("window").width,
-  //   height: 500,
-  //   marginTop: 20,
-  //   backgroundColor: "red",
+    justifyContent: "space-between",
+    //   alignItems: "flex-start",
+    //   width: Dimensions.get("window").width,
+    //   height: 500,
+    //   marginTop: 20,
+    //   backgroundColor: "red",
   },
 });

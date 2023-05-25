@@ -1,12 +1,10 @@
 import {
-  Button,
   StyleSheet,
   Text,
   View,
-  ImageBackground,
   TouchableOpacity,
   ScrollView,
-  Image,
+  ImageBackground,
   Dimensions,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,20 +14,18 @@ import { addAllRecette } from "../reducers/recettes";
 import { changeRecette } from "../reducers/recettes";
 import Header from "../components/Header";
 
+import { ADDRESSE_BACKEND } from "@env";
 
 export default function SuggestionScreen({ navigation }) {
   const dispatch = useDispatch();
-
   const recettesRedux = useSelector((state) => state.recettes.value);
-
   const user = useSelector((state) => state.users.value);
-
   const [recetteSuggerer, setRecetteSuggerer] = useState([]);
   const [recetteSemainier, setRecetteSemainier] = useState([]);
 
   //USE EFFECT
   useEffect(() => {
-    fetch("http://10.2.1.12:3000/recettes/recettePref", {
+    fetch(`${ADDRESSE_BACKEND}/recettes/recettePref`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token: user.token }),
@@ -46,17 +42,18 @@ export default function SuggestionScreen({ navigation }) {
   if (recetteSuggerer.length > 0) {
     recetteAffiche = recetteSuggerer.map((recette, i) => {
       return (
-        <TouchableOpacity onPress={() => replace(i)}>
-          <View key={i} style={styles.card}>
-            <View style={styles.imgDiv}>
-              <Image style={styles.img} source={{ uri: recette.image }} />
-            </View>
+        <View key={i} style={styles.card}>
+          <TouchableOpacity style={styles.touchable} onPress={() => replace(i)}>
+            <ImageBackground
+              style={styles.img}
+              source={{ uri: recette.image }}
+            />
             <View style={styles.textDiv}>
-              <Text style={styles.titre}>{recette.nom}</Text>
+              <Text style={styles.title}>{recette.nom}</Text>
               <Text style={styles.desc}>{recette.description}</Text>
             </View>
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </View>
       );
     });
   }
@@ -80,54 +77,45 @@ export default function SuggestionScreen({ navigation }) {
       <View style={styles.recetteDiv}>
         <ScrollView>{recetteAffiche}</ScrollView>
       </View>
+      <ScrollView>
+        <View style={styles.scrollContent}>{recetteAffiche}</View>
+      </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
   card: {
-    flex: 1,
+    display: "flex",
     flexDirection: "row",
+    justifyContent: "flex-start",
     alignItems: "center",
-    width: Dimensions.get("window").width - 30,
-    height: 175,
-    borderRadius: 4,
     backgroundColor: "#78CB26",
-    margin: 6,
+    width: Dimensions.get("window").width - 20,
+    height: 185,
+    borderRadius: 4,
+    margin: 10,
   },
-  imageCard: {
+  scrollContent: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
+  },
+  touchable: { width: "100%", height: "100%" },
+  img: {
+    alignItems: "center",
     width: "100%",
-    height: 90,
+    height: 80,
     borderTopLeftRadius: 4,
     borderTopRightRadius: 4,
   },
-  imgDiv: {},
-  img: {
-    width: 100,
-    height: 100,
-    borderRadius: 4,
-  },
-  desc: { fontWeight: 300, fontSize: 10 },
-  recetteDiv: {
-    flex: 1,
-    height: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   textDiv: {
-    width: "100%",
-    height: "100%",
     justifyContent: "center",
   },
-  // titre: {
-  //   fontWeight: 900,
-  //   fontSize : 20,
-  //   marginBottom : 15,
-  // },
+  title: { fontWeight: 900, fontSize: 17, margin: 2 },
+  desc: { fontWeight: 300, fontSize: 10 },
 });

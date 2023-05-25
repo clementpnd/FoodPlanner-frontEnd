@@ -38,9 +38,9 @@ export default function MaSemaineScreen({ navigation }) {
   const user = useSelector((state) => state.users.value);
   const [userState, setUserState] = useState({ ...user });
 
-   //fetch nb de personnes enregistrées dans Profil
+  //fetch nb de personnes enregistrées dans Profil
   useEffect(() => {
-    fetch(`http://10.2.1.12:3000/users/${user.token}`)
+    fetch(`${ADRESSE_BACKEND}/users/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         setNbPersonneLundi(data.user.nbPersonne.toString());
@@ -60,9 +60,6 @@ export default function MaSemaineScreen({ navigation }) {
   const [isEnabledWeekEnd, setIsEnabledWeekEnd] = useState([false]);
   const toggleSwitchWeekEnd = () =>
     setIsEnabledWeekEnd((previousState) => !previousState);
-
- 
- 
 
   // variables d'états pour le nb de personnes par jour
   const [nbPersonneProfil, setNbPersonneProfil] = useState(user.nbPersonne); // rappel du nb de personnes enrgistrées dans le profil
@@ -157,8 +154,6 @@ export default function MaSemaineScreen({ navigation }) {
     },
   ];
 
-
-
   //bouton pour setter la semaine dans le store pour semainier
   const [checkboxStateLundiMidi, setCheckboxStateLundiMidi] = useState(false);
   const [checkboxStateLundiSoir, setCheckboxStateLundiSoir] = useState(false);
@@ -240,7 +235,7 @@ export default function MaSemaineScreen({ navigation }) {
 
   //dispatch
   const handleOnSubmit = () => {
-    dispatch(removeAllRecette())
+    dispatch(removeAllRecette());
     dispatch(addSemaine({ allCheckBoxSelected }));
     navigation.navigate("Semainier");
   };
@@ -266,15 +261,13 @@ export default function MaSemaineScreen({ navigation }) {
     }
   }
 
-
-  const favorisSemaine = () =>{
-    fetch(`http:10.2.1.12:3000:3000/users/addsemaineFavorite/${user.token}`, 
-    {
+  const favorisSemaine = () => {
+    fetch(`http:10.2.1.12:3000:3000/users/addsemaineFavorite/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ semaineFavoris: [allCheckBoxSelected] }),
     });
-  }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -447,7 +440,7 @@ export default function MaSemaineScreen({ navigation }) {
           />
         </View>
 
-            {/* Mercredi */}
+        {/* Mercredi */}
         <View style={styles.jour}>
           <Text style={styles.text}>{`${listData[6].jour} :`}</Text>
           <Picker
