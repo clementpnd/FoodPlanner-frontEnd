@@ -84,6 +84,11 @@ const styles = StyleSheet.create({
     width: 175,
     height: 70,
   },
-  Button: { height: "100%", width: "100%" },
+  Button: {
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   text: { display: "flex", alignItems: "center", justifyContent: "center" },
 });

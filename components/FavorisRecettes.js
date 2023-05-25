@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
   StyleSheet,
   ScrollView,
-  Image,
+  ImageBackground,
   Modal,
   Dimensions,
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
 import { ADDRESSE_BACKEND } from "@env";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import recettesFavorites, {
   addFavoriteRecette,
   removeFavoriteRecette,
-  displayFavoriteRecette,
-  findId,
 } from "../reducers/recettesFavorites";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
@@ -68,16 +66,22 @@ function FavorisRecettes() {
     return (
       <View key={i} style={styles.card}>
         <TouchableOpacity
-          // onPress={() => handleDeleteFavorite(i)}
-          onPress={() => dispatch(removeFavoriteRecette(data.nom))}
-          style={styles.closebuttonCard}
-        >
-          <FontAwesome name="times" size={20} color="#000000" />
-        </TouchableOpacity>
-        <TouchableOpacity
           style={styles.modalOPening}
           onPress={() => showModal()}
         >
+          <ImageBackground
+            source={{ uri: data.image }}
+            style={styles.imageCard}
+          />
+
+          <TouchableOpacity
+            // onPress={() => handleDeleteFavorite(i)}
+            onPress={() => dispatch(removeFavoriteRecette(data.nom))}
+            style={styles.closebuttonCard}
+          >
+            <FontAwesome name="times" size={30} color="#000000" />
+          </TouchableOpacity>
+
           <Modal
             animationType="slide"
             transparent={true}
@@ -102,10 +106,11 @@ function FavorisRecettes() {
               </ScrollView>
             </View>
           </Modal>
-          <Image source={{ uri: data.image }} style={styles.imageCard}></Image>
           <View style={styles.text}>
-            <Text>{data.nom}</Text>
-            <Text numberOfLines={4}>{data.description}</Text>
+            <Text style={styles.recetteTitle}>{data.nom}</Text>
+            <Text numberOfLines={4} style={styles.desc}>
+              {data.description}
+            </Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -134,25 +139,26 @@ const styles = StyleSheet.create({
   card: {
     display: "flex",
     flexDirection: "row",
-    backgroundColor: "green",
+    backgroundColor: "#78CB26",
     width: Dimensions.get("window").width - 20,
-    height: 160,
-    marginTop: 30,
+    height: 185,
+    marginTop: 10,
     marginBottom: 10,
     borderRadius: 4,
   },
   imageCard: {
-    width: 100,
-    height: 70,
-    marginLeft: 4,
-    borderRadius: 4,
+    alignItems: "center",
+    width: "100%",
+    height: 80,
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 4,
   },
-  text: {},
-  modalOPening: { width: "85%", height: "100%" },
+  recetteTitle: { fontWeight: 300, fontSize: 17, margin: 2 },
+  desc: { fontWeight: 300, fontSize: 10 },
+
+  modalOPening: { width: "100%", height: "100%" },
   modal: {
     flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center",
     marginTop: 50,
   },
   modalContent: {

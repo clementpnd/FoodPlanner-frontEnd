@@ -4,7 +4,7 @@ import { Text, View, StyleSheet } from "react-native";
 function FavorisSemaine() {
   return (
     <View style={styles.main}>
-      <Text>Semaine type</Text>
+      <Text style={styles.title}>Semaine type</Text>
     </View>
   );
 }
@@ -15,6 +15,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-evenly",
     marginBottom: 4,
+  },
+  title: {
+    fontFamily: "Fredoka",
+    fontSize: 30,
   },
 });
 
