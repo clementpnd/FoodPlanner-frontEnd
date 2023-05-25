@@ -40,7 +40,7 @@ function FavorisRecettes() {
   let showModal = () => {
     setIsModalVisible(true);
   };
-
+ 
   //fonction qui supprime une recette des favoris
   // const handleDeleteFavorite = (nb) => {
   //   console.log(
