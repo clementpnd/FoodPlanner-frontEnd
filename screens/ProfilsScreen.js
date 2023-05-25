@@ -27,6 +27,13 @@ export default function ProfilsScreen({ navigation }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.users.value);
 
+  const [aucun, setAucun] = useState(false);
+  const [vege, setVege] = useState(false);
+  const [poulet, setPoulet] = useState(false);
+  const [poisson, setPoisson] = useState(false);
+  const [feculent, setFeculent] = useState(false);
+  const [userState, setUserState] = useState({ ...user });
+
   useEffect(() => {
     fetch(`${ADDRESSE_BACKEND}/users/${user.token}`)
       .then((response) => response.json())
@@ -97,6 +104,36 @@ export default function ProfilsScreen({ navigation }) {
     );
   }
 
+  const disabled = () => {
+    setVege(false);
+    setPoulet(false);
+    setPoisson(false);
+    setFeculent(false);
+    setAucun(!aucun);
+  };
+
+  ///HOOK D'EFFET
+  useEffect(() => {
+    setUserState({
+      ...userState,
+      preference: preference,
+    });
+  }, [preference]);
+
+  const preference = [];
+  vege === true
+    ? preference.push("vege")
+    : preference.filter((d) => d !== vege);
+  poulet === true
+    ? preference.push("poulet")
+    : preference.filter((d) => d !== poulet);
+  poisson === true
+    ? preference.push("poisson")
+    : preference.filter((d) => d !== poisson);
+  feculent === true
+    ? preference.push("feculent")
+    : preference.filter((d) => d !== feculent);
+
   return (
     <ScrollView>
       <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -125,6 +162,7 @@ export default function ProfilsScreen({ navigation }) {
           <View style={[styles.textPrenomDiv, styles.divText]}>
             <TextInput
               value={prenom}
+              placeholder="Prénom"
               editable={editable}
               style={styles.text}
               onChangeText={(e) => setPrenom(e)}
@@ -135,6 +173,7 @@ export default function ProfilsScreen({ navigation }) {
               value={pseudo}
               editable={editable}
               style={styles.text}
+              placeholder="Pseudo"
               onChangeText={(e) => setPseudo(e)}
             />
           </View>
@@ -146,24 +185,41 @@ export default function ProfilsScreen({ navigation }) {
               <Text style={styles.preferenceTitle}>Vos Preference</Text>
             </View>
             <View style={styles.switchDiv}>
-              <View style={styles.regime}>
+              <View style={styles.switch}>
+                <Text>Aucun</Text>
+                <Switch value={aucun} onValueChange={() => disabled()} />
+              </View>
+              <View style={styles.switch}>
                 <Text>Végé</Text>
                 <Switch
-                  value={true}
-                  // disabled={aucun}
+                  value={vege}
+                  disabled={aucun}
+                  onValueChange={() => setVege(!vege)}
                 />
               </View>
-              <View style={styles.regime}>
+              <View style={styles.switch}>
                 <Text>poulet</Text>
-                <Switch value={true} />
+                <Switch
+                  value={poulet}
+                  disabled={aucun}
+                  onValueChange={() => setPoulet(!poulet)}
+                />
               </View>
-              <View style={styles.regime}>
+              <View style={styles.switch}>
                 <Text>poisson</Text>
-                <Switch value={true} />
+                <Switch
+                  value={poisson}
+                  disabled={aucun}
+                  onValueChange={() => setPoisson(!poisson)}
+                />
               </View>
-              <View style={styles.regime}>
+              <View style={styles.switch}>
                 <Text>feculent</Text>
-                <Switch value={true} />
+                <Switch
+                  value={feculent}
+                  disabled={aucun}
+                  onValueChange={() => setFeculent(!feculent)}
+                />
               </View>
             </View>
           </View>
@@ -180,18 +236,27 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
     alignItems: "center",
-    marginBottom: 140,
   },
-  titleDiv: {},
-  logout: {
-    marginBottom: 40,
-  },
+
   textProfile: {
     fontSize: 20,
     fontWeight: "bold",
   },
+  logout: {
+    marginBottom: 40,
+  },
+  pictureButton: {
+    marginTop: 10,
+    width: 130,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(228, 99, 27, 0.6)",
+    borderRadius: 10,
+  },
   photoDiv: {
-    flex: 1,
+    width: Dimensions.get("window").width,
+    height: 220,
     alignItems: "center",
   },
   img: {
@@ -200,7 +265,6 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   AllTextInfoDiv: {
-    flex: 1,
     height: 200,
     width: "80%",
   },
@@ -214,15 +278,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center",
   },
-  pictureButton: {
-    marginTop: 10,
-    width: 130,
-    height: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "rgba(228, 99, 27, 0.6)",
-    borderRadius: 10,
-  },
+
   picturesText: {
     fontSize: 20,
   },
@@ -239,19 +295,19 @@ const styles = StyleSheet.create({
     width: 130,
     height: 40,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-around",
     backgroundColor: "rgba(228, 255, 27, 0.6)",
     borderRadius: 10,
   },
   switchDiv: {
     flex: 1,
     flexDirection: "row",
-    flexWrap: "wrap",
     justifyContent: "space-between",
-    //   alignItems: "flex-start",
-    //   width: Dimensions.get("window").width,
-    //   height: 500,
-    //   marginTop: 20,
-    //   backgroundColor: "red",
+    alignItems: "flex-start",
+    width: 300,
+    height: 50,
+    marginTop: 20,
+    backgroundColor: "red",
   },
+  switch: { width: 60, height: 60 },
 });

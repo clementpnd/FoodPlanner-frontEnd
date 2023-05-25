@@ -41,7 +41,7 @@ export default function SemainierScreen({ navigation }) {
   useEffect(() => {
     const nbJour = semaineRedux.allCheckBoxSelected.length;
 
-    fetch(`${ADDRESSE_BACKEND}/recettes`)
+    fetch(`http://10.2.1.16:3000/recettes`)
       .then((response) => response.json())
       .then((data) => {
         const nbRecette = data.data.slice(0, nbJour);
@@ -116,7 +116,7 @@ export default function SemainierScreen({ navigation }) {
           style={styles.btn}
           onPress={() => navigation.navigate("ShoppingList")}
         >
-          <Text>Faison une liste de courses</Text>
+          <Text>Faisons une liste de courses</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={{marginBottom : 30}} onPress={() =>navigation.navigate("TabNavigator", { screen: "Accueil" })}>

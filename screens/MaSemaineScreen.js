@@ -40,7 +40,7 @@ export default function MaSemaineScreen({ navigation }) {
 
   //fetch nb de personnes enregistrées dans Profil
   useEffect(() => {
-    fetch(`${ADRESSE_BACKEND}/users/${user.token}`)
+    fetch(`${ADDRESSE_BACKEND}/users/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         setNbPersonneLundi(data.user.nbPersonne.toString());
@@ -252,6 +252,15 @@ export default function MaSemaineScreen({ navigation }) {
     8: "8",
     9: "9",
   };
+
+  const favorisSemaine = () => {
+    fetch(`${ADDRESSE_BACKEND}/users/addsemaineFavorite/${user.token}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ semaineFavoris: [allCheckBoxSelected] }),
+    });
+  };
+
   //fonction checker toutes les check box quand on active le toggle
   function selectAll(ch) {
     let tab = listData;
@@ -261,13 +270,14 @@ export default function MaSemaineScreen({ navigation }) {
     }
   }
 
-  const favorisSemaine = () => {
-    fetch(`http:10.2.1.12:3000:3000/users/addsemaineFavorite/${user.token}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ semaineFavoris: [allCheckBoxSelected] }),
-    });
-  };
+  //fonction checker toutes les check box quand on active le toggle
+  function selectAll(ch) {
+    let tab = listData;
+    for (let i = 0; i < tab.length; i++) {
+      if (tab[i].type == "BouncyCheckbox")
+        tab[i].isChecked = toggleSwitchSemaine.checked;
+    }
+  }
 
   return (
     <SafeAreaView style={styles.container}>

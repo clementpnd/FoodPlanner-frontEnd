@@ -40,7 +40,7 @@ function FavorisRecettes() {
   let showModal = () => {
     setIsModalVisible(true);
   };
-
+ 
   //fonction qui supprime une recette des favoris
   // const handleDeleteFavorite = (nb) => {
   //   console.log(
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 4,
     borderTopRightRadius: 4,
   },
-  recetteTitle: { fontWeight: 300, fontSize: 17, margin: 2 },
+  recetteTitle: { fontWeight: 900, fontSize: 17, margin: 2 },
   desc: { fontWeight: 300, fontSize: 10 },
 
   modalOPening: { width: "100%", height: "100%" },
