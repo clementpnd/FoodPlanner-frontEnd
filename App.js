@@ -57,7 +57,7 @@ styleTabBar = {
 const TabNavigator = () => {
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
+      screenOptions={({ route, },) => ({
         tabBarIcon: ({ color, size }) => {
           let iconName = "";
 
@@ -101,7 +101,8 @@ export default function App() {
       <PersistGate persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator
-            screensOption={{ headerShown: false }}
+          screenOptions={{ headerShown: false}}
+            
             // headerMode={false}
           >
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
