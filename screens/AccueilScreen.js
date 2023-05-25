@@ -16,6 +16,7 @@ import React from "react";
 import MapView, { Marker } from "react-native-maps";
 //import du module de geoloc
 import * as Location from "expo-location";
+import symbolicateStackTrace from "react-native/Libraries/Core/Devtools/symbolicateStackTrace";
 
 export default function AccueilScreen({ navigation }) {
   const [currentPosition, setCurrentPosition] = useState({
@@ -90,11 +91,14 @@ export default function AccueilScreen({ navigation }) {
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
                 <Text>Aucune semaine est actuellement en cours</Text>
+                <Text>Allons en créer une !</Text>
                 <View style={{ marginTop: 50 }}>
-                  <Button
-                    title="Close"
+                  <TouchableOpacity
+                    style={styles.buttonCLose}
                     onPress={() => setModalErrorSemainier(false)}
-                  ></Button>
+                  >
+                    <Text>Fermer</Text>
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
@@ -183,6 +187,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalView: {
+    fontFamily: "Fredoka",
     backgroundColor: "#ffff",
     borderRadius: 4,
     paddingTop: 30,
@@ -194,6 +199,16 @@ const styles = StyleSheet.create({
       width: 0,
       height: 0,
     },
+  },
+  buttonCLose: {
+    fontFamily: "Fredoka",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#78CB26",
+    borderRadius: 4,
+    width: 200,
+    height: 50,
   },
   textButton: {
     fontFamily: "Fredoka",

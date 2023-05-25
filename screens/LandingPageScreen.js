@@ -109,13 +109,14 @@ export default function LandingPageScreen({ navigation }) {
                     placeholder="Password"
                     onChangeText={(value) => setPassword(value)}
                     value={password}
+                    style={styles.input}
                   />
                 </View>
                 <TouchableOpacity
                   style={styles.connectButton}
                   onPress={() => handleConnection()}
                 >
-                  <Text>Connexion</Text>
+                  <Text style={styles.input}>Connexion</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -131,7 +132,7 @@ export default function LandingPageScreen({ navigation }) {
           style={styles.inscriptionButton}
           onPress={() => navigation.navigate("ConnexionScreen")}
         >
-          <Text>Inscription</Text>
+          <Text style={styles.input}>Inscription</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -163,6 +164,7 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
   connexionButton: {
+    fontFamily: "Fredoka",
     width: "100%",
     height: "100%",
     justifyContent: "center",
