@@ -8,6 +8,8 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  ScrollView,
+  Switch,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -31,88 +33,30 @@ export default function ProfilsScreen({ navigation }) {
         setPrenom(data.user.prenom);
         setPseudo(data.user.pseudo);
         setMail(data.user.mail);
-
-        // if (data.user.photoProfil === "") {
-        //   image = require("../assets/User.png")
-        //   setPhotoProfil(image);
-        // }
-        // else{
-        //   setPhotoProfil(data.user.photoProfil);
-        // }
-
-        if (user.photoProfil !== undefined) {
-          image 
-          = { uri: user.photoProfil };
-          setPhotoProfil(user.photoProfil);
-=======
         if (data.user.photoProfil === "") {
           image = require("../assets/User.png");
         } else {
           setPhotoProfil(data.user.photoProfil);
->>>>>>> style
-=======
-        if (data.user.photoProfil === "") {
-          image = require("../assets/User.png")
-        }
-        else{
-          setPhotoProfil(data.user.photoProfil);
->>>>>>> 0fa74d777476360e94df470dec4bf4a2ce7d511e
         }
       });
   }, [photoProfil]);
-<<<<<<< HEAD
-  
-  let image = {uri:photoProfil};
-<<<<<<< HEAD
-// if(user.photoProfil){
-  
-//     if (!user.photoProfil) {
-//       setUser({ ...user, photoProfil: user.photoProfil });
-//     }
-//   }
-// }
-=======
-=======
-  if (user.photoProfil !== undefined) {
-    image 
-    = { uri: user.photoProfil };
-    setPhotoProfil(user.photoProfil);
-    if (!user.photoProfil) {
-      setUser({ ...user, photoProfil: user.photoProfil });
-    }
-  }
->>>>>>> 0fa74d777476360e94df470dec4bf4a2ce7d511e
 
   let image = { uri: photoProfil };
   if (user.photoProfil !== undefined) {
     image = { uri: user.photoProfil };
-    setPhotoProfil(user.photoProfil);
     if (!user.photoProfil) {
-      setUser({ ...user, photoProfil: user.photoProfil });
+      setPhotoProfil({ ...user, photoProfil: user.photoProfil });
     }
   }
->>>>>>> style
 
   const logout = () => {
     dispatch(removeUsers());
     navigation.navigate(" ");
   };
 
-<<<<<<< HEAD
-const logout =() =>{
-dispatch(removeUsers());
-navigation.navigate(" ")
-}
-
-const saveData =() =>{
-  setEditable(!editable);
-  fetch(`http://10.2.1.12:3000:3000/users/profilUpdate/${user.token}`, {
-=======
   const saveData = () => {
-    console.log("user.photoProfil", user.photoProfil);
     setEditable(!editable);
     fetch(`${ADDRESSE_BACKEND}/users/profilUpdate/${user.token}`, {
->>>>>>> style
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -134,74 +78,95 @@ const saveData =() =>{
   let buttonPhoto;
 
   if (editable) {
-    colorFont = "red";
+    colorFont = "#E4631B";
     buttonSubmit = (
       <View>
         <TouchableOpacity style={styles.saveButton} onPress={() => saveData()}>
           <Text style={styles.picturesText}>Save</Text>
         </TouchableOpacity>
-<<<<<<< HEAD
-        </View>
-      
-<<<<<<< HEAD
-    buttonPhoto = 
-    <TouchableOpacity style={styles.pictureButton} onPress={() => navigation.navigate("CameraScreen")}>
-          <Text style={styles.picturesText}>Photo de profil</Text>
-        </TouchableOpacity>
-=======
       </View>
     );
-=======
-    // buttonPhoto = 
-    // <TouchableOpacity style={styles.pictureButton} onPress={() => navigation.navigate("CameraScreen")}>
-    //       <Text style={styles.picturesText}>Photo de profil</Text>
-    //     </TouchableOpacity>
-  }
->>>>>>> 0fa74d777476360e94df470dec4bf4a2ce7d511e
-
-    // buttonPhoto =
-    // <TouchableOpacity style={styles.pictureButton} onPress={() => navigation.navigate("CameraScreen")}>
-    //       <Text style={styles.picturesText}>Photo de profil</Text>
-    //     </TouchableOpacity>
->>>>>>> style
+    buttonPhoto = (
+      <TouchableOpacity
+        style={styles.pictureButton}
+        onPress={() => navigation.navigate("CameraScreen")}
+      >
+        <Text style={styles.picturesText}>Photo de profil</Text>
+      </TouchableOpacity>
+    );
   }
 
   return (
-    <View style={styles.profilDiv}>
-      <View style={styles.textProfileDiv}>
-        <Text style={styles.textProfile}>Profile</Text>
-        <Button title="Logout" onPress={() => logout()} />
-      </View>
-      <View style={styles.photoDiv}>
-        <Image source={image} style={styles.img} />
-        {buttonPhoto}
-      </View>
-      <View style={styles.AllTextInfoDiv}>
-        <TouchableOpacity onPress={() => setEditable(!editable)}>
-          <FontAwesome name="pencil" size={40} color={colorFont} />
-        </TouchableOpacity>
-        <View style={[styles.textPrenomDiv, styles.divText]}>
-          <TextInput
-            value={prenom}
-            editable={editable}
-            style={styles.text}
-            onChangeText={(e) => setPrenom(e)}
-          />
+    <ScrollView>
+      <View style={styles.profilDiv}>
+        <View style={styles.titleDiv}>
+          <Text style={styles.textProfile}>Profile</Text>
         </View>
-        <View style={[styles.textPseudoDiv, styles.divText]}>
-          <TextInput
-            value={pseudo}
-            editable={editable}
-            style={styles.text}
-            onChangeText={(e) => setPseudo(e)}
-          />
+        <View style={styles.logout}>
+          <TouchableOpacity
+            style={styles.pictureButton}
+            onPress={() => logout()}
+          >
+            <Text style={styles.picturesText}>Logout</Text>
+          </TouchableOpacity>
         </View>
-        <View style={[styles.textMailDiv, styles.divText]}>
-          <TextInput value={mail} editable={false} style={styles.text} />
+        <View style={styles.photoDiv}>
+          <Image source={image} style={styles.img} />
+          {buttonPhoto}
         </View>
+        <View style={styles.AllTextInfoDiv}>
+          <TouchableOpacity onPress={() => setEditable(!editable)}>
+            <FontAwesome name="pencil" size={40} color={colorFont} />
+          </TouchableOpacity>
+          <View style={[styles.textPrenomDiv, styles.divText]}>
+            <TextInput
+              value={prenom}
+              editable={editable}
+              style={styles.text}
+              onChangeText={(e) => setPrenom(e)}
+            />
+          </View>
+          <View style={[styles.textPseudoDiv, styles.divText]}>
+            <TextInput
+              value={pseudo}
+              editable={editable}
+              style={styles.text}
+              onChangeText={(e) => setPseudo(e)}
+            />
+          </View>
+          <View style={[styles.textMailDiv, styles.divText]}>
+            <TextInput value={mail} editable={false} style={styles.text} />
+          </View>
+          <View style={styles.preferenceDiv}>
+            <View>
+              <Text style={styles.preferenceTitle}>Vos Preference</Text>
+            </View>
+            <View style={styles.switchDiv}>
+              <View style={styles.regime}>
+                <Text>Végé</Text>
+                <Switch
+                  value={true}
+                  // disabled={aucun}
+                />
+              </View>
+              <View style={styles.regime}>
+                <Text>poulet</Text>
+                <Switch value={true} />
+              </View>
+              <View style={styles.regime}>
+                <Text>poisson</Text>
+                <Switch value={true} />
+              </View>
+              <View style={styles.regime}>
+                <Text>feculent</Text>
+                <Switch value={true} />
+              </View>
+            </View>
+          </View>
+        </View>
+        <View>{buttonSubmit}</View>
       </View>
-      <View>{buttonSubmit}</View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -211,8 +176,10 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
     alignItems: "center",
+    marginBottom: 140,
   },
-  textProfileDiv: {
+  titleDiv: {},
+  logout: {
     marginBottom: 40,
   },
   textProfile: {
@@ -255,6 +222,14 @@ const styles = StyleSheet.create({
   picturesText: {
     fontSize: 20,
   },
+
+  preferenceDiv: {
+    alignItems: "center",
+  },
+  preferenceTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
   saveButton: {
     marginTop: 10,
     width: 130,
@@ -263,5 +238,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "rgba(228, 255, 27, 0.6)",
     borderRadius: 10,
+  },
+  switchDiv: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    //   alignItems: "flex-start",
+    //   width: Dimensions.get("window").width,
+    //   height: 500,
+    //   marginTop: 20,
+    //   backgroundColor: "red",
   },
 });
