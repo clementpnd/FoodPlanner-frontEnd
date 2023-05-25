@@ -24,7 +24,7 @@ function FavorisRecettes() {
   const dispatch = useDispatch();
   const recetteRedux = useSelector((state) => state.recettesFavorites.value);
   const user = useSelector((state) => state.users.value);
-
+  console.log("recetteRedux", recetteRedux);
   const [recetteToDisplay, setRecetteToDisplay] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false); // variable d'état qui gère la modale
 
@@ -32,7 +32,8 @@ function FavorisRecettes() {
     fetch(`${ADDRESSE_BACKEND}/users/recetteFavorites/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
-        setRecetteToDisplay(data);
+        console.log("data", data);
+        // setRecetteToDisplay(data);
         dispatch(addFavoriteRecette(data));
       });
   }, [isModalVisible]);
@@ -68,7 +69,7 @@ function FavorisRecettes() {
       <View key={i} style={styles.card}>
         <TouchableOpacity
           // onPress={() => handleDeleteFavorite(i)}
-          // onPress={() => dispatch(removeFavoriteRecette(data.nom))}
+          onPress={() => dispatch(removeFavoriteRecette(data.nom))}
           style={styles.closebuttonCard}
         >
           <FontAwesome name="times" size={20} color="#000000" />
