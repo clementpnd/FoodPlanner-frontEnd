@@ -85,7 +85,7 @@ const TabNavigator = () => {
     </Tab.Navigator>
   );
 };
-console.disableYellowBox = true; 
+console.disableYellowBox = true;
 export default function App() {
   //utilisation des fonts
   const [loaded] = useFonts({
@@ -104,23 +104,16 @@ export default function App() {
             screensOption={{ headerShown: false }}
             // headerMode={false}
           >
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
-<<<<<<< HEAD
             <Stack.Screen name=" " component={LandingPageScreen} />
-=======
-
->>>>>>> styleRecette
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen
               name="CreateProfilScreen"
               component={CreateProfilScreen}
             />
             <Stack.Screen name="ConnexionScreen" component={ConnexionScreen} />
-
             <Stack.Screen name="Semainier" component={SemainierScreen} />
-
             <Stack.Screen name="CameraScreen" component={CameraScreen} />
             <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
-
             <Stack.Screen
               name="ShoppingListScreen"
               component={ShoppingListScreen}
