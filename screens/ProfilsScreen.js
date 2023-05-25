@@ -31,7 +31,7 @@ export default function ProfilsScreen({ navigation }) {
         setPrenom(data.user.prenom);
         setPseudo(data.user.pseudo);
         setMail(data.user.mail);
-<<<<<<< HEAD
+
         // if (data.user.photoProfil === "") {
         //   image = require("../assets/User.png")
         //   setPhotoProfil(image);
@@ -50,13 +50,20 @@ export default function ProfilsScreen({ navigation }) {
         } else {
           setPhotoProfil(data.user.photoProfil);
 >>>>>>> style
+=======
+        if (data.user.photoProfil === "") {
+          image = require("../assets/User.png")
         }
-        
+        else{
+          setPhotoProfil(data.user.photoProfil);
+>>>>>>> 0fa74d777476360e94df470dec4bf4a2ce7d511e
+        }
       });
   }, [photoProfil]);
 <<<<<<< HEAD
   
   let image = {uri:photoProfil};
+<<<<<<< HEAD
 // if(user.photoProfil){
   
 //     if (!user.photoProfil) {
@@ -65,6 +72,16 @@ export default function ProfilsScreen({ navigation }) {
 //   }
 // }
 =======
+=======
+  if (user.photoProfil !== undefined) {
+    image 
+    = { uri: user.photoProfil };
+    setPhotoProfil(user.photoProfil);
+    if (!user.photoProfil) {
+      setUser({ ...user, photoProfil: user.photoProfil });
+    }
+  }
+>>>>>>> 0fa74d777476360e94df470dec4bf4a2ce7d511e
 
   let image = { uri: photoProfil };
   if (user.photoProfil !== undefined) {
@@ -126,6 +143,7 @@ const saveData =() =>{
 <<<<<<< HEAD
         </View>
       
+<<<<<<< HEAD
     buttonPhoto = 
     <TouchableOpacity style={styles.pictureButton} onPress={() => navigation.navigate("CameraScreen")}>
           <Text style={styles.picturesText}>Photo de profil</Text>
@@ -133,6 +151,13 @@ const saveData =() =>{
 =======
       </View>
     );
+=======
+    // buttonPhoto = 
+    // <TouchableOpacity style={styles.pictureButton} onPress={() => navigation.navigate("CameraScreen")}>
+    //       <Text style={styles.picturesText}>Photo de profil</Text>
+    //     </TouchableOpacity>
+  }
+>>>>>>> 0fa74d777476360e94df470dec4bf4a2ce7d511e
 
     // buttonPhoto =
     // <TouchableOpacity style={styles.pictureButton} onPress={() => navigation.navigate("CameraScreen")}>
