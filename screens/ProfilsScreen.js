@@ -40,13 +40,11 @@ export default function ProfilsScreen({ navigation }) {
       });
   }, [photoProfil]);
   
-  let image = {uri:photoProfil};
+let image = {uri : photoProfil};
   if (user.photoProfil !== undefined) {
-    image 
-    = { uri: user.photoProfil };
-    setPhotoProfil(user.photoProfil);
+    image = { uri: user.photoProfil };
     if (!user.photoProfil) {
-      setUser({ ...user, photoProfil: user.photoProfil });
+      setPhotoProfil({ ...user, photoProfil: user.photoProfil });
     }
   }
 
@@ -58,7 +56,7 @@ navigation.navigate(" ")
 
 const saveData =() =>{
   setEditable(!editable);
-  fetch(`http://10.2.1.12:3000:3000/users/profilUpdate/${user.token}`, {
+  fetch(`http://10.2.1.12:3000/users/profilUpdate/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -88,10 +86,10 @@ const saveData =() =>{
         </TouchableOpacity>
         </View>
       
-    // buttonPhoto = 
-    // <TouchableOpacity style={styles.pictureButton} onPress={() => navigation.navigate("CameraScreen")}>
-    //       <Text style={styles.picturesText}>Photo de profil</Text>
-    //     </TouchableOpacity>
+    buttonPhoto = 
+    <TouchableOpacity style={styles.pictureButton} onPress={() => navigation.navigate("CameraScreen")}>
+          <Text style={styles.picturesText}>Photo de profil</Text>
+        </TouchableOpacity>
   }
 
 

@@ -85,6 +85,7 @@ const TabNavigator = () => {
     </Tab.Navigator>
   );
 };
+console.disableYellowBox = true; 
 export default function App() {
   //utilisation des fonts
   const [loaded] = useFonts({
