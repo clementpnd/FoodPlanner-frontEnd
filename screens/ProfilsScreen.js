@@ -12,6 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { removeUsers } from "../reducers/users";
+import { ADDRESSE_BACKEND } from "@env";
 
 export default function ProfilsScreen({ navigation }) {
   const [photoProfil, setPhotoProfil] = useState("");
@@ -20,17 +21,17 @@ export default function ProfilsScreen({ navigation }) {
   const [mail, setMail] = useState("");
   const [mdp, setMdp] = useState();
   const [editable, setEditable] = useState(false);
-  const dispatch  =useDispatch();
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.users.value);
 
-
   useEffect(() => {
-    fetch(`http://10.2.1.12:3000/users/${user.token}`)
+    fetch(`${ADDRESSE_BACKEND}/users/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         setPrenom(data.user.prenom);
         setPseudo(data.user.pseudo);
         setMail(data.user.mail);
+<<<<<<< HEAD
         // if (data.user.photoProfil === "") {
         //   image = require("../assets/User.png")
         //   setPhotoProfil(image);
@@ -43,10 +44,17 @@ export default function ProfilsScreen({ navigation }) {
           image 
           = { uri: user.photoProfil };
           setPhotoProfil(user.photoProfil);
+=======
+        if (data.user.photoProfil === "") {
+          image = require("../assets/User.png");
+        } else {
+          setPhotoProfil(data.user.photoProfil);
+>>>>>>> style
         }
         
       });
   }, [photoProfil]);
+<<<<<<< HEAD
   
   let image = {uri:photoProfil};
 // if(user.photoProfil){
@@ -56,8 +64,24 @@ export default function ProfilsScreen({ navigation }) {
 //     }
 //   }
 // }
+=======
 
+  let image = { uri: photoProfil };
+  if (user.photoProfil !== undefined) {
+    image = { uri: user.photoProfil };
+    setPhotoProfil(user.photoProfil);
+    if (!user.photoProfil) {
+      setUser({ ...user, photoProfil: user.photoProfil });
+    }
+  }
+>>>>>>> style
 
+  const logout = () => {
+    dispatch(removeUsers());
+    navigation.navigate(" ");
+  };
+
+<<<<<<< HEAD
 const logout =() =>{
 dispatch(removeUsers());
 navigation.navigate(" ")
@@ -66,71 +90,92 @@ navigation.navigate(" ")
 const saveData =() =>{
   setEditable(!editable);
   fetch(`http://10.2.1.12:3000:3000/users/profilUpdate/${user.token}`, {
+=======
+  const saveData = () => {
+    console.log("user.photoProfil", user.photoProfil);
+    setEditable(!editable);
+    fetch(`${ADDRESSE_BACKEND}/users/profilUpdate/${user.token}`, {
+>>>>>>> style
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-         prenom : prenom,
-         pseudo : pseudo,
-         photoProfil : user.photoProfil,
-       }),
+        prenom: prenom,
+        pseudo: pseudo,
+        photoProfil: user.photoProfil,
+      }),
     })
-    .then(response=>response.json())
-    .then((data) =>{
-      if(data.result ===false){
-        console.warn(data.error);
-      }
-    }) 
-}
-
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result === false) {
+          console.warn(data.error);
+        }
+      });
+  };
 
   let colorFont = "black";
-  let buttonSubmit ;
+  let buttonSubmit;
   let buttonPhoto;
 
   if (editable) {
     colorFont = "red";
-    buttonSubmit = 
-      <View><TouchableOpacity style={styles.saveButton} onPress={() => saveData()}>
-          <Text style={styles.picturesText} >Save</Text>
+    buttonSubmit = (
+      <View>
+        <TouchableOpacity style={styles.saveButton} onPress={() => saveData()}>
+          <Text style={styles.picturesText}>Save</Text>
         </TouchableOpacity>
+<<<<<<< HEAD
         </View>
       
     buttonPhoto = 
     <TouchableOpacity style={styles.pictureButton} onPress={() => navigation.navigate("CameraScreen")}>
           <Text style={styles.picturesText}>Photo de profil</Text>
         </TouchableOpacity>
-  }
+=======
+      </View>
+    );
 
+    // buttonPhoto =
+    // <TouchableOpacity style={styles.pictureButton} onPress={() => navigation.navigate("CameraScreen")}>
+    //       <Text style={styles.picturesText}>Photo de profil</Text>
+    //     </TouchableOpacity>
+>>>>>>> style
+  }
 
   return (
     <View style={styles.profilDiv}>
       <View style={styles.textProfileDiv}>
         <Text style={styles.textProfile}>Profile</Text>
-        <Button title="Logout" onPress={() =>logout()}/>
+        <Button title="Logout" onPress={() => logout()} />
       </View>
       <View style={styles.photoDiv}>
         <Image source={image} style={styles.img} />
         {buttonPhoto}
-        
       </View>
       <View style={styles.AllTextInfoDiv}>
         <TouchableOpacity onPress={() => setEditable(!editable)}>
           <FontAwesome name="pencil" size={40} color={colorFont} />
         </TouchableOpacity>
         <View style={[styles.textPrenomDiv, styles.divText]}>
-          <TextInput value={prenom} editable={editable} style={styles.text} onChangeText={(e) => setPrenom(e)}/>
+          <TextInput
+            value={prenom}
+            editable={editable}
+            style={styles.text}
+            onChangeText={(e) => setPrenom(e)}
+          />
         </View>
         <View style={[styles.textPseudoDiv, styles.divText]}>
-          <TextInput value={pseudo} editable={editable} style={styles.text} onChangeText={(e) => setPseudo(e)}/>
+          <TextInput
+            value={pseudo}
+            editable={editable}
+            style={styles.text}
+            onChangeText={(e) => setPseudo(e)}
+          />
         </View>
         <View style={[styles.textMailDiv, styles.divText]}>
           <TextInput value={mail} editable={false} style={styles.text} />
         </View>
       </View>
-      <View>
-        {buttonSubmit}
-      </View>
-      
+      <View>{buttonSubmit}</View>
     </View>
   );
 }
@@ -151,7 +196,7 @@ const styles = StyleSheet.create({
   },
   photoDiv: {
     flex: 1,
-    alignItems : "center",
+    alignItems: "center",
   },
   img: {
     width: 200,
@@ -185,7 +230,7 @@ const styles = StyleSheet.create({
   picturesText: {
     fontSize: 20,
   },
-  saveButton:{
+  saveButton: {
     marginTop: 10,
     width: 130,
     height: 40,
@@ -193,5 +238,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "rgba(228, 255, 27, 0.6)",
     borderRadius: 10,
-  }
+  },
 });

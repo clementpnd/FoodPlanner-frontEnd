@@ -114,6 +114,10 @@ export default function App() {
             <Stack.Screen name="Semainier" component={SemainierScreen} />
 
             <Stack.Screen name="CameraScreen" component={CameraScreen} />
+<<<<<<< HEAD
+=======
+
+>>>>>>> style
             <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
 
             <Stack.Screen
