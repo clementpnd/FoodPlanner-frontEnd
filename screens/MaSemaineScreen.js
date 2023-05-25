@@ -281,14 +281,14 @@ export default function MaSemaineScreen({ navigation }) {
       </TouchableOpacity>
       <View style={styles.rowToggleSemaine}>
         <Text>Tous les repas de la semaine</Text>
-        <Switch
+        {/* <Switch
           trackColor={{ false: "#767577", true: "#78CB26" }}
           thumbColor={isEnabledSemaine ? "#fff" : "#fff"}
           ios_backgroundColor="#3e3e3e"
           onValueChange={toggleSwitchSemaine}
           value={isEnabledSemaine}
           onPress={selectAll}
-        />
+        /> */}
       </View>
       <ScrollView style={styles.scrollView}>
         {/* //LUNDI */}
@@ -689,14 +689,14 @@ export default function MaSemaineScreen({ navigation }) {
         </View>
 
         <View style={styles.rowToggleWeekEnd}>
-          <Text>WeekEnd</Text>
-          <Switch
+          {/* <Text>WeekEnd</Text> */}
+          {/* <Switch
             trackColor={{ false: "#767577", true: "#78CB26" }}
             thumbColor={isEnabledWeekEnd ? "#fff" : "#fff"}
             ios_backgroundColor="#3e3e3e"
             onValueChange={toggleSwitchWeekEnd}
             value={isEnabledWeekEnd}
-          />
+          /> */}
         </View>
 
         <View style={styles.jour}>

@@ -72,9 +72,6 @@ export default function SuggestionScreen({ navigation }) {
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <Header />
       </TouchableOpacity>
-      <View style={styles.recetteDiv}>
-        <ScrollView>{recetteAffiche}</ScrollView>
-      </View>
       <ScrollView>
         <View style={styles.scrollContent}>{recetteAffiche}</View>
       </ScrollView>
