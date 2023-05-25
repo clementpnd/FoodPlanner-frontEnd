@@ -31,7 +31,6 @@ function FavorisRecettes() {
       .then((response) => response.json())
       .then((data) => {
         console.log("data", data);
-        // setRecetteToDisplay(data);
         dispatch(addFavoriteRecette(data));
       });
   }, [isModalVisible]);
@@ -40,7 +39,7 @@ function FavorisRecettes() {
   let showModal = () => {
     setIsModalVisible(true);
   };
- 
+
   //fonction qui supprime une recette des favoris
   // const handleDeleteFavorite = (nb) => {
   //   console.log(

@@ -74,9 +74,7 @@ export default function AccueilScreen({ navigation }) {
       />
     );
   });
-  // <Image source={require('../assets/calendrier.png')} style={styles.calendrier} />
 
-  //<Image source={require('../assets/calendrierencours.png')} style={styles.calendrierencours} />
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.container}>
@@ -106,7 +104,6 @@ export default function AccueilScreen({ navigation }) {
                         <Text>Fermer</Text>
                       </TouchableOpacity>
                     </View>
-                    {/* </TouchableOpacity> */}
                   </View>
                 </View>
               </Modal>
