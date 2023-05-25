@@ -7,13 +7,11 @@ import {
   Switch,
   Dimensions,
   TouchableOpacity,
-  ScrollView,
 } from "react-native";
 import { useState, useRef, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
 import { useDispatch, useSelector } from "react-redux";
-import { addUsers, removeUsers } from "../reducers/users";
-import { removeAllRecette } from "../reducers/recettes";
+import { addUsers } from "../reducers/users";
 import Header from "../components/Header";
 
 //import de .env front
@@ -102,10 +100,9 @@ export default function CreateProfilScreen({ navigation }) {
   }
 
   return (
-    
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-      <Header/>
+        <Header />
       </TouchableOpacity>
       <View style={styles.imgDiv}>
         <Image source={image} style={styles.img} />

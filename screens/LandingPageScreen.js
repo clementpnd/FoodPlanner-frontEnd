@@ -18,8 +18,7 @@ import { addUsers } from "../reducers/users";
 
 //.env du front
 import { ADDRESSE_BACKEND } from "@env";
-
-import { Colors } from "react-native/Libraries/NewAppScreen";
+//reducers
 import { removeAllRecette } from "../reducers/recettes";
 import { removeAllSemaine } from "../reducers/semaines";
 
@@ -51,7 +50,6 @@ export default function LandingPageScreen({ navigation }) {
             setEmail("");
             setPassword("");
             setIsModalVisible(false);
-            console.log("data connexion", data);
             user = {
               token: data.token,
             };

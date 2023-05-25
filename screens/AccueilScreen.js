@@ -5,8 +5,6 @@ import {
   View,
   SafeAreaView,
   Modal,
-  Button,
-  Image,
 } from "react-native";
 //import des hooks d'effets
 import { useState, useEffect } from "react";
@@ -16,8 +14,6 @@ import React from "react";
 import MapView, { Marker } from "react-native-maps";
 //import du module de geoloc
 import * as Location from "expo-location";
-import symbolicateStackTrace from "react-native/Libraries/Core/Devtools/symbolicateStackTrace";
-
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function AccueilScreen({ navigation }) {
@@ -35,18 +31,20 @@ export default function AccueilScreen({ navigation }) {
     (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
 
-  if (status === "granted") {
-    Location.watchPositionAsync({ distanceInterval: 10 }, (location) => {
-      setCurrentPosition(location.coords);
-      fetchData();
-    });
-  }
-})();
+      if (status === "granted") {
+        Location.watchPositionAsync({ distanceInterval: 10 }, (location) => {
+          setCurrentPosition(location.coords);
+          fetchData();
+        });
+      }
+    })();
   }, []);
 
   //fonction qui fetch l'API en fonction de ta localisation
   const fetchData = async () => {
-    fetch(`https://opendata.agencebio.org/api/gouv/operateurs/?activite=Distribution&lat=${currentPosition.latitude}&lng=${currentPosition.longitude}`)
+    fetch(
+      `https://opendata.agencebio.org/api/gouv/operateurs/?activite=Distribution&lat=${currentPosition.latitude}&lng=${currentPosition.longitude}`
+    )
       .then((response) => response.json())
       .then((data) => {
         setApiData(data.items);
@@ -112,28 +110,28 @@ export default function AccueilScreen({ navigation }) {
           </View>
         </View>
 
-    <View style={styles.creationSemaine}>
-      <TouchableOpacity
-        style={styles.buttonCreationSemaine}
-        onPress={() => navigation.navigate("Ma Semaine")}
-      >
-        <Text style={styles.buttonTextCreate}>Créer ma semaine</Text>
+        <View style={styles.creationSemaine}>
+          <TouchableOpacity
+            style={styles.buttonCreationSemaine}
+            onPress={() => navigation.navigate("Ma Semaine")}
+          >
+            <Text style={styles.buttonTextCreate}>Créer ma semaine</Text>
 
-        <FontAwesome name="calendar" size={40} color="#E4631B" />
-      </TouchableOpacity>
-    </View>
+            <FontAwesome name="calendar" size={40} color="#E4631B" />
+          </TouchableOpacity>
+        </View>
 
-    <View style={styles.mapContainer}>
-      <MapView region={currentPosition} style={styles.mapview}>
-        {currentPosition && (
-          <Marker coordinate={currentPosition} pinColor="blue"></Marker>
-        )}
-        {markers}
-      </MapView>
-      <Text style={styles.mapText}>Où faires ses courses ?</Text>
-    </View>
-  </View>
-</SafeAreaView>
+        <View style={styles.mapContainer}>
+          <MapView region={currentPosition} style={styles.mapview}>
+            {currentPosition && (
+              <Marker coordinate={currentPosition} pinColor="blue"></Marker>
+            )}
+            {markers}
+          </MapView>
+          <Text style={styles.mapText}>Où faires ses courses ?</Text>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 }
 

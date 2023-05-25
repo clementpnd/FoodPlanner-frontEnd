@@ -13,8 +13,8 @@ import {
   Keyboard,
 } from "react-native";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addUsers, removeUsers } from "../reducers/users";
+import { useDispatch } from "react-redux";
+import { addUsers } from "../reducers/users";
 import Header from "../components/Header";
 
 //import de .env front
@@ -58,16 +58,12 @@ export default function ConnexionScreen({ navigation }) {
           navigation.navigate("CreateProfilScreen");
         }
       });
-    // }
-    // else{
-    //     setMailError(true);
-    // }
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-      <Header/>
+        <Header />
       </TouchableOpacity>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : null}

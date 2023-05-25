@@ -8,9 +8,7 @@ import {
   Dimensions,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { removeAllRecette } from "../reducers/recettes";
 import { useEffect, useState } from "react";
-import { addAllRecette } from "../reducers/recettes";
 import { changeRecette } from "../reducers/recettes";
 import Header from "../components/Header";
 
@@ -72,7 +70,7 @@ export default function SuggestionScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-      <Header/>
+        <Header />
       </TouchableOpacity>
       <View style={styles.recetteDiv}>
         <ScrollView>{recetteAffiche}</ScrollView>

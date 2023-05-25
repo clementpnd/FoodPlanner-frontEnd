@@ -1,19 +1,10 @@
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Switch,
-  Dimensions,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { useEffect, useState, useRef } from "react";
 import { Camera, CameraType } from "expo-camera";
 import { useIsFocused } from "@react-navigation/native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useDispatch } from "react-redux";
-import { addUsers, removeUsers } from "../reducers/users";
+import { addUsers } from "../reducers/users";
 
 export default function CameraScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -30,7 +21,6 @@ export default function CameraScreen({ navigation }) {
       photoProfil: photo.uri,
     };
     dispatch(addUsers(user));
-    // navigation.navigate("CreateProfilScreen");
     navigation.goBack();
   };
   useEffect(() => {

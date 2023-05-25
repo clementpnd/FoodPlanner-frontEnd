@@ -14,7 +14,6 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Header from "../components/Header";
 
-
 //import des hooks d'effets
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,10 +21,6 @@ import { useDispatch, useSelector } from "react-redux";
 // import des reducers
 import { addSemaine } from "../reducers/semaines";
 import { removeAllRecette } from "../reducers/recettes";
-//import des screens pour la bottombar
-import AccueilScreen from "./AccueilScreen";
-import FavorisScreen from "./FavorisScreen";
-import ProfilsScreen from "./ProfilsScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -282,7 +277,7 @@ export default function MaSemaineScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-      <Header/>
+        <Header />
       </TouchableOpacity>
       <View style={styles.rowToggleSemaine}>
         <Text>Tous les repas de la semaine</Text>
@@ -922,7 +917,6 @@ const styles = StyleSheet.create({
 
   containerCheckbox: {
     flexDirection: "row",
-    //justifyContent: 'space-between',
     marginRight: 10,
   },
   checkbox: {

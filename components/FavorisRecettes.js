@@ -12,7 +12,7 @@ import {
 import { ADDRESSE_BACKEND } from "@env";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import recettesFavorites, {
+import {
   addFavoriteRecette,
   removeFavoriteRecette,
 } from "../reducers/recettesFavorites";
@@ -23,7 +23,6 @@ function FavorisRecettes() {
   const recetteRedux = useSelector((state) => state.recettesFavorites.value);
   const user = useSelector((state) => state.users.value);
   console.log("recetteRedux", recetteRedux);
-  const [recetteToDisplay, setRecetteToDisplay] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false); // variable d'état qui gère la modale
 
   useEffect(() => {
@@ -72,7 +71,6 @@ function FavorisRecettes() {
             source={{ uri: data.image }}
             style={styles.imageCard}
           />
-
           <TouchableOpacity
             // onPress={() => handleDeleteFavorite(i)}
             onPress={() => dispatch(removeFavoriteRecette(data.nom))}
@@ -80,7 +78,6 @@ function FavorisRecettes() {
           >
             <FontAwesome name="times" size={30} color="#000000" />
           </TouchableOpacity>
-
           <Modal
             animationType="slide"
             transparent={true}

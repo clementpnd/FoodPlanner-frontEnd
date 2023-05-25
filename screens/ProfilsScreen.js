@@ -16,7 +16,6 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { removeUsers } from "../reducers/users";
 import Header from "../components/Header";
 
-
 export default function ProfilsScreen({ navigation }) {
   const [photoProfil, setPhotoProfil] = useState("");
   const [prenom, setPrenom] = useState("");
@@ -76,7 +75,6 @@ export default function ProfilsScreen({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result === false) {
-          console.warn(data.error);
         }
       });
   };
@@ -137,7 +135,7 @@ export default function ProfilsScreen({ navigation }) {
   return (
     <ScrollView>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-      <Header/>
+        <Header />
       </TouchableOpacity>
       <View style={styles.profilDiv}>
         <View style={styles.titleDiv}>

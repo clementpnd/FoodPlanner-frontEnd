@@ -5,8 +5,6 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
-  ImageBackground,
-  Button,
   SafeAreaView,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
@@ -347,42 +345,28 @@ export default function ShoppingListScreen({ navigation }) {
     },
   ];
 
-  //console.log("recettes", recette)
   let ingredients;
   let tousIngredients = recettes.reduce(function (prev, curr) {
     return [...prev, ...curr.ingredients];
   }, []); // fonction pour rassembler tous les tableaux d'ingrdients en un seul tableau
-  //console.log("tous", tousIngredients)
   for (const item of tousIngredients) {
     const quantite = item.quantite;
-    //console.log("qaunt", quantite)
     const nombre = quantite.match(/\d+(?:.\d+)?/); // regex pour récupérer les nombres
-    //console.log("nomb", nombre)
     if (nombre) {
-      //console.log("nomb", nombre)
       const reste = quantite.replace(nombre[0], "").trim();
-      //console.log("reste", reste)
       item.nombre = parseFloat(nombre[0]); //transforme une chaîne de caractères en un nombre flottant
-      //console.log("nomb", item.nombre)
       item.reste = reste; // récupère les lettres
     }
   }
-  // console.log("ous", tousIngredients)
 
   result = Object.values(
     tousIngredients.reduce((r, { nom, nombre, reste, test }) => {
       if (!r[nom]) r[nom] = { nom, nombre: 0, reste, test };
-      //console.log(r[nom])
       r[nom].nombre += nombre; // fait la somme des ingrédients (nombre)
       if (test === "FAIL") r[nom].test = "FAIL";
       return r;
     }, {})
   );
-  //console.log("tous ing 2",tousIngredients)
-  //console.log("result", result)
-
-  //recette.recettes.map((data, i) => {
-  //console.log("recettes de shopping", recette.recettes)
 
   ingredients = result.map((ing, i) => {
     return (
@@ -406,9 +390,9 @@ export default function ShoppingListScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Header />
-      </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Header />
+        </TouchableOpacity>
         <Text style={styles.title}>Liste de courses</Text>
       </View>
       <View style={styles.fond}>
@@ -438,7 +422,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   div: {
-    //flex: 1,
     flexDirection: "row",
     margin: 20,
     alignItems: "center",

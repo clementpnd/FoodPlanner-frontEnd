@@ -17,7 +17,6 @@ import { addIndexRecette } from "../reducers/users";
 import { removeAllRecette } from "../reducers/recettes";
 import Header from "../components/Header";
 
-
 //import de .env front
 import { ADDRESSE_BACKEND } from "@env";
 
@@ -26,7 +25,6 @@ export default function SemainierScreen({ navigation }) {
   const user = useSelector((state) => state.users.value);
   const recetteRedux = useSelector((state) => state.recettes.value);
   const semaineRedux = useSelector((state) => state.semaines.value);
-  const [recetteData, setRecetteData] = useState([]); //variable d'état des recettes deja en BDD
 
   //fonction pour basculer vers la page de suggestion
   const handleSuggestion = (nb) => {
@@ -105,8 +103,8 @@ export default function SemainierScreen({ navigation }) {
 
   return (
     <View style={styles.main}>
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-      <Header/>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Header />
       </TouchableOpacity>
       <ScrollView>
         <View style={styles.scrollContent}>{recetteAffichées}</View>
@@ -119,9 +117,14 @@ export default function SemainierScreen({ navigation }) {
           <Text>Faisons une liste de courses</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={{marginBottom : 30}} onPress={() =>navigation.navigate("TabNavigator", { screen: "Accueil" })}>
+      <TouchableOpacity
+        style={{ marginBottom: 30 }}
+        onPress={() =>
+          navigation.navigate("TabNavigator", { screen: "Accueil" })
+        }
+      >
         <FontAwesome name="home" size={30} color="black" />
-        </TouchableOpacity>
+      </TouchableOpacity>
     </View>
   );
 }
