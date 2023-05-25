@@ -115,8 +115,6 @@ export default function App() {
     
             
             <Stack.Screen name="CameraScreen" component={CameraScreen} />
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
-
             <Stack.Screen name="Ma Semaine" component={MaSemaineScreen} />
       
             <Stack.Screen
