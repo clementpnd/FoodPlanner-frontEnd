@@ -15,6 +15,7 @@ import { useState } from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useDispatch } from "react-redux";
 import { addUsers } from "../reducers/users";
+
 //.env du front
 import { ADDRESSE_BACKEND } from "@env";
 
@@ -39,7 +40,7 @@ export default function LandingPageScreen({ navigation }) {
   //fonction qui gère la connexion de l'utilisateur
   const handleConnection = () => {
     if (EMAIL_REGEX.test(email)) {
-      fetch(`${ADDRESSE_BACKEND}/users/signin`, {
+      fetch(`http://10.2.1.12:3000/users/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ mail: email, password: password }),
@@ -142,6 +143,7 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     alignItems: "center",
+    justifyContent: "center",
   },
   logo: { width: 200, height: 200, borderRadius: 100, margin: 10 },
   title: {

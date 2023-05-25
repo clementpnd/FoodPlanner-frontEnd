@@ -27,7 +27,7 @@ function FavorisRecettes() {
   const [isModalVisible, setIsModalVisible] = useState(false); // variable d'état qui gère la modale
 
   useEffect(() => {
-    fetch(`${ADDRESSE_BACKEND}/users/recetteFavorites/${user.token}`)
+    fetch(`http://10.2.1.12:3000/users/recetteFavorites/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("data", data);

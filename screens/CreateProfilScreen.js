@@ -14,6 +14,8 @@ import { Picker } from "@react-native-picker/picker";
 import { useDispatch, useSelector } from "react-redux";
 import { addUsers, removeUsers } from "../reducers/users";
 import { removeAllRecette } from "../reducers/recettes";
+import Header from "../components/Header";
+
 //import de .env front
 import { ADDRESSE_BACKEND } from "@env";
 
@@ -69,7 +71,7 @@ export default function CreateProfilScreen({ navigation }) {
     : preference.filter((d) => d !== feculent);
 
   const planifionsSemaine = () => {
-    fetch(`${ADDRESSE_BACKEND}/users/signup`, {
+    fetch(`http://10.2.1.12:3000/users/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userState),
@@ -100,7 +102,11 @@ export default function CreateProfilScreen({ navigation }) {
   }
 
   return (
+    
     <View style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+      <Header/>
+      </TouchableOpacity>
       <View style={styles.imgDiv}>
         <Image source={image} style={styles.img} />
         <TouchableOpacity onPress={() => camera()} style={styles.pictureButton}>

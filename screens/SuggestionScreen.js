@@ -12,6 +12,8 @@ import { removeAllRecette } from "../reducers/recettes";
 import { useEffect, useState } from "react";
 import { addAllRecette } from "../reducers/recettes";
 import { changeRecette } from "../reducers/recettes";
+import Header from "../components/Header";
+
 import { ADDRESSE_BACKEND } from "@env";
 
 export default function SuggestionScreen({ navigation }) {
@@ -23,7 +25,7 @@ export default function SuggestionScreen({ navigation }) {
 
   //USE EFFECT
   useEffect(() => {
-    fetch(`${ADDRESSE_BACKEND}/recettes/recettePref`, {
+    fetch(`http://10.2.1.12:3000/recettes/recettePref`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token: user.token }),
@@ -69,6 +71,12 @@ export default function SuggestionScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+      <Header/>
+      </TouchableOpacity>
+      <View style={styles.recetteDiv}>
+        <ScrollView>{recetteAffiche}</ScrollView>
+      </View>
       <ScrollView>
         <View style={styles.scrollContent}>{recetteAffiche}</View>
       </ScrollView>

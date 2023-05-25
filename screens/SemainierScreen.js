@@ -15,6 +15,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { addRecette, changeRecette } from "../reducers/recettes";
 import { addIndexRecette } from "../reducers/users";
 import { removeAllRecette } from "../reducers/recettes";
+import Header from "../components/Header";
+
+
 //import de .env front
 import { ADDRESSE_BACKEND } from "@env";
 
@@ -51,7 +54,7 @@ export default function SemainierScreen({ navigation }) {
 
   //fonction pour ajouter une recette en favoris
   const addRecetteHandler = (_id) => {
-    fetch(`${ADDRESSE_BACKEND}/users/addRecetteFavorite/${user.token}`, {
+    fetch(`http://10.2.1.12:3000/users/addRecetteFavorite/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ recetteFavoris: _id }),
@@ -102,6 +105,9 @@ export default function SemainierScreen({ navigation }) {
 
   return (
     <View style={styles.main}>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+      <Header/>
+      </TouchableOpacity>
       <ScrollView>
         <View style={styles.scrollContent}>{recetteAffichées}</View>
       </ScrollView>
@@ -113,6 +119,9 @@ export default function SemainierScreen({ navigation }) {
           <Text>Faisons une liste de courses</Text>
         </TouchableOpacity>
       </View>
+      <TouchableOpacity style={{marginBottom : 30}} onPress={() =>navigation.navigate("TabNavigator", { screen: "Accueil" })}>
+        <FontAwesome name="home" size={30} color="black" />
+        </TouchableOpacity>
     </View>
   );
 }
