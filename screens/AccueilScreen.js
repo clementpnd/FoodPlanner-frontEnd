@@ -12,6 +12,7 @@ import {
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import React from "react";
+import Header from "../components/Header";
 //import du module map
 import MapView, { Marker } from "react-native-maps";
 //import du module de geoloc
@@ -74,6 +75,9 @@ export default function AccueilScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.main}>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+      <Header/>
+      </TouchableOpacity>
       <View style={styles.semaineEnCours}>
         <TouchableOpacity
           style={styles.buttonAccessSemainier}

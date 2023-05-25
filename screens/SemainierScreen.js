@@ -16,6 +16,8 @@ import { addRecette, changeRecette, removeRecette } from "../reducers/recettes";
 import { addUsers } from "../reducers/users";
 import { addIndexRecette } from "../reducers/users";
 import { removeAllRecette } from "../reducers/recettes";
+import Header from "../components/Header";
+
 
 //import de .env front
 import { ADDRESSE_BACKEND } from "@env";
@@ -26,7 +28,6 @@ export default function SemainierScreen({ navigation }) {
   const recetteRedux = useSelector((state) => state.recettes.value);
   const semaineRedux = useSelector((state) => state.semaines.value);
 
-  console.log("semaineRedux", semaineRedux);
   //fonction pour basculer vers la page de suggestion
   const handleSuggestion = (nb) => {
     const idRecette = {
@@ -44,9 +45,7 @@ export default function SemainierScreen({ navigation }) {
     fetch(`http://10.2.1.12:3000/recettes`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("recette", data);
         const nbRecette = data.data.slice(0, nbJour);
-        console.log("nbRecette", nbRecette);
         if (!recetteRedux.recettes.length > 0) {
           dispatch(removeAllRecette());
           dispatch(changeRecette(nbRecette));
@@ -56,7 +55,6 @@ export default function SemainierScreen({ navigation }) {
 
   //fonction pour ajouter une recette en favoris
   const addRecetteHandler = (_id) => {
-    console.log("id", _id);
     fetch(`http://10.2.1.12:3000:3000/users/addRecetteFavorite/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -65,13 +63,11 @@ export default function SemainierScreen({ navigation }) {
       .then((response) => response.json)
       .then((data) => {
         if (data.result) {
-          console.log("pushed dans les fav");
         }
       });
   };
 
   const recetteAffichées = recetteRedux.recettes.map((data, i) => {
-    console.log("in map semaine", semaineRedux.allCheckBoxSelected[i])
     // dispatch(addRecette(data));
     return (
       <View key={i} style={styles.card}>
@@ -100,6 +96,9 @@ export default function SemainierScreen({ navigation }) {
 
   return (
     <View style={styles.main}>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+      <Header/>
+      </TouchableOpacity>
       <ScrollView>
         <View style={styles.scrollContent}>{recetteAffichées}</View>
       </ScrollView>
@@ -111,6 +110,9 @@ export default function SemainierScreen({ navigation }) {
           <Text>Faison une liste de courses</Text>
         </TouchableOpacity>
       </View>
+      <TouchableOpacity style={{marginBottom : 30}} onPress={() =>navigation.navigate("TabNavigator", { screen: "Accueil" })}>
+        <FontAwesome name="home" size={30} color="black" />
+        </TouchableOpacity>
     </View>
   );
 }

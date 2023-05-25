@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View,LogBox } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -17,6 +17,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import storage from "redux-persist/lib/types";
 //import du hook pour les fonts
 import { useFonts } from "expo-font";
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
 
 const reducers = combineReducers({
   users,
@@ -105,8 +107,8 @@ export default function App() {
             
             // headerMode={false}
           >
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name=" " component={LandingPageScreen} />
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen
               name="CreateProfilScreen"
               component={CreateProfilScreen}

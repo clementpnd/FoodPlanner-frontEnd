@@ -15,6 +15,8 @@ import {
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUsers, removeUsers } from "../reducers/users";
+import Header from "../components/Header";
+
 //import de .env front
 import { ADDRESSE_BACKEND } from "@env";
 
@@ -64,6 +66,9 @@ export default function ConnexionScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+      <Header/>
+      </TouchableOpacity>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : null}
         style={styles.keyboard}

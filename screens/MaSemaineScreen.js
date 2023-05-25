@@ -12,6 +12,8 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { Picker } from "@react-native-picker/picker";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Header from "../components/Header";
+
 
 //import des hooks d'effets
 import { useState, useEffect, useRef } from "react";
@@ -276,6 +278,9 @@ export default function MaSemaineScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+      <Header/>
+      </TouchableOpacity>
       <View style={styles.rowToggleSemaine}>
         <Text>Tous les repas de la semaine</Text>
         <Switch

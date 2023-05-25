@@ -3,6 +3,8 @@ import { useState } from "react";
 //import des composants
 import FavorisRecettes from "../components/FavorisRecettes";
 import FavorisSemaine from "../components/FavorisSemaine";
+import Header from "../components/Header";
+
 
 export default function FavorisScreen({ navigation }) {
   const [recetteActive, setRecetteActive] = useState(true); //variable d'état pour gérer l'affichage du composant recette
@@ -29,6 +31,9 @@ export default function FavorisScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+      <Header/>
+      </TouchableOpacity>
       {affichage()}
       <View style={styles.buttonContainer}>
         <View style={styles.recetteButtonView}>

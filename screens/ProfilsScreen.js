@@ -14,6 +14,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { removeUsers } from "../reducers/users";
+import Header from "../components/Header";
+
 
 export default function ProfilsScreen({ navigation }) {
   const [photoProfil, setPhotoProfil] = useState("");
@@ -98,6 +100,9 @@ export default function ProfilsScreen({ navigation }) {
 
   return (
     <ScrollView>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+      <Header/>
+      </TouchableOpacity>
       <View style={styles.profilDiv}>
         <View style={styles.titleDiv}>
           <Text style={styles.textProfile}>Profile</Text>

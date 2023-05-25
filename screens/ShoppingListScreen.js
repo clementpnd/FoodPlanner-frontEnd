@@ -60,7 +60,6 @@ export default function ShoppingListScreen({ navigation }) {
   ingredients = result.map((ing, i) => {
 
       
-     console.log(result)
       return (
         <View style={styles.div} key={i}>
           <BouncyCheckbox onPress={() => setCheck(!isChecked)} />
@@ -72,7 +71,6 @@ export default function ShoppingListScreen({ navigation }) {
     });
     AllIngredients.push(ingredients);
   });
-console.log(ingredients)
   
 
 
@@ -82,7 +80,11 @@ console.log(ingredients)
 
 
   return (
+    
     <View style={styles.content}>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+      <Header/>
+      </TouchableOpacity>
         <Text style={styles.title}>Liste de course</Text>
         <View>
           <ScrollView>{AllIngredients}</ScrollView>

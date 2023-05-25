@@ -14,6 +14,8 @@ import { Picker } from "@react-native-picker/picker";
 import { useDispatch, useSelector } from "react-redux";
 import { addUsers, removeUsers } from "../reducers/users";
 import { removeAllRecette } from "../reducers/recettes";
+import Header from "../components/Header";
+
 //import de .env front
 import { ADDRESSE_BACKEND } from "@env";
 
@@ -100,7 +102,11 @@ export default function CreateProfilScreen({ navigation }) {
   }
 
   return (
+    
     <View style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+      <Header/>
+      </TouchableOpacity>
       <View style={styles.imgDiv}>
         <Image source={image} style={styles.img} />
         <TouchableOpacity onPress={() => camera()} style={styles.pictureButton}>
