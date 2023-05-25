@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -29,30 +29,18 @@ function FavorisRecettes() {
   const [isModalVisible, setIsModalVisible] = useState(false); // variable d'état qui gère la modale
 
   useEffect(() => {
-    fetch(`http://192.168.1.51:3000/users/recetteFavorites/${user.token}`)
+    fetch(`${ADDRESSE_BACKEND}/users/recetteFavorites/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         setRecetteToDisplay(data);
         dispatch(addFavoriteRecette(data));
       });
-  }, []);
+  }, [isModalVisible]);
 
   //fonction qui gère l'affichage de la modale
   let showModal = () => {
     setIsModalVisible(true);
   };
-  //fonction qui supprime une recette des favoris
-  // const handleDeleteFavorite = () => {
-  //   fetch(`http://192.168.1.51:3000/users/deleteFav`, {
-  //     method: "DELETE",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ recetteFavoris: recetteRedux }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       data.result && dispatch(removeFavoriteRecette(recetteToDisplay));
-  //     });
-  // };
 
   //fonction qui supprime une recette des favoris
   // const handleDeleteFavorite = (nb) => {
@@ -80,7 +68,7 @@ function FavorisRecettes() {
       <View key={i} style={styles.card}>
         <TouchableOpacity
           // onPress={() => handleDeleteFavorite(i)}
-          onPress={() => dispatch(removeFavoriteRecette(data.nom))}
+          // onPress={() => dispatch(removeFavoriteRecette(data.nom))}
           style={styles.closebuttonCard}
         >
           <FontAwesome name="times" size={20} color="#000000" />
@@ -145,8 +133,6 @@ const styles = StyleSheet.create({
   card: {
     display: "flex",
     flexDirection: "row",
-    // justifyContent: "center",
-    // alignItems: "center",
     backgroundColor: "green",
     width: Dimensions.get("window").width - 20,
     height: 160,
