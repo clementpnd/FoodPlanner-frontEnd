@@ -139,14 +139,14 @@ export default function ProfilsScreen({ navigation }) {
       </TouchableOpacity>
       <View style={styles.profilDiv}>
         <View style={styles.titleDiv}>
-          <Text style={styles.textProfile}>Profile</Text>
+          <Text style={styles.textProfile}>Profil</Text>
         </View>
         <View style={styles.logout}>
           <TouchableOpacity
             style={styles.pictureButton}
             onPress={() => logout()}
           >
-            <Text style={styles.picturesText}>Logout</Text>
+            <Text style={styles.picturesText}>Log out</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.photoDiv}>
@@ -180,7 +180,7 @@ export default function ProfilsScreen({ navigation }) {
           </View>
           <View style={styles.preferenceDiv}>
             <View>
-              <Text style={styles.preferenceTitle}>Vos Preference</Text>
+              <Text style={styles.preferenceTitle}>Vos préférences</Text>
             </View>
             <View style={styles.switchDiv}>
               <View style={styles.switch}>
@@ -196,7 +196,7 @@ export default function ProfilsScreen({ navigation }) {
                 />
               </View>
               <View style={styles.switch}>
-                <Text>poulet</Text>
+                <Text>Poulet</Text>
                 <Switch
                   value={poulet}
                   disabled={aucun}
@@ -204,7 +204,7 @@ export default function ProfilsScreen({ navigation }) {
                 />
               </View>
               <View style={styles.switch}>
-                <Text>poisson</Text>
+                <Text>Poisson</Text>
                 <Switch
                   value={poisson}
                   disabled={aucun}
@@ -212,7 +212,7 @@ export default function ProfilsScreen({ navigation }) {
                 />
               </View>
               <View style={styles.switch}>
-                <Text>feculent</Text>
+                <Text>Feculent</Text>
                 <Switch
                   value={feculent}
                   disabled={aucun}

@@ -91,7 +91,7 @@ export default function AccueilScreen({ navigation }) {
               >
                 <View style={styles.centeredView}>
                   <View style={styles.modalView}>
-                    <Text>Aucune semaine est actuellement en cours</Text>
+                    <Text>Aucune semaine n'est actuellement en cours</Text>
                     <Text>Allons en créer une !</Text>
                     <View style={{ marginTop: 50 }}>
                       <TouchableOpacity

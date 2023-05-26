@@ -40,7 +40,7 @@ export default function FavorisScreen({ navigation }) {
             style={styles.Button}
             onPress={() => handleRecetteClick()}
           >
-            <Text style={styles.text}>Recette</Text>
+            <Text style={styles.text}>Recettes</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.semaineButtonView}>

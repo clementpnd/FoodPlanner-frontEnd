@@ -131,7 +131,7 @@ export default function CreateProfilScreen({ navigation }) {
             />
           </View>
           <View style={styles.regime}>
-            <Text>poulet</Text>
+            <Text>Poulet</Text>
             <Switch
               value={poulet}
               disabled={aucun}
@@ -139,7 +139,7 @@ export default function CreateProfilScreen({ navigation }) {
             />
           </View>
           <View style={styles.regime}>
-            <Text>poisson</Text>
+            <Text>Poisson</Text>
             <Switch
               value={poisson}
               disabled={aucun}
@@ -147,7 +147,7 @@ export default function CreateProfilScreen({ navigation }) {
             />
           </View>
           <View style={styles.regime}>
-            <Text>feculent</Text>
+            <Text>Féculent</Text>
             <Switch
               value={feculent}
               disabled={aucun}
