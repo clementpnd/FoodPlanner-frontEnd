@@ -25,7 +25,7 @@ function FavorisRecettes() {
   const [isModalVisible, setIsModalVisible] = useState(false); // variable d'état qui gère la modale
 
   useEffect(() => {
-    fetch(`http://10.2.1.12:3000/users/recetteFavorites/${user.token}`)
+    fetch(`${ADDRESSE_BACKEND}/users/recetteFavorites/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         dispatch(addFavoriteRecette(data));
@@ -36,6 +36,7 @@ function FavorisRecettes() {
   let showModal = () => {
     setIsModalVisible(true);
   };
+  console.log("recetteRedux", recetteRedux);
 
   //fonction qui supprime une recette des favoris
   // const handleDeleteFavorite = (nb) => {

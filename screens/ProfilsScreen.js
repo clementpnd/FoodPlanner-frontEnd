@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { removeUsers } from "../reducers/users";
 import Header from "../components/Header";
+import { ADDRESSE_BACKEND } from "@env";
 
 export default function ProfilsScreen({ navigation }) {
   const [photoProfil, setPhotoProfil] = useState("");
@@ -34,7 +35,7 @@ export default function ProfilsScreen({ navigation }) {
   const [userState, setUserState] = useState({ ...user });
 
   useEffect(() => {
-    fetch(`http://10.2.1.12:3000/users/${user.token}`)
+    fetch(`${ADDRESSE_BACKEND}/users/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         setPrenom(data.user.prenom);
@@ -63,7 +64,7 @@ export default function ProfilsScreen({ navigation }) {
 
   const saveData = () => {
     setEditable(!editable);
-    fetch(`http://10.2.1.12:3000/users/profilUpdate/${user.token}`, {
+    fetch(`${ADDRESSE_BACKEND}/users/profilUpdate/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
