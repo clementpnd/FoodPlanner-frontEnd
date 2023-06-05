@@ -35,7 +35,7 @@ export default function MaSemaineScreen({ navigation }) {
 
   //fetch nb de personnes enregistrées dans Profil
   useEffect(() => {
-    fetch(`${ADDRESSE_BACKEND}/users/${user.token}`)
+    fetch(`${food - planner - back - end.vercel.app}/users/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         setNbPersonneLundi(data.user.nbPersonne.toString());
@@ -249,11 +249,14 @@ export default function MaSemaineScreen({ navigation }) {
   };
 
   const favorisSemaine = () => {
-    fetch(`${ADDRESSE_BACKEND}/users/addsemaineFavorite/${user.token}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ semaineFavoris: [allCheckBoxSelected] }),
-    });
+    fetch(
+      `food-planner-back-end.vercel.app/users/addsemaineFavorite/${user.token}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ semaineFavoris: [allCheckBoxSelected] }),
+      }
+    );
   };
 
   //fonction checker toutes les check box quand on active le toggle

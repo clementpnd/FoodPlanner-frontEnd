@@ -69,7 +69,7 @@ export default function CreateProfilScreen({ navigation }) {
     : preference.filter((d) => d !== feculent);
 
   const planifionsSemaine = () => {
-    fetch(`${ADDRESSE_BACKEND}/users/signup`, {
+    fetch(`food-planner-back-end.vercel.app/users/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userState),

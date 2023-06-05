@@ -35,7 +35,7 @@ export default function ProfilsScreen({ navigation }) {
   const [userState, setUserState] = useState({ ...user });
 
   useEffect(() => {
-    fetch(`${ADDRESSE_BACKEND}/users/${user.token}`)
+    fetch(`${food - planner - back - end.vercel.app}/users/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         setPrenom(data.user.prenom);
@@ -64,7 +64,7 @@ export default function ProfilsScreen({ navigation }) {
 
   const saveData = () => {
     setEditable(!editable);
-    fetch(`${ADDRESSE_BACKEND}/users/profilUpdate/${user.token}`, {
+    fetch(`food-planner-back-end.vercel.app/users/profilUpdate/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

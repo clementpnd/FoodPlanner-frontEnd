@@ -25,7 +25,9 @@ function FavorisRecettes() {
   const [isModalVisible, setIsModalVisible] = useState(false); // variable d'état qui gère la modale
 
   useEffect(() => {
-    fetch(`${ADDRESSE_BACKEND}/users/recetteFavorites/${user.token}`)
+    fetch(
+      `food-planner-back-end.vercel.app/users/recetteFavorites/${user.token}`
+    )
       .then((response) => response.json())
       .then((data) => {
         dispatch(addFavoriteRecette(data));

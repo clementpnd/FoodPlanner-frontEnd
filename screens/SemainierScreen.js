@@ -39,7 +39,7 @@ export default function SemainierScreen({ navigation }) {
   useEffect(() => {
     const nbJour = semaineRedux.allCheckBoxSelected.length;
 
-    fetch(`${ADDRESSE_BACKEND}/recettes`)
+    fetch(`${food - planner - back - end.vercel.app}/recettes`)
       .then((response) => response.json())
       .then((data) => {
         const nbRecette = data.data.slice(0, nbJour);
@@ -52,11 +52,14 @@ export default function SemainierScreen({ navigation }) {
 
   //fonction pour ajouter une recette en favoris
   const addRecetteHandler = (_id) => {
-    fetch(`${ADDRESSE_BACKEND}/users/addRecetteFavorite/${user.token}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ recetteFavoris: _id }),
-    })
+    fetch(
+      `food-planner-back-end.vercel.app/users/addRecetteFavorite/${user.token}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ recetteFavoris: _id }),
+      }
+    )
       .then((response) => response.json)
       .then((data) => {
         if (data.result) {
