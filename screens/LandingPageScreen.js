@@ -39,7 +39,7 @@ export default function LandingPageScreen({ navigation }) {
   //fonction qui gère la connexion de l'utilisateur
   const handleConnection = () => {
     if (EMAIL_REGEX.test(email)) {
-      fetch(`food-planner-back-end.vercel.app/users/signin`, {
+      fetch(`https://food-planner-back-end.vercel.app/users/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ mail: email, password: password }),

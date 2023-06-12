@@ -23,7 +23,7 @@ export default function SuggestionScreen({ navigation }) {
 
   //USE EFFECT
   useEffect(() => {
-    fetch(`food-planner-back-end.vercel.app/recettes/recettePref`, {
+    fetch(`https://food-planner-back-end.vercel.app/recettes/recettePref`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token: user.token }),

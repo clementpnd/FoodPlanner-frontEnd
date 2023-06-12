@@ -64,15 +64,18 @@ export default function ProfilsScreen({ navigation }) {
 
   const saveData = () => {
     setEditable(!editable);
-    fetch(`food-planner-back-end.vercel.app/users/profilUpdate/${user.token}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        prenom: prenom,
-        pseudo: pseudo,
-        photoProfil: user.photoProfil,
-      }),
-    })
+    fetch(
+      `https://food-planner-back-end.vercel.app/users/profilUpdate/${user.token}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prenom: prenom,
+          pseudo: pseudo,
+          photoProfil: user.photoProfil,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.result === false) {
