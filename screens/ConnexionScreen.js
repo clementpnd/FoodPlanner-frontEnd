@@ -38,7 +38,7 @@ export default function ConnexionScreen({ navigation }) {
       mail: mail,
     };
 
-    fetch(`https://food-planner-back-end.vercel.app/users/verify`, {
+    fetch(`${ADDRESSE_BACKEND}/users/verify`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

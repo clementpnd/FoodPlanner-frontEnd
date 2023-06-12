@@ -52,14 +52,11 @@ export default function SemainierScreen({ navigation }) {
 
   //fonction pour ajouter une recette en favoris
   const addRecetteHandler = (_id) => {
-    fetch(
-      `https://food-planner-back-end.vercel.app/users/addRecetteFavorite/${user.token}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ recetteFavoris: _id }),
-      }
-    )
+    fetch(`${ADDRESSE_BACKEND}/users/addRecetteFavorite/${user.token}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ recetteFavoris: _id }),
+    })
       .then((response) => response.json)
       .then((data) => {
         if (data.result) {
